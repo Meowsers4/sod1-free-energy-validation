@@ -80,8 +80,9 @@ def test_topology_parser_distinguishes_ss_and_2sh(tmp_path):
 def test_redox_summary_uses_folded_leg_only():
     baseline = _record("G93A", [(9.9, 0.1), (9.6, 0.1), (9.7, 0.1)])
     ss = _record("G93A", [(9.8, 0.1), (9.8, 0.1), (9.7, 0.1)])
-    summary = g93a_redox_summary(baseline, ss)
+    summary = g93a_redox_summary(baseline, ss, 0.95)
     assert summary["shift"] == pytest.approx(0.033333333333333)
+    assert summary['shift_interval'][0] < 0 < summary['shift_interval'][1]
 
 
 def test_archive_digest_is_order_independent_and_content_sensitive(tmp_path):

@@ -75,12 +75,13 @@ def folded_disagreement_rows(records: dict[str, dict]) -> list[dict]:
 
 
 def disagreement_correlations(rows: list[dict]) -> tuple[float, float]:
-    """Return Pearson and no-tie Spearman correlations for diagnostic rows."""
+    """Return descriptive Pearson and tie-aware Spearman correlations."""
+    from scipy.stats import rankdata
     hysteresis = np.asarray([row["hysteresis_kcal"] for row in rows])
     disagreement = np.asarray([row["disagreement_kcal"] for row in rows])
     pearson = float(np.corrcoef(hysteresis, disagreement)[0, 1])
-    hx = np.argsort(np.argsort(hysteresis)).astype(float)
-    dy = np.argsort(np.argsort(disagreement)).astype(float)
+    hx = rankdata(hysteresis)
+    dy = rankdata(disagreement)
     spearman = float(np.corrcoef(hx, dy)[0, 1])
     return pearson, spearman
 
@@ -173,16 +174,32 @@ def inspect_topology_set(root: str | Path) -> list[dict]:
     return [{"path": path, **parse_cys_topology(path)} for path in paths]
 
 
-def g93a_redox_summary(baseline_record: dict, ss_record: dict) -> dict:
-    """Return the primary folded-leg comparison for the G93A redox diagnostic."""
+def g93a_redox_summary(baseline_record: dict, ss_record: dict, confidence: float) -> dict:
+    """Folded contrast with an unpaired Welch interval conditional on sampled basins.
+
+    Equal replicate labels/seeds do not establish statistical pairing. This interval
+    approximates between-run sampling uncertainty, not unsampled modes or model error.
+    """
+    from scipy.stats import t
     baseline = np.asarray([float(row["dg_kcal"]) for row in _leg_rows(baseline_record, "folded")])
     ss = np.asarray([float(row["dg_kcal"]) for row in _leg_rows(ss_record, "folded")])
+    variances = np.asarray([np.var(x, ddof=1)/len(x) for x in (baseline, ss)])
+    se = float(np.sqrt(variances.sum()))
+    denominator = sum(v*v/(len(x)-1) for v, x in zip(variances, (baseline, ss)))
+    df = float(variances.sum()**2/denominator) if denominator else None
+    width = float(t.ppf((1+confidence)/2, df)*se) if df else 0.0
+    shift = float(np.mean(ss) - np.mean(baseline))
     return {
         "baseline": baseline,
         "ss": ss,
         "baseline_mean": float(np.mean(baseline)),
         "ss_mean": float(np.mean(ss)),
-        "shift": float(np.mean(ss) - np.mean(baseline)),
+        "shift": shift,
+        "shift_standard_error": se,
+        "confidence_level": confidence,
+        "welch_degrees_of_freedom": df,
+        "shift_interval": [shift-width, shift+width],
+        "interval_scope": "Unpaired Welch approximation; conditional on sampled basins; excludes model bias and unsampled modes.",
     }
 
 
@@ -223,7 +240,7 @@ def plot_gate_of_record(records: dict[str, dict], refs: dict[str, dict[str, floa
     ax.set_xlim(low, high)
     ax.set_ylim(low, high)
     ax.set_aspect("equal", adjustable="box")
-    ax.set_xlabel("Experimental reference ΔΔG (kcal/mol)")
+    ax.set_xlabel("Unmatched experimental reference ΔΔG (kcal/mol)")
     ax.set_ylabel("FEP prediction ΔΔG (kcal/mol)")
     ax.set_title("Pre-registered validation gate of record — FAILED")
     ax.text(0.98, 0.04,
@@ -267,9 +284,9 @@ def plot_convergence_diagnostic(rows: list[dict], output: str | Path) -> None:
                         arrowprops={"arrowstyle": "-", "color": "#777777"})
     ax.set_xlabel("Within-ladder hysteresis (kcal/mol)")
     ax.set_ylabel("Independent-box disagreement (kcal/mol)")
-    ax.set_title("Folded-leg diagnostics do not separate replicate disagreement")
+    ax.set_title("Aggregate hysteresis and sibling disagreement in this archive")
     ax.text(0.98, 0.95,
-            f"n = {len(rows)}\nPearson r = {pearson:+.3f}\nSpearman ρ = {spearman:+.3f}",
+            f"{len(rows)} records; 8 variants; 6 sites\nDescriptive Pearson r = {pearson:+.3f}\nSpearman ρ = {spearman:+.3f}",
             transform=ax.transAxes, ha="right", va="top", fontsize=9,
             bbox={"facecolor": "white", "edgecolor": "#bbbbbb", "pad": 5})
     ax.scatter([], [], marker="o", color="#31688e", label="other records")
@@ -336,11 +353,11 @@ def plot_a4v_sampling(attempt1: dict, attempt2: dict, experimental: float,
                      float(max(np.max(values) for values in ddg_values)) + 0.36)
     axes[1].set_xticks((0, 1), labels)
     axes[1].set_ylabel("A4V ΔΔG (kcal/mol)")
-    axes[1].set_title("Accuracy remains outside the reference")
+    axes[1].set_title("Discrepancy from the unmatched reference remains")
     axes[1].legend(frameon=False, loc="lower right", fontsize=8.5)
     _style_axes(axes[1])
 
-    fig.suptitle("A4V: tripled folded sampling improves precision, not accuracy", y=0.98)
+    fig.suptitle("A4V: reduced replicate spread, modest reference-discrepancy change", y=0.98)
     fig.tight_layout(rect=(0, 0, 1, 0.92))
     output = Path(output)
     output.parent.mkdir(parents=True, exist_ok=True)
@@ -371,9 +388,15 @@ def plot_g93a_redox(summary: dict, baseline_topologies: list[dict],
                     color=color, capsize=4, linewidth=1.3, ms=6, zorder=4)
     ax.set_xticks((0, 1), ("apo-2SH baseline", "apo-SS diagnostic"))
     ax.set_ylabel("G93A folded ΔG (kcal/mol)")
-    ax.set_title("Restoring C57–C146 does not shift G93A's folded mutation cost")
+    # Leave a clear annotation band above every replicate and SD bar.
+    ax.set_ylim(min(baseline.min(), ss.min()) - 0.06,
+                max(baseline.max(), ss.max()) + 0.13)
+    ax.set_title("G93A: small observed shift under the tested protocol")
     ax.text(0.5, 0.94,
-            f"SS − 2SH mean = {summary['shift']:+.4f} kcal/mol",
+            f"SS − 2SH = {summary['shift']:+.4f} kcal/mol\n"
+            f"{summary['confidence_level']:.0%} Welch interval: "
+            f"[{summary['shift_interval'][0]:+.3f}, {summary['shift_interval'][1]:+.3f}]\n"
+            "Diamonds: mean ± replicate SD; interval conditional on sampled basins",
             transform=ax.transAxes, ha="center", va="top", fontsize=10,
             bbox={"facecolor": "white", "edgecolor": "#bbbbbb", "pad": 5})
     ax.text(0.5, 0.05,
@@ -417,7 +440,7 @@ def build_figure_package(attempt1_archive: str | Path,
     a4v_9ns = _read_json(attempt1_archive / "convergence" / "A4V.json")
     g93a_2sh = convergence["G93A"]
     g93a_ss = _read_json(ss_archive / "convergence_SS.json")
-    redox = g93a_redox_summary(g93a_2sh, g93a_ss)
+    redox = g93a_redox_summary(g93a_2sh, g93a_ss, cfg['forensic_review']['confidence_level'])
     baseline_topologies = inspect_topology_set(attempt1_archive / "fep" / "G93A")
     ss_topologies = inspect_topology_set(ss_archive)
 
@@ -427,12 +450,19 @@ def build_figure_package(attempt1_archive: str | Path,
                       output_dir / "a4v_sampling_sensitivity.png")
     plot_g93a_redox(redox, baseline_topologies, ss_topologies,
                     output_dir / "g93a_disulfide_diagnostic.png")
+    (output_dir / 'redox_uncertainty.json').write_text(json.dumps({
+        key: value.tolist() if isinstance(value, np.ndarray) else value
+        for key, value in redox.items()
+    }, indent=2, allow_nan=False) + '\n')
     return {
         "gate": gate,
         "diagnostic_pearson": pearson,
         "diagnostic_spearman": spearman,
         "diagnostic_n": len(disagreement),
         "g93a_folded_shift_kcal": redox["shift"],
+        "g93a_shift_standard_error": redox["shift_standard_error"],
+        "g93a_shift_interval": redox["shift_interval"],
+        "g93a_interval_scope": redox["interval_scope"],
         "outputs": [
             output_dir / "gate_of_record.png",
             output_dir / "convergence_diagnostic.png",
