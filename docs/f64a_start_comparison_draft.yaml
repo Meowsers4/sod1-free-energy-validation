@@ -1,0 +1,52 @@
+# Planning only. No executable package may admit this draft or its null fields.
+design_id: f64a_start_comparison_draft
+status: draft_not_selected_not_registered
+base_config: config/pipeline.yaml
+variant: F64A
+leg: folded
+physical_state: apo_2SH_monomer
+comparison_factor: protein_starting_coordinates
+method: gromacs_pmx_independent_lambda_windows
+arms: [reference_start, alternate_start]
+replicates_per_arm: 3
+lambda_windows: 20
+# Proposed fresh-run lengths, not modifications of completed v1/v2 paths.
+preparation_ns_per_window: 2.0
+retained_ns_per_window: 6.0
+energy_stride_ps: 1.0
+blocks:
+  - label: first_0_3_ns
+    start: 1
+    stop: 3001
+  - label: final_3_6_ns
+    start: 3001
+    stop: 6001
+primary_policy: untrimmed_with_correlation_thinning
+sensitivity_policies: [fixed_25_percent_with_correlation_thinning, adaptive_trim_and_thin]
+trajectory_retention: estimates_only
+reference_coordinates: null
+reference_sha256: null
+reference_candidate:
+  local_archive_path: /Users/bodebosell/sod1fep_archive_2026-09-11/fep/F64A/inputs/wt_apo.pdb
+  sha256: 394776d7388e79c8de7ecd46b96b16c1eaf3aaa3a7e4a4a1a2173db397bc6f29
+  status: archived_candidate_not_staged_or_admitted
+alternate_coordinates: null
+alternate_sha256: null
+seed_manifest: null
+resources:
+  gpu_type: L40S
+  cpu_slots_per_task: 8
+  max_concurrent_tasks: 8
+  proposed_gpu_hour_cap: 370.0
+  proposed_max_production_walltime_hours: 1.5
+  max_attempts_per_task: 2
+  first_light_tasks: 4
+  first_light_retained_ps: 10.0
+  first_light_walltime_hours: 1.0
+  current_project_balance_su: null
+  confirmed_su_per_core_hour: null
+  proposed_su_cap: null
+  quota_headroom_gib: null
+  storage_budget_gib: null
+  accounting_evidence: null
+  user_resource_approval: null

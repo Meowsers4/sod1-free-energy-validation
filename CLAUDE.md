@@ -28,6 +28,9 @@ production NPZs were downloaded and hash/metadata/ancestry validated locally.
 Raw adjacent-energy changes and short selected suffixes reinforce unresolved
 duration/selection stability; they do not establish a structural cause or true
 free energy. See `docs/f64a_raw_energy_audit_results.md`.
+A planning-only two-start comparison is drafted in
+`docs/f64a_start_comparison_design.md`; alternate-start selection, resource approval
+and registration remain unresolved. Do not treat draft parameters as authorization.
 Mentor review is deferred at user direction. The user explicitly waived confirmed
 SU pricing before v2 submission: 1 SU/core-hour was an assumption, 1040 SU was
 conditional; 130 GPU-hours and two attempts/task were the approved limits. Actual

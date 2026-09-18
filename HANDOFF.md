@@ -22,8 +22,12 @@ This is not independent local raw-NPZ/MBAR reproduction.
 The primary adaptive mean movement is −0.049510 kcal/mol but masks r1 −0.695174
 and r2 +0.598142; fixed-policy means move +0.579425 and +0.410739. Adaptive final
 repeat range is 1.946359. Sparse window 17 persists even with fixed policies.
-Duration stability is unresolved; **stop GPU sampling at 15 ns**. Next evidence:
-CPU-only raw energy time-series inspection, not an automatic extension or new starts.
+Duration stability is unresolved; **stop GPU sampling at 15 ns**. The raw-energy
+inspection is now complete. A [two-start comparison draft](docs/f64a_start_comparison_design.md)
+proposes matched fresh ladders with the existing method; it is not selected or
+registered. An archived WT reference candidate was found, but a justified alternate
+start and current SU/storage admission remain unresolved. No executable GPU package
+or submission was created.
 No new arm is selected. Mentor review remains deferred.
 
 The user explicitly accepted unconfirmed pricing before submission: 1 SU/core-hour

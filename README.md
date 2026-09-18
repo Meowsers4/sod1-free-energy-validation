@@ -586,6 +586,11 @@ the follow-up diagnostics narrowed what did and did not explain that failure.
 - Completed descriptive late-window selection/overlap/hysteresis audit; sparse
   sampling persists under fixed policies. Stop GPU work at the 15 ns endpoint.
 - Prepared raw-energy CPU follow-up; it remains pending the 60 SCC production NPZs.
+- Subsequently downloaded/hash-validated all 60 production matrices and completed
+  the raw-energy audit; preserved its JSON/three plots in `850902a`.
+- Drafted a matched two-start, existing-method comparison after the raw-data review;
+  proposed parameters are planning only. Alternate start and current resource
+  admission remain unresolved; no new arm was selected or submitted.
 - Committed the supplied v2 report and audit tools, corrected current operating
   instructions and benchmark attribution, and made release verification the
   read-only default. Historical bundle/hash remain untouched; new builds require
