@@ -1,16 +1,109 @@
 # HANDOFF — SOD1 FEP pipeline
 
-Updated 2026-09-14 after explicit user approval of the reference-state scope decision. Read
+## Current update — 2026-09-18: F64A completed through 15 ns
+
+The subsequent raw-energy follow-up is authorized and implemented; see
+[fixed CPU audit design](docs/f64a_raw_energy_audit_design.md). It has **not run
+on scientific data** because the 60 production NPZs remain on SCC. Download only
+those matrices, then run the hash-bound audit locally; no new MBAR/GPU work.
+
+The separately selected v2 continuation completed on SCC: first light **7619903**
+passed; production array **7620241** left the queue, and the full 54-fit CPU report
+was supplied and preserved. See [results and late-window audit](docs/f64a_continuation_results.md).
+Local review reconciled all summaries, 1080 selections, 1026 adjacent records and
+513 paired changes; report-only audit outputs are in `docs/f64a_extension_review/`.
+This is not independent local raw-NPZ/MBAR reproduction.
+
+The primary adaptive mean movement is −0.049510 kcal/mol but masks r1 −0.695174
+and r2 +0.598142; fixed-policy means move +0.579425 and +0.410739. Adaptive final
+repeat range is 1.946359. Sparse window 17 persists even with fixed policies.
+Duration stability is unresolved; **stop GPU sampling at 15 ns**. Next evidence:
+CPU-only raw energy time-series inspection, not an automatic extension or new starts.
+No new arm is selected. Mentor review remains deferred.
+
+The user explicitly accepted unconfirmed pricing before submission: 1 SU/core-hour
+is a planning assumption; 1040 SU is conditional. The 130 GPU-hour/two-attempt
+limits remain approved. Actual v2 billed SU is still unreviewed locally.
+Capture the SCC records promptly using [accounting closeout](docs/f64a_accounting_closeout.md).
+The [repository review](docs/repository_review_2026-09-18.md) records verified findings,
+preservation commits, release safeguards and remaining limits. The current default
+Snakemake target only verifies the historical bundle; it does not rebuild it.
+Earlier sections below preserve project history and are not current pending steps.
+
+Updated 2026-09-15 after explicit user authorization of the F64A continuation pilot. Read
 [`CLAUDE.md`](CLAUDE.md) first; it is the operating rulebook. Read [`README.md`](README.md)
 for the scientific design.
 
-## Stop condition
+## F64A continuation pilot authorized and packaged (2026-09-15)
 
-**No new GPU submission.** On 2026-09-14 the user explicitly approved retaining apo-2SH,
+The user authorized the bounded pilot after reviewing the temporal result and GPU capacity.
+The registered package is [`pilots/f64a_sampling_extension_v1/`](pilots/f64a_sampling_extension_v1/).
+It copies the exact archived F64A folded checkpoints and continues all 20 lambda states ×
+3 repeats for 6 ns, extending retained sampling from 3 to 9 ns. It is folded-only,
+apo-2SH, L40S-pinned, capped at eight simultaneous tasks, and isolated below
+`results/pilots/f64a_sampling_extension_v1/`. A real one-GPU 10 ps first-light continuation
+must pass before the 60-task production array. No submission has been made from this local
+workspace; follow the package README on the SCC.
+
+The pilot is an exploratory sampling diagnosis and does not reopen or replace the frozen
+gate. Its primary endpoint is folded-leg time dependence; it is not a new experimental-
+accuracy test. The package validates every source NPZ against the frozen forensic manifest
+and refuses missing/mismatched checkpoints, protocols, or historical output paths.
+
+## Temporal analysis completed (2026-09-14)
+
+The retrospective 25/50/75/100% analysis in
+[`docs/temporal_analysis_design.md`](docs/temporal_analysis_design.md) has been run. All 240
+leg intervals solved, no failed block was dropped, and the 100% estimates reconciled with the
+frozen audit to numerical precision. The main cohort still moved relative to its disjoint
+final quarter: at 75%, folded-leg movement had median 0.311 and maximum 1.070 kcal/mol.
+F64A folded r1 was already the largest mover at 25% (1.808 kcal/mol); signed net hysteresis
+ranked 19/21 while maximum local discrepancy ranked 1/21. See
+[`docs/temporal_analysis_results.md`](docs/temporal_analysis_results.md) and
+[`docs/temporal_review/`](docs/temporal_review/).
+
+This motivated the bounded, subsequently authorized pilot described above.
+The user identified their existing mentor, Peter Vlasov, as the human reviewer;
+[`docs/mentor_review_request.md`](docs/mentor_review_request.md) contains an unsent draft.
+
+GPU availability was subsequently checked. The pipeline-compatible shared `l40s` queue has
+40 physical GPUs; nine were free in the snapshot, so eight-way concurrency is a conservative
+planning value. The `rise-batteries` balance is 15,987.0494 SU. Compute allocation is ample
+for a one-variant pilot; `/projectnb/rise-batteries` storage (38.16/50 GB) is the tighter
+constraint. See [`docs/gpu_access_snapshot.md`](docs/gpu_access_snapshot.md).
+
+## Publication-review revision (2026-09-14)
+
+The user authorized fixes to the publication review and planning with GPU availability.
+The CPU correction work is complete: raw local-diagnostic audit, grouped statistical
+sensitivity, revised claims, conditional redox uncertainty, and a portable release.
+Read [`docs/cpu_improvement_plan.md`](docs/cpu_improvement_plan.md) for results and next steps,
+and [`docs/release_reproduction.md`](docs/release_reproduction.md) for reproduction.
+The current figure/JSON set is `docs/review/`; `docs/figures/` retains earlier graphics.
+
+The new audit reconciles 48 records and 912 adjacent pairs. F64A r1's small aggregate
+hysteresis contains 98.647% signed cancellation; alternative summaries have not demonstrated
+better prediction of sibling disagreement. Grouped intervals include zero on the folded leg.
+The G93A SS−2SH shift is −0.016918 kcal/mol, conditional unpaired Welch 95% interval
+[−0.296618, +0.262781]. It does not exclude slow redox-dependent ensemble changes.
+
+The historical manifest is preserved. Its five original repository inputs are frozen under
+`data/forensic_baseline_repository/`; the release adds a new manifest covering revised source
+and outputs. The A4V original raw-window loss remains explicit. Independent **human** review
+is still outstanding. No inquiry, manuscript, public data deposition, or GPU submission was sent.
+
+At that historical checkpoint the default target built the CPU forensic release.
+After the 2026-09-18 review it only verifies the existing bundle. The subsequently
+selected F64A v1/v2 continuations are complete; stop GPU sampling at 15 ns.
+
+## Historical stop condition and current exception
+
+On 2026-09-14 the user explicitly approved retaining apo-2SH,
 ending the current GPU campaign, and retiring C1 and C3. C4 is deferred and not claimed because
 there will be no VUS prediction campaign. The validation gate, attempt-2 sampling test, and
-G93A SS diagnostic are finished. An apo-SS campaign or any new FEP/MD array requires a new
-explicit decision and preregistration.
+G93A SS diagnostic are finished. The sole current exception is the explicitly authorized,
+preregistered F64A folded continuation pilot above. It does not authorize an apo-SS campaign,
+a broad rerun, or any VUS work; those still require a separate explicit decision.
 
 Gate of record: **Pearson r = 0.326, RMSE = 2.123 kcal/mol, n = 7; failed on Pearson and
 RMSE; pivot triggered.** F64A was the sole excluded point because closure 1.1038 exceeded
@@ -82,8 +175,9 @@ isolated-monomer measurement.
 The pre-registered primary endpoint was folded ΔG(SS) − folded ΔG(2SH). Result:
 **−0.0169 kcal/mol**, inside the pre-declared `|Δ| < 0.3` negligible band. The diagnostic
 is converged and its physical topology was verified in all three independent folded systems.
-It rules out the disulfide as the explanation of G93A's ~1.17 kcal/mol error; it does not
-prove cancellation for the other mutations.
+It records a small observed effect under the tested protocol. It does not rule out slow
+redox-dependent changes or establish equivalence, even for G93A; see the conditional
+contrast interval in `docs/review/redox_uncertainty.json`.
 
 ## Reference-state scope
 
@@ -131,6 +225,10 @@ repository root.
 
 ## CPU-only reproduction
 
+For the current portable package use `docs/release_reproduction.md`. Commands below reproduce
+earlier outputs. Do not overwrite the historical manifest; a newly generated inventory uses
+current source and cannot replace its historical checksum contract.
+
 ```bash
 MPLCONFIGDIR=/tmp/sod1fep-mpl python -m src.analysis.reference_sensitivity \
   --archive-root ~/sod1fep_archive_2026-09-11 \
@@ -145,7 +243,7 @@ MPLCONFIGDIR=/tmp/sod1fep-mpl python -m src.analysis.methods_figures \
 python -m src.analysis.archive_manifest \
   --attempt1-archive ~/sod1fep_archive_2026-09-11 \
   --ss-archive ~/sod1fep_archive_2026-09-14/G93A_SS_diagnostic \
-  --output data/forensic_archive_manifest.json
+  --output /tmp/sod1fep-current-archive-manifest.json
 
 python -m pytest tests/
 ```
@@ -175,8 +273,9 @@ displayed precision and all four plotted point sets agree. See
 [`docs/independent_reference_reproduction.md`](docs/independent_reference_reproduction.md).
 This is an independent implementation, not a second-human certification.
 
-With the SCC archive checks and this computational reproduction complete, no required
-technical work remains under the approved project scope. External human certification and a
+These SCC archive checks and the computational reproduction closed the earlier technical
+scope. The subsequently authorized publication-review revision is described at the top of
+this handoff. External human certification and a
 polished manuscript are optional follow-up activities.
 
 The LiveCoMS presubmission inquiry is **parked by user direction as of 2026-09-14**. Its draft

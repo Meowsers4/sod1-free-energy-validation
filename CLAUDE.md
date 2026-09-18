@@ -13,6 +13,28 @@ failed. The current project does not triage uncharacterized variants. `config/pi
 is the single source of historical run parameters; `data/variants.csv` is the single
 source of truth for the panel.
 
+## Current state — 2026-09-18
+
+The separately authorized F64A folded apo-2SH pilots are **complete**: v1 retained
+3→9 ns (array 7589742), then v2 9→15 ns (array 7620241; first light 7619903).
+Their registered packages remain under `pilots/f64a_sampling_extension_v1/` and
+`pilots/f64a_sampling_extension_v2/`; they did not reopen the failed validation gate.
+The standing decision is **stop GPU sampling at 15 ns**. No new array, duration,
+starting-conformation or sampling-method arm is selected. See
+`docs/f64a_continuation_results.md` and `HANDOFF.md`.
+
+The report-only late-window audit is complete. The raw-energy CPU audit is prepared
+but **has not run on scientific data**: the 60 v2 production NPZs remain on SCC.
+Mentor review is deferred at user direction. The user explicitly waived confirmed
+SU pricing before v2 submission: 1 SU/core-hour was an assumption, 1040 SU was
+conditional; 130 GPU-hours and two attempts/task were the approved limits. Actual
+billed SU remains unreviewed; preserve accounting promptly, do not invent a tariff.
+
+The September 14 forensic bundle is an immutable **historical snapshot**, not a
+current pilot release. Default Snakemake execution must verify it read-only.
+Building/recomputing requires explicit targets and fresh review/release paths.
+Never replace an existing bundle, checksum, manifest or evidence product silently.
+
 ## Non-negotiable rules
 1. **Apo-first.** v1 simulates the apo, disulfide-reduced form. Do NOT switch to
    holo/metal-bound. If holo seems needed, STOP and ask — it is a separate
@@ -52,8 +74,12 @@ source of truth for the panel.
    will be no VUS prediction campaign, C4 is deferred and must not be claimed. C2
    remains only as a methods-and-limitations result about apo-2SH convergence
    diagnostics; do not describe the failed gate as successful predictive validation.
-   Expanding this scope, starting an apo-SS campaign, or submitting new FEP/MD GPU
-   arrays requires a new explicit decision and preregistration. Never write "first",
+   On 2026-09-14 the user authorized the publication-review corrections, CPU analysis,
+   release packaging, and planning with GPU availability. The subsequent separately
+   selected/registered F64A pilots are now complete; the current stop is 15 ns as
+   recorded above. Planning does not authorize more production. A new FEP/MD arm
+   still needs a concrete design,
+   explicit selection and preregistration before arrays are submitted. Never write "first",
    "novel FEP protocol", or "we show SOD1 variants are destabilizing": all three are
    occupied by Wells 2021, which used **this same toolchain** (README §11.2).
 
@@ -160,9 +186,10 @@ the settings-level counterpart to the engine-level provenance rule below.
 
 ## Cycle closure is not a correctness check
 `cycle_closure_kcal` is the forward/reverse Zwanzig hysteresis of ONE ladder, not a closed
-thermodynamic cycle. It measures whether a replicate sampled its own basin consistently —
-it cannot see that the basin is the wrong one. Three results establish this, and they are
-the project's sharpest scientific content (claim C2):
+thermodynamic cycle. It is an aggregate self-consistency proxy, not proof of within-basin equilibration.
+Signed adjacent-window discrepancies can cancel before the absolute value is taken.
+The exploratory audit in `docs/cpu_improvement_plan.md` and `docs/review/` measures this
+explicitly without altering the historical metric or gate. Three archived observations are:
 
 - G93A reports the cleanest closure in the project (**0.045**) and is **1.17 kcal/mol**
   wrong (1.259 vs exp 2.43).
@@ -179,6 +206,14 @@ the project's sharpest scientific content (claim C2):
   ladder: I18V is 0.0054 and I149A 0.0096, and both pass. Overlap does not order the
   failures either.
 
+The exact-path v1 follow-up adds direct temporal evidence: F64A folded r1 changed
+from **2.505942** in its first retained 3 ns to **0.429467 kcal/mol** in the disjoint
+6–9 ns block, movement **−2.076474**, despite early net hysteresis **0.022705**.
+The metric is the absolute net of signed local discrepancies, not a closed cycle.
+Low early hysteresis did not certify future duration stability on this path; neither
+the later block nor this selected case establishes true free energy, general
+diagnostic performance or experimental accuracy. See `docs/f64a_extension_results.md`.
+
 All three bullets were previously quoted from the **superseded 18-window** protocol
 (`f9bded6f07b4abe5`: closure 0.08, overlaps 0.017/0.018, error 1.05) while describing the
 20-window gate dataset. Corrected 2026-09-12 against values re-derived from the archived
@@ -189,8 +224,12 @@ protocol before quoting a number from `docs/postfix_18window_results.md` or
 Consequences for day-to-day work: never report `converged: true` as evidence a number is
 right; read `min_adjacent_overlap` and `replicate_spread_kcal` alongside it. Since
 `fep.independent_replicate_systems` was enabled the spread is meaningful (replicates no
-longer share a box), and it is usually the more informative of the two. `ddg_err` has
-understated the true uncertainty 3-10x on every variant measured so far.
+longer share a box). Independent solvation does not establish independent conformational
+basin coverage. `ddg_err` is the larger of propagated MBAR error and replicate SEM; it
+does not cover model/reference bias or unsampled modes. The former blanket “3–10×”
+understatement claim confused replicate range or reference discrepancy with uncertainty
+of a mean and is withdrawn. Correlations are descriptive: 24 folded records are nested
+within eight variants at six sites; sibling-disagreement values are dependent.
 
 ## Results must carry provenance
 Every window records the engine that produced it; `analyze.py` refuses to mix engines or
@@ -201,7 +240,10 @@ This exists because fabricated ΔΔG files (experimental values + noise) once pr
 ## How to work here
 - Prefer editing existing modules under `src/<stage>/` over adding new top-level code.
 - Every stage is a Snakemake rule; wire new work into the DAG in `workflow/Snakefile`,
-  don't create standalone run scripts.
+  don't create standalone run scripts. The post-result CPU audit `.smk` files are
+  included from that DAG and may also be invoked separately. For historical v2
+  reproduction use its recorded commit (802cc9e), not today's changed workflow;
+  keep the simulation modules, pilot configs and supplied reports immutable.
 - Stage 3 is submitted as SGE job arrays (`qsub -t`) on the BU SCC — one task per
   `(variant, leg, window, replicate)`. Keep that granularity — it's the whole point.
 - GPUs are requested via `-l gpus=1 -l gpu_c=7.0` and assigned by the scheduler

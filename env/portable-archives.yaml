@@ -1,0 +1,4 @@
+# Override only archive locations after extracting the portable release.
+forensic_review:
+  main_archive: ../archives/main
+  ss_archive: ../archives/ss

@@ -278,6 +278,8 @@ def test_snakemake_cpu_target_uses_completed_inputs_and_never_schedules_gpu(tmp_
     (tmp_path / "config/pipeline.yaml").write_bytes((ROOT / "config/pipeline.yaml").read_bytes())
     (tmp_path / "workflow").mkdir()
     (tmp_path / "workflow/Snakefile").write_bytes((ROOT / "workflow/Snakefile").read_bytes())
+    for name in ("f64a_late_window_audit.smk", "f64a_raw_energy_audit.smk"):
+        (tmp_path / "workflow" / name).write_bytes((ROOT / "workflow" / name).read_bytes())
     package = tmp_path / "pilots/f64a_sampling_extension_v1"
     package.mkdir(parents=True)
     pilot = yaml.safe_load((ROOT / "pilots/f64a_sampling_extension_v1/config.yaml").read_text())

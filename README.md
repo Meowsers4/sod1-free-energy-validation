@@ -1,20 +1,38 @@
 # SOD1 Variant Stability Pipeline
 
+**2026-09-18 update:** the selected F64A folded continuation is complete through
+15 ns. Its 54-fit analysis and CPU-only late-window audit show unresolved duration
+stability and selection-sensitive repeat disagreement. See
+[results](docs/f64a_continuation_results.md). Stop GPU sampling at the registered
+endpoint; no further arm is selected. The failed historical gate is unchanged.
+
 A completed GPU-cluster validation campaign for protein-stability changes (ΔΔG of
 folding) in clinically observed **SOD1** variants using **alchemical free-energy
 (FEP/TI)** calculations. The failed gate stopped the planned extension to
 uncharacterized ALS variants; the project is now a methods-and-limitations study.
 
-> **Status (2026-09-14):** the pre-registered validation gate failed (Pearson
+> **Status (2026-09-18):** the pre-registered validation gate failed (Pearson
 > *r* = 0.326; RMSE = 2.123 kcal/mol). By explicit user decision, the project
-> retains apo-2SH, ends the current GPU campaign, retires charge-changing coverage
+> retains apo-2SH, retires charge-changing coverage
 > and uncharacterized-variant triage, and proceeds as a methods-and-limitations
-> deliverable. No new GPU submission is authorized. Read §2.3 and §11 before
+> deliverable. The separately registered F64A folded 3→9 ns and 9→15 ns pilots
+> are complete. **Stop GPU sampling at 15 ns**; no further arm is selected.
+> See [results and audit](docs/f64a_continuation_results.md). They are sampling
+> diagnoses, not a new gate or prediction campaign. Read §2.3 and §11 before
 > writing any abstract, poster, or paper claim.
 
 ---
 
 ## 0. Agent orientation — read this first
+
+**Publication-review update (2026-09-14):** current manuscript claims and figures are in
+[`docs/methods_limitations_outline.md`](docs/methods_limitations_outline.md) and `docs/review/`.
+The raw local-hysteresis audit, grouped sensitivity and conditional redox interval are complete.
+See the [CPU/GPU improvement plan](docs/cpu_improvement_plan.md) and
+[portable release instructions](docs/release_reproduction.md). The F64A continuation package
+is complete through 15 ns; no new simulation is authorized. The historic failed gate
+stands. The default Snakemake target verifies the existing historical forensic
+bundle read-only; rebuilding requires explicit targets and fresh output paths.
 
 If you are an agent resuming work on this project:
 
@@ -27,8 +45,9 @@ If you are an agent resuming work on this project:
 3. **The 2026-09-14 scope pivot is binding.** See [§2.3](#23-claim-contract-and-approved-pivot):
    C1 and C3 are retired, C4 is deferred and not claimed, and C2 survives only as
    a methods-and-limitations result.
-4. **No new GPU work is authorized.** The remaining work is analysis, archival
-   verification, and preparation of the methods-and-limitations deliverable.
+4. **GPU work is stopped.** Both registered F64A continuations are complete through
+   15 ns. No additional duration, new starts, broad rerun, apo-SS campaign or VUS
+   work is authorized. The pending raw-energy follow-up is CPU-only.
 5. **Changelog is [§12](#12-changelog).** Append to it; don't rewrite history.
 
 ---
@@ -51,7 +70,9 @@ This is now a **methods/target limitations** project:
 benchmark/reference-state audit, the G93A disulfide negative test, archival
 verification, and a methods-and-limitations deliverable.
 
-**Out of scope for the current project:** new GPU FEP/MD, charge-changing support,
+**Out of scope for the current project:** any additional GPU FEP/MD beyond the
+completed 15 ns F64A endpoint,
+charge-changing support,
 VUS prediction/classification, concordance claims, wet-lab work, and holo/metal-
 bound or apo-SS campaigns. A later arm requires a new explicit scope decision and
 preregistration.
@@ -84,8 +105,9 @@ experimental ΔΔG** of the characterized controls (A4V, G93A, G37R, …).
     scale for triage), **and**
   - median |cycle-closure hysteresis| below a stated kcal/mol bound (fix the bound
     in `config/pipeline.yaml` before the first gate evaluation).
-- Reference point: Wells 2021 reported correlation **0.81** with experiment on 10
-  variants. Matching or beating that on a 54-variant panel is the quotable result.
+- Historical threshold rationale used Wells 2021's **0.81**. That value concerns
+  AMBER-only apo-SS dimerization against ITC, not a matched folding benchmark; it
+  does not justify a head-to-head performance claim. The frozen threshold remains unchanged.
 - The control-reproduction result is itself a presentable outcome — and under the
   revised framing, it is a *primary* deliverable, not a preamble.
 
@@ -114,15 +136,12 @@ destabilizing."** All three are false. See [§11.2](#112-what-is-dead).
 **Resolved.** GROMACS + pmx, equilibrium λ-windows with **MBAR** estimation.
 
 - **This is the same toolchain as Wells 2021.** That is a deliberate choice, not an
-  oversight: it makes the comparison apples-to-apples rather than confounded by
-  engine differences.
-- **But it forecloses one novelty avenue.** An earlier draft of this project
-  considered OpenMM+Perses, where "first rigorous folding-stability validation of
-  Perses" would have been a real methods contribution (Perses is documented for
-  relative *binding* free energy and protein:protein binding, and is conspicuously
-  absent from the folding-stability benchmark literature). **With pmx, that claim is
-  unavailable** — pmx/GROMACS is the most extensively benchmarked stability-FEP
-  stack in existence.
+  oversight: it reuses a published toolchain. Matching the observable, reference state, construct
+  and sampling protocol remains necessary for any quantitative comparison.
+- **Novelty boundary.** Tool choice alone does not establish a methods contribution.
+  An earlier speculative Perses novelty claim was never demonstrated and is withdrawn.
+  The current pmx implementation is evaluated as a reproducible application and audit.
+
 - **Estimator difference is still real but thin.** Wells used pmx in
   **non-equilibrium fast-growth** mode (Crooks/Jarzynski work analysis, ~50 ps
   transitions seeded from long equilibrium trajectories). This project uses
@@ -203,8 +222,9 @@ scales linearly with GPU count.
 ### Stage 3 — Alchemical ΔΔG (historical design; GPU campaign ended) ★
 
 The items below document the original plan and completed implementation. The
-2026-09-14 decision retired C1 and ended GPU work; they are not instructions to
-submit further arrays.
+2026-09-14 decision retired C1 and the broad GPU campaign; they are not instructions to
+submit further arrays. The separately registered F64A folded diagnostic exceptions
+(3→9 ns and 9→15 ns) are complete and did not revive this campaign. Stop at 15 ns.
 - Thermodynamic cycle: run the alchemical mutation (X→Y) in the **folded protein**
   and in an **unfolded reference** (solvated capped tripeptide). Difference of the
   two legs = ΔΔG_folding.
@@ -438,7 +458,9 @@ doi [10.1002/pro.4132](https://doi.org/10.1002/pro.4132) · PMID 34076319 · PMC
   forward + reverse.
 - States covered: apo-2SH monomer and dimer, apo-SS, Zn-only intermediate, Cu/Zn
   holo monomer, holo dimer — i.e. the full maturation pathway.
-- Correlation with experiment: **0.81** (0.46 with truncated sampling).
+- Dimerization comparison against ITC: AMBER-only correlation **0.81**, OPLSAA-only
+  **0.89**, force-field average **0.92**; truncated AMBER sampling **0.46**. These
+  are not matched folding-stability metrics for the present project.
 - **Stated limitations — these are the openings:**
   1. Several residues in less-mature states **failed to converge within 250 ns**
      (undersampling of exactly the apo species this project targets).
@@ -449,8 +471,9 @@ doi [10.1002/pro.4132](https://doi.org/10.1002/pro.4132) · PMID 34076319 · PMC
 > bot-detection). The variant roster and protocol were reconstructed from extensive
 > verbatim search-index snippets and are internally consistent, but the exact
 > variant table and trajectory-length description **should be checked against the
-> PDF** before being cited in a manuscript. The reported 0.81 is a correlation
-> coefficient; Pearson vs R² is not disambiguated in recoverable text.
+> PDF** before being cited in a manuscript. The 0.81 is a reported correlation coefficient for the dimerization comparison,
+> not a folding benchmark or an R². Source sections 2.1 and 4 must govern comparisons;
+> residue-level dynamical non-convergence within 250 ns is not a failure of a folding gate.
 
 ### 11.2 What is dead
 
@@ -465,10 +488,12 @@ Do not claim any of the following. Each is anticipated:
 - ❌ **"FEP reveals SOD1 variants are destabilizing."** Wells 2021.
 - ❌ **"First rigorous open-source FEP stability protocol."** pmx/GROMACS is the
   most benchmarked stability-FEP stack there is: Seeliger & de Groot's barnase
-  109-mutation benchmark (r≈0.86); Baby et al., *PLOS One* 2025,
+  109-mutation benchmark (r≈0.86); Gupta, Sun & Levy, *PLOS One* 2026,
   doi [10.1371/journal.pone.0335829](https://doi.org/10.1371/journal.pone.0335829)
-  reports GROMACS r=0.87, AUE 0.61 kcal/mol on staphylococcal nuclease and T4
-  lysozyme. Schrödinger's Protein FEP+ covers 328 mutations across 14 structures
+  reports GROMACS r=0.87, AUE 0.61 kcal/mol for 38 staphylococcal nuclease single
+  mutants, and r=0.80, AUE 0.55 for 24 T4 lysozyme single mutants in its Results
+  section/Fig. 6B (the abstract reverses the T4 software labels). These are separate
+  benchmarks, not pooled performance. Schrödinger's Protein FEP+ covers 328 mutations across 14 structures
   (Scarabelli et al., *J Mol Biol* 2022;434(2):167375,
   doi [10.1016/j.jmb.2021.167375](https://doi.org/10.1016/j.jmb.2021.167375),
   R²≈0.65, MUE≈0.95 kcal/mol).
@@ -488,7 +513,7 @@ Do not claim any of the following. Each is anticipated:
 
 - **C1 — retired.** Charge-changing variants remain an interesting future methods
   problem, but this project did not implement or validate them and makes no claim.
-- **C2 — methods-and-limitations only.** Wells reported apo-2SH non-convergence. This
+- **C2 — methods-and-limitations only.** Wells reported slow residue-level dynamical convergence in less-mature states. This
   project can report its equilibrium-window diagnostics, failed predictive gate,
   and the limited effect of extending A4V sampling. It cannot claim that it resolved
   apo-2SH prediction or validated the method.
@@ -499,8 +524,8 @@ Do not claim any of the following. Each is anticipated:
   heterogeneous experimental anchor, including whole-dimer G93S/G93V measurements,
   while preserving the original failed gate as the gate-of-record.
 - **Negative diagnostic contribution.** Restoring the G93A disulfide shifted folded
-  ΔG by only −0.017 kcal/mol, ruling out that single explanation for G93A's error
-  without generalizing to other variants.
+  ΔG by −0.017 kcal/mol under the tested short protocol. This is a bounded observed
+  effect; slow redox-dependent ensemble changes and model bias remain unresolved.
 
 ### 11.4 The orthogonal-evidence landscape
 
@@ -552,6 +577,50 @@ the follow-up diagnostics narrowed what did and did not explain that failure.
 ---
 
 ## 12. Changelog
+
+### 2026-09-18 — F64A v2 results, CPU audits and evidence-preservation review
+- Completed registered 9→15 ns continuation (first light 7619903, array 7620241)
+  and preserved all 54 fits; primary adaptive mean masks opposing repeat movements.
+- Completed descriptive late-window selection/overlap/hysteresis audit; sparse
+  sampling persists under fixed policies. Stop GPU work at the 15 ns endpoint.
+- Prepared raw-energy CPU follow-up; it remains pending the 60 SCC production NPZs.
+- Committed the supplied v2 report and audit tools, corrected current operating
+  instructions and benchmark attribution, and made release verification the
+  read-only default. Historical bundle/hash remain untouched; new builds require
+  fresh paths and committed executable source. CPU audit rules are included in the DAG.
+- Disclosed the user-approved unconfirmed SU-rate assumption; actual billing remains pending.
+
+### 2026-09-17 — isolated F64A v2 registration and execution
+- Selected/registered all-window, three-repeat exact-path 9→15 ns extension and
+  fixed the 54-fit analysis before execution; no new starts or unfolded leg.
+- Corrected the narrowly documented convert-tpr header-lambda false mismatch before
+  execution, without relaxing active-state/model checks.
+- Passed source preflight and first light, then submitted the resource-admitted array.
+
+### 2026-09-16 — F64A v1 results and CPU block/policy follow-ups
+- Completed v1 3→9 ns continuation and preserved its report; r1's early estimate
+  moved 2.076474 kcal/mol relative to the disjoint final block despite low early hysteresis.
+- Completed disjoint-block analysis and selection sensitivity. Late movement
+  persisted across the three policies, motivating a separately registered 9→15 ns test.
+- No new gate/accuracy claim or automatic extension was authorized by these results.
+
+### 2026-09-15 — F64A exact-path continuation pilot
+- User authorized a bounded follow-up to the completed temporal analysis.
+- Registered an isolated 60-window F64A folded pilot that continues the exact archived
+  3 ns paths by 6 ns, with an eight-L40S concurrency cap and one-window first light.
+- Source staging verifies the 60 historical NPZs against the frozen forensic checksum
+  manifest and copies checkpoint/append inputs without modifying the archive.
+- This is a sampling diagnosis only; it does not reopen the failed gate or authorize VUS,
+  apo-SS, or broad rerun work.
+
+### 2026-09-14 — publication-review corrections and forensic release
+- Added exploratory local-discrepancy audit, variant/site grouped intervals and leave-group-out
+  sensitivity; re-derived all 48 records and 912 adjacent pairs.
+- Quantified diagnostic cancellation without claiming a superior predictor or changing the gate.
+- Added conditional uncertainty on G93A SS−2SH and withdrew causal/uncertainty overclaims.
+- Corrected Wells benchmark framing and Gupta/Sun/Levy citation metadata.
+- Preserved old manifest source snapshots and packaged a portable CPU analysis release.
+- User confirmed GPU availability for planning; candidate designs are in the improvement plan.
 
 ### 2026-09-14 — failed-gate pivot approved
 - User explicitly approved retaining apo-2SH and ending the current GPU campaign.

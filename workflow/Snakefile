@@ -28,9 +28,9 @@ VARIANTS   = load_variants()
 LEGS       = config["fep"]["legs"]
 WINDOWS    = list(range(config["fep"]["lambda_windows"]))
 REPLICATES = list(range(config["fep"]["replicates"]))
-# rule all targets the validation gate, not the whole panel: only
-# validation.gate_subset (charge-neutral controls) is FEP-runnable today, and the
-# prescreen backend does not exist. GATE_SUBSET is what the gate needs as inputs.
+# The historical gate uses only validation.gate_subset (charge-neutral controls),
+# not the whole panel. The current default only verifies the historical release.
+# GATE_SUBSET still defines the inputs of the explicitly named gate target.
 GATE_SUBSET = config["validation"]["gate_subset"]
 GATE_REPORT = config["validation"]["outputs"]["gate_report"]
 
@@ -40,10 +40,11 @@ def gate_dependency(wildcards):
     return [] if wildcards.variant in GATE_SUBSET else GATE_REPORT
 
 
-# ---- Target rule -----------------------------------------------------------
+# ---- Read-only default: never regenerate/replace a published snapshot -------
 rule all:
-    input:
-        config['forensic_review']['release_file'],
+    shell:
+        'python -m src.analysis.forensic_release --verify '
+        '{config[forensic_review][release_file]:q}'
 
 
 # ---- Stage 0: build & stratify the variant panel ---------------------------
@@ -476,6 +477,25 @@ rule forensic_reference_reproduction:
         'MPLCONFIGDIR=/tmp/sod1fep-mpl python scripts/reproduce_reference_sensitivity_independent.py '
         '--archive-root {ARCHIVE:q} --json {output.report:q} --figure {output.figure:q}'
 
+def fresh_release_sources(wildcards):
+    """Admission runs while building the DAG, before producers/deletions run."""
+    # Snakemake's source-cache import path is not the project module import path.
+    import importlib.util
+    spec = importlib.util.spec_from_file_location('forensic_release_guard', 'src/analysis/forensic_release.py')
+    guard = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(guard)
+    guard.require_fresh_output(Path(REVIEW['release_file']))
+    if Path(REVIEW_DIR).exists():
+        raise FileExistsError('Release rebuild requires a fresh forensic_review.output_dir; '
+                              'existing review evidence must not be overwritten')
+    guard.source_identity(Path.cwd(), guard.source_files(Path.cwd()))
+    return [str(p) for folder in ('src', 'tests', 'config', 'docs', 'env', 'scripts', 'workflow', 'data', 'pilots')
+            for p in Path(folder).rglob('*') if p.is_file()
+            and '__pycache__' not in p.parts and p.name != '.DS_Store'
+            and 'data/structures' not in str(p)
+            and str(p.parent) != REVIEW_DIR and p.suffix not in ('.npz', '.pyc')]
+
+
 rule forensic_release:
     input:
         audit=rules.forensic_diagnostic_audit.output,
@@ -483,11 +503,7 @@ rule forensic_release:
         reference=rules.forensic_reference_reproduction.output,
         manifest='data/forensic_archive_manifest.json',
         historical=HISTORICAL_INPUTS,
-        sources=[str(p) for folder in ('src', 'tests', 'config', 'docs', 'env', 'scripts', 'workflow', 'data')
-                 for p in Path(folder).rglob('*') if p.is_file()
-                 and '__pycache__' not in p.parts and p.name != '.DS_Store'
-                 and 'data/structures' not in str(p)
-                 and str(p.parent) != REVIEW_DIR and p.suffix not in ('.npz', '.pyc')],
+        sources=fresh_release_sources,
         overview=['README.md', 'HANDOFF.md', 'CLAUDE.md', 'AGENTS.md'],
     output:
         bundle=REVIEW['release_file'],
@@ -496,3 +512,9 @@ rule forensic_release:
         'python -m src.analysis.forensic_release --archive-root {ARCHIVE:q} '
         '--ss-archive {SS_ARCHIVE:q} --output {output.bundle:q} '
         '&& python -m src.analysis.forensic_release --verify {output.bundle:q}'
+
+
+# Post-result CPU audit rules are discoverable here, but never default/GPU producers.
+# The registered v2 execution used 802cc9e; preserve that commit for reproduction.
+include: 'f64a_late_window_audit.smk'
+include: 'f64a_raw_energy_audit.smk'

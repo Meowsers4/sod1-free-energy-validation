@@ -61,8 +61,11 @@ policies remain visible. A small suffix drift/ACF does not certify equilibration
 
 Implementation: [f64a_raw_energy_audit.py](../src/analysis/f64a_raw_energy_audit.py).
 Separate CPU-only DAG: [f64a_raw_energy_audit.smk](../workflow/f64a_raw_energy_audit.smk).
-The separate DAG intentionally preserves the registered simulation workflow and
-all v2 dependency hashes; it is not a standalone GPU script.
+The separate DAG does not call GPU producers or alter simulation inputs. Following
+the repository review, both CPU audit `.smk` files are also included from the live
+`workflow/Snakefile`. That live workflow has changed after execution; the frozen
+v2 workflow/source identity remains reproducible at its recorded **802cc9e** commit.
+Do not claim that today's workflow hash equals the recorded simulation hash.
 
 Output namespace: `results/cpu_audits/f64a_raw_energy_v1/`:
 
@@ -123,12 +126,13 @@ submission or an extension beyond 15 ns**.
 
 ## Verification before real-data execution
 
-125 focused F64A/audit tests passed, including a complete deliberately synthetic
+125 focused F64A/audit tests passed before the repository-review corrections, including a complete deliberately synthetic
 pipeline, direct ACF/slope checks, saved-suffix behavior, missing/extra/corrupt
 NPZs, wrong protocol/shape, nonfinite energies, mid-run input changes and refusal
 to overwrite outputs. Synthetic fixtures live only in test temporary directories;
 they are not scientific result files. Plot layout was inspected on a synthetic
-fixture. Ruff and `git diff --check` passed.
+fixture. Ruff on the two audit modules/their tests and `git diff --check` passed;
+this is not a claim that repository-wide lint was clean.
 
 The real-data Snakemake dry-run correctly stops with `MissingInputException` for
 the absent 60 NPZs, without offering any GPU producer. This is an expected data

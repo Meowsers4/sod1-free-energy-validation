@@ -164,8 +164,11 @@ submission records and review actual accounting separately.
 Audit code: [f64a_late_window_audit.py](../src/analysis/f64a_late_window_audit.py).
 It consumes only the preserved report, refuses a changed input hash/incomplete or
 inconsistent records, records source/config hashes and publishes atomically without
-overwriting. The original v2 configs, source modules and registered workflow were
-not edited. A separate CPU-only DAG avoids changing the frozen simulation identity:
+overwriting. The original report-only audit did not edit v2 configs, simulation
+modules or its registered workflow. The subsequent repository review included the
+CPU audit rules from the live main DAG. That live workflow now differs from the
+execution snapshot: reproduce the original v2 identity at **802cc9e**, not current
+HEAD. The standalone CPU DAG remains available:
 
 ```bash
 snakemake -n --snakefile workflow/f64a_late_window_audit.smk --cores 1
@@ -176,8 +179,8 @@ audit YAML to a new file, set its `output` to a fresh path, and run
 `python -m src.analysis.f64a_late_window_audit --config YOUR_AUDIT_CONFIG`.
 Never overwrite the supplied report or remove evidence to get a rerun to pass.
 
-Verification: 109 focused F64A/audit tests passed; Ruff and `git diff --check`
-passed; the separate Snakemake DAG dry-run passed (one CPU-only audit job when
+Verification: 109 focused F64A/audit tests passed; Ruff on the two audit modules
+and their tests, and `git diff --check`, passed; the separate Snakemake DAG dry-run passed (one CPU-only audit job when
 forced, no GPU producers). Input preservation was checked byte-for-byte. The
 audit ran locally with Python 3.13.9 and does not import MBAR/JAX; the original
 SCC scientific fits record Python 3.11.15 and their own package identities.

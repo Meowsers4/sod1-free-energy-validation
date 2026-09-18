@@ -151,6 +151,11 @@ def main() -> None:
                         type=Path)
     parser.add_argument("--workers", default=4, type=int)
     args = parser.parse_args()
+    if args.output.exists():
+        raise FileExistsError(
+            f"Refusing to overwrite manifest {args.output}; choose a new --output path. "
+            "Historical checksum inventories must remain immutable."
+        )
     manifest = build_manifest(
         args.attempt1_archive,
         args.ss_archive,
