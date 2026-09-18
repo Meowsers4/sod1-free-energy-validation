@@ -1,0 +1,9 @@
+# Post-result descriptive audit, authorized 2026-09-18; not a new gate or fit policy.
+input: docs/f64a_extension_review/f64a_continuation_v2.json
+input_sha256: ddb20589d809682f7ef72a4fddc55c6998c48ca3b7a06b1b466682291a24ab71
+registered_design: pilots/f64a_sampling_extension_v2/analysis.yaml
+pilot_config: pilots/f64a_sampling_extension_v2/config.yaml
+output: docs/f64a_extension_review/f64a_late_window_audit.json
+focus_blocks: [block_9_12_ns, block_12_15_ns]
+# Reporting label only: neither a convergence threshold nor a reason to exclude data.
+heavy_trim_fraction: 0.9

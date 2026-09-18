@@ -1,0 +1,12 @@
+# Fixed after viewing the 15 ns results; exploratory description, not a new gate.
+audit_config: docs/f64a_raw_energy_audit.yaml
+report_config: docs/f64a_late_window_audit.yaml
+npz_dir: results/pilots/f64a_sampling_extension_v2/production/fep/F64A/folded
+output_dir: results/cpu_audits/f64a_raw_energy_v1
+blocks: [block_9_12_ns, block_12_15_ns]
+bin_samples: 250
+acf_lags_samples: [1, 10, 100, 250, 500, 1000]
+quantiles: [0.05, 0.5, 0.95]
+# Display settings only; no statistical threshold or data exclusion.
+plot_color_percentile: 95
+plot_dpi: 160
