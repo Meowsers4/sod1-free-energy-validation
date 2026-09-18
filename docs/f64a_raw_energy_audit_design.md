@@ -4,9 +4,10 @@
 
 The user authorized this CPU-only follow-up after reviewing the
 [15 ns continuation result](f64a_continuation_results.md). The implementation and
-tests are prepared. **The scientific audit has not run:** none of the 60 production
-NPZs are available in the local checkout. No new time-series findings are claimed.
-The full fit report is preserved; raw matrices remain on SCC.
+tests were prepared before raw-data transfer. **The scientific audit is now complete:**
+all 60 production NPZs were downloaded and validated against the frozen report.
+See [results and execution record](f64a_raw_energy_audit_results.md). The quantities,
+configuration and decision boundary below were not changed after viewing raw data.
 
 This is a post-result, exploratory description, not blind validation, a stationarity
 test, a new convergence gate or authorization for another GPU experiment. Keep
@@ -134,6 +135,8 @@ they are not scientific result files. Plot layout was inspected on a synthetic
 fixture. Ruff on the two audit modules/their tests and `git diff --check` passed;
 this is not a claim that repository-wide lint was clean.
 
-The real-data Snakemake dry-run correctly stops with `MissingInputException` for
-the absent 60 NPZs, without offering any GPU producer. This is an expected data
-blocker, not evidence that a scientific audit completed.
+Before transfer, the real-data Snakemake dry-run correctly stopped with
+`MissingInputException` for the absent 60 NPZs, without offering any GPU producer.
+After transfer the explicit main-DAG dry-run scheduled only one CPU audit job;
+the execution record distinguishes the failed DAG invocation from the successful
+explicit-interpreter module execution.

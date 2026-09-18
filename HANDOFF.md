@@ -2,10 +2,15 @@
 
 ## Current update — 2026-09-18: F64A completed through 15 ns
 
-The subsequent raw-energy follow-up is authorized and implemented; see
-[fixed CPU audit design](docs/f64a_raw_energy_audit_design.md). It has **not run
-on scientific data** because the 60 production NPZs remain on SCC. Download only
-those matrices, then run the hash-bound audit locally; no new MBAR/GPU work.
+The subsequent raw-energy follow-up is complete; see
+[results](docs/f64a_raw_energy_audit_results.md) and
+[fixed CPU audit design](docs/f64a_raw_energy_audit_design.md). All 60 production
+NPZs are now local and exactly match the frozen report hashes, shapes, metadata
+and simulation ancestry. The audit describes 348 raw series and 1044 saved-policy
+suffixes, with no new MBAR/GPU work. Late changes in adjacent energies and very
+short selected suffixes remain visible; neither this audit nor a quiet suffix
+certifies equilibration. The next step is a separately specified sampling test,
+not an automatic extension or GPU submission.
 
 The separately selected v2 continuation completed on SCC: first light **7619903**
 passed; production array **7620241** left the queue, and the full 54-fit CPU report

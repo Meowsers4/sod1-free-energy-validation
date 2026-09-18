@@ -31,7 +31,10 @@ Local review verified:
   during analysis.
 
 This is review of a user-supplied SCC report, **not independent local NPZ/XVG
-validation or MBAR reproduction**. Extended matrices and checkpoints remain on SCC.
+validation or MBAR reproduction** at that review checkpoint. Subsequently, all
+60 extended NPZs were downloaded and validated in the
+[raw-energy CPU audit](f64a_raw_energy_audit_results.md); checkpoints/XVG were not
+downloaded or independently validated, and no MBAR reproduction was performed.
 The report was written despite the user's subsequent SSH timeout; no restart was
 needed. No failed fit was dropped.
 

@@ -5,6 +5,8 @@
 stability and selection-sensitive repeat disagreement. See
 [results](docs/f64a_continuation_results.md). Stop GPU sampling at the registered
 endpoint; no further arm is selected. The failed historical gate is unchanged.
+The hash-bound [raw-energy CPU audit](docs/f64a_raw_energy_audit_results.md) is also
+complete; late adjacent-energy changes and short selected suffixes remain visible.
 
 A completed GPU-cluster validation campaign for protein-stability changes (ΔΔG of
 folding) in clinically observed **SOD1** variants using **alchemical free-energy

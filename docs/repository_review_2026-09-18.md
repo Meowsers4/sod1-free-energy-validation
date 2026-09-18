@@ -14,6 +14,11 @@ Downloads, so “only local copy” was not literally correct. The lack of commi
 preservation was nevertheless real. The raw matrices remain on SCC; the authorized
 raw-energy audit has not run on scientific data.
 
+Subsequent same-day update: the user transferred all 60 production NPZs locally.
+Their exact hashes/metadata/ancestry matched, and the fixed raw-energy audit ran;
+see [results](f64a_raw_energy_audit_results.md). Statements about missing local
+matrices above and below describe the review checkpoint, not the current state.
+
 CLAUDE.md now names both completed pilots and the standing decision to **stop at
 15 ns**. README status, authorization/scope language and changelog are synchronized
 with HANDOFF. Mentor review remains deferred at the user's direction.

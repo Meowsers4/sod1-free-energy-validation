@@ -23,8 +23,11 @@ The standing decision is **stop GPU sampling at 15 ns**. No new array, duration,
 starting-conformation or sampling-method arm is selected. See
 `docs/f64a_continuation_results.md` and `HANDOFF.md`.
 
-The report-only late-window audit is complete. The raw-energy CPU audit is prepared
-but **has not run on scientific data**: the 60 v2 production NPZs remain on SCC.
+The report-only late-window and raw-energy CPU audits are complete. All 60 v2
+production NPZs were downloaded and hash/metadata/ancestry validated locally.
+Raw adjacent-energy changes and short selected suffixes reinforce unresolved
+duration/selection stability; they do not establish a structural cause or true
+free energy. See `docs/f64a_raw_energy_audit_results.md`.
 Mentor review is deferred at user direction. The user explicitly waived confirmed
 SU pricing before v2 submission: 1 SU/core-hour was an assumption, 1040 SU was
 conditional; 130 GPU-hours and two attempts/task were the approved limits. Actual
