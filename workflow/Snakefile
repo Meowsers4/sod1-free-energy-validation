@@ -518,3 +518,6 @@ rule forensic_release:
 # The registered v2 execution used 802cc9e; preserve that commit for reproduction.
 include: 'f64a_late_window_audit.smk'
 include: 'f64a_raw_energy_audit.smk'
+include: 'f64a_lambda_comparator.smk'
+include: 'known_answer_model.smk'
+include: 'exchange_feasibility.smk'

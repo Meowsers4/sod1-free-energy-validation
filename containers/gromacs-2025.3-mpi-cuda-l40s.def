@@ -1,0 +1,204 @@
+Bootstrap: docker
+From: nvidia/cuda:12.8.0-devel-rockylinux8
+Stage: build
+
+%labels
+    org.opencontainers.image.title GROMACS-2025.3-OpenMPI-4.1.5-CUDA-12.8
+    org.opencontainers.image.version 2025.3
+    org.opencontainers.image.source https://ftp.gromacs.org/gromacs/gromacs-2025.3.tar.gz
+    deployment_scope single_node_only
+    production_authorized false
+
+%post
+    set -eu
+    dnf install -y \
+        ca-certificates curl diffutils file findutils gzip make patch perl tar which xz \
+        gcc-toolset-12-gcc gcc-toolset-12-gcc-c++
+    dnf clean all
+
+    . /opt/rh/gcc-toolset-12/enable
+    export CC=gcc
+    export CXX=g++
+
+    CMAKE_URL=https://cmake.org/files/v3.31/cmake-3.31.12-linux-x86_64.tar.gz
+    CMAKE_SHA256=0dc2e9a6860f06bf10bd8fadc03e35d9eeb4df46e33763a7e480e987758f385c
+    curl --fail --location --retry 3 "$CMAKE_URL" --output /tmp/cmake.tar.gz
+    printf '%s  %s\n' "$CMAKE_SHA256" /tmp/cmake.tar.gz | sha256sum --check --strict
+    mkdir -p /opt/cmake
+    tar -xzf /tmp/cmake.tar.gz --strip-components=1 -C /opt/cmake
+    export PATH=/opt/cmake/bin:$PATH
+
+    FFTW_URL=https://fftw.org/fftw-3.3.10.tar.gz
+    FFTW_SHA256=56c932549852cddcfafdab3820b0200c7742675be92179e59e6215b340e26467
+    curl --fail --location --retry 3 "$FFTW_URL" --output /tmp/fftw.tar.gz
+    printf '%s  %s\n' "$FFTW_SHA256" /tmp/fftw.tar.gz | sha256sum --check --strict
+    tar -xzf /tmp/fftw.tar.gz -C /tmp
+    cd /tmp/fftw-3.3.10
+    ./configure \
+        --prefix=/opt/fftw/3.3.10 \
+        --enable-float \
+        --enable-shared \
+        --disable-static \
+        --enable-threads \
+        --enable-openmp \
+        --enable-sse2 \
+        --enable-avx \
+        --enable-avx2
+    make -j8
+    make install
+
+    OPENMPI_URL=https://download.open-mpi.org/release/open-mpi/v4.1/openmpi-4.1.5.tar.gz
+    OPENMPI_SHA256=c018b127619d2a2a30c1931f316fc8a245926d0f5b4ebed4711f9695e7f70925
+    curl --fail --location --retry 3 "$OPENMPI_URL" --output /tmp/openmpi.tar.gz
+    printf '%s  %s\n' "$OPENMPI_SHA256" /tmp/openmpi.tar.gz | sha256sum --check --strict
+    tar -xzf /tmp/openmpi.tar.gz -C /tmp
+    cd /tmp/openmpi-4.1.5
+    ./configure \
+        --prefix=/opt/openmpi/4.1.5 \
+        --with-cuda=/usr/local/cuda \
+        --disable-mpi-fortran \
+        --enable-shared \
+        --disable-static \
+        --with-hwloc=internal \
+        --with-libevent=internal \
+        --with-pmix=internal
+    make -j8
+    make install
+    export PATH=/opt/openmpi/4.1.5/bin:$PATH
+    export LD_LIBRARY_PATH=/opt/openmpi/4.1.5/lib:/opt/fftw/3.3.10/lib:${LD_LIBRARY_PATH:-}
+
+    # All ranks are local; exclude the remote-shell launcher before any MPI call.
+    export OMPI_MCA_plm=isolated
+    # SCC's host TMPDIR may not be mounted in the final image self-test.
+    unset OMPI_MCA_orte_local_tmpdir_base OMPI_MCA_orte_remote_tmpdir_base
+    export OMPI_MCA_orte_tmpdir_base=/tmp
+    export OMPI_ALLOW_RUN_AS_ROOT=1
+    export OMPI_ALLOW_RUN_AS_ROOT_CONFIRM=1
+    mpirun --oversubscribe -np 2 /bin/true
+
+    GROMACS_URL=https://ftp.gromacs.org/gromacs/gromacs-2025.3.tar.gz
+    GROMACS_MD5=5a2315b6f6e13b091bbbbfddee9eb62b
+    REGRESSION_URL=https://ftp.gromacs.org/regressiontests/regressiontests-2025.3.tar.gz
+    REGRESSION_MD5=02b04b7c0c5dd7583a984b862d244d17
+    curl --fail --location --retry 3 "$GROMACS_URL" --output /tmp/gromacs.tar.gz
+    printf '%s  %s\n' "$GROMACS_MD5" /tmp/gromacs.tar.gz | md5sum --check --strict
+    curl --fail --location --retry 3 "$REGRESSION_URL" --output /tmp/regressiontests.tar.gz
+    printf '%s  %s\n' "$REGRESSION_MD5" /tmp/regressiontests.tar.gz | md5sum --check --strict
+    tar -xzf /tmp/gromacs.tar.gz -C /tmp
+    tar -xzf /tmp/regressiontests.tar.gz -C /tmp
+
+    cmake -S /tmp/gromacs-2025.3 -B /tmp/gromacs-build \
+        -DCMAKE_BUILD_TYPE=Release \
+        -DCMAKE_INSTALL_PREFIX=/opt/gromacs/2025.3 \
+        -DCMAKE_PREFIX_PATH=/opt/fftw/3.3.10 \
+        -DCMAKE_C_COMPILER=gcc \
+        -DCMAKE_CXX_COMPILER=g++ \
+        -DMPI_C_COMPILER=/opt/openmpi/4.1.5/bin/mpicc \
+        -DMPI_CXX_COMPILER=/opt/openmpi/4.1.5/bin/mpicxx \
+        -DGMX_MPI=ON \
+        -DGMX_THREAD_MPI=OFF \
+        -DGMX_GPU=CUDA \
+        -DGMX_CUDA_TARGET_SM=89 \
+        -DGMX_CUDA_TARGET_COMPUTE=89 \
+        -DGMX_SIMD=AVX2_256 \
+        -DGMX_OPENMP=ON \
+        -DGMX_FFT_LIBRARY=fftw3 \
+        -DREGRESSIONTEST_DOWNLOAD=OFF \
+        -DREGRESSIONTEST_PATH=/tmp/regressiontests-2025.3
+    cmake --build /tmp/gromacs-build --parallel 8
+    cmake --build /tmp/gromacs-build --target check --parallel 8
+    cmake --install /tmp/gromacs-build
+
+    mkdir -p /opt/gcc-toolset-12/lib64
+    cp -a /opt/rh/gcc-toolset-12/root/usr/lib64/. /opt/gcc-toolset-12/lib64/
+    printf '%s\n' \
+        'GROMACS=2025.3 md5=5a2315b6f6e13b091bbbbfddee9eb62b' \
+        'REGRESSIONTESTS=2025.3 md5=02b04b7c0c5dd7583a984b862d244d17' \
+        'OPENMPI=4.1.5 sha256=c018b127619d2a2a30c1931f316fc8a245926d0f5b4ebed4711f9695e7f70925' \
+        'CMAKE=3.31.12 sha256=0dc2e9a6860f06bf10bd8fadc03e35d9eeb4df46e33763a7e480e987758f385c' \
+        'FFTW=3.3.10 sha256=56c932549852cddcfafdab3820b0200c7742675be92179e59e6215b340e26467' \
+        'CUDA=12.8.0 TARGET_SM=89 TARGET_COMPUTE=89' \
+        'OMPI_MCA_plm=isolated' \
+        'OMPI_MCA_orte_tmpdir_base=/tmp' \
+        'SCOPE=single_node_only PRODUCTION_AUTHORIZED=false' \
+        > /opt/sod1fep-container-build.txt
+
+    # Preserve the complete installation on the retained /tmp bind before assembly.
+    tar -czf /tmp/installed-toolchain.tar.gz -C /opt \
+        gromacs openmpi fftw gcc-toolset-12 sod1fep-container-build.txt
+    cd /tmp
+    sha256sum installed-toolchain.tar.gz > installed-toolchain.sha256
+
+
+Bootstrap: docker
+From: nvidia/cuda:12.8.0-runtime-rockylinux8
+Stage: final
+
+%labels
+    org.opencontainers.image.title GROMACS-2025.3-OpenMPI-4.1.5-CUDA-12.8
+    org.opencontainers.image.version 2025.3
+    org.opencontainers.image.source https://ftp.gromacs.org/gromacs/gromacs-2025.3.tar.gz
+    deployment_scope single_node_only
+    production_authorized false
+
+%files from build
+    /opt/gromacs /opt/gromacs
+    /opt/openmpi /opt/openmpi
+    /opt/fftw /opt/fftw
+    /opt/gcc-toolset-12 /opt/gcc-toolset-12
+    /opt/sod1fep-container-build.txt /opt/sod1fep-container-build.txt
+
+%post
+    set -eu
+    dnf install -y ca-certificates grep libgcc libgomp libstdc++ libxml2 numactl-libs zlib
+    rpm -q libgcc libgomp libstdc++ libxml2 numactl-libs zlib > /opt/sod1fep-runtime-rpms.txt
+    dnf clean all
+
+%environment
+    export PATH=/opt/gromacs/2025.3/bin:/opt/openmpi/4.1.5/bin:$PATH
+    export LD_LIBRARY_PATH=/opt/gromacs/2025.3/lib64:/opt/openmpi/4.1.5/lib:/opt/fftw/3.3.10/lib:/opt/gcc-toolset-12/lib64:/usr/local/cuda/lib64:${LD_LIBRARY_PATH:-}
+    export OMP_NUM_THREADS=1
+    export OMPI_MCA_plm=isolated
+    # SCC's host TMPDIR may not be mounted in the final image self-test.
+    unset OMPI_MCA_orte_local_tmpdir_base OMPI_MCA_orte_remote_tmpdir_base
+    export OMPI_MCA_orte_tmpdir_base=/tmp
+
+%runscript
+    exec "$@"
+
+%test
+    set -eu
+    export OMPI_MCA_plm=isolated
+    # SCC's host TMPDIR may not be mounted in the final image self-test.
+    unset OMPI_MCA_orte_local_tmpdir_base OMPI_MCA_orte_remote_tmpdir_base
+    export OMPI_MCA_orte_tmpdir_base=/tmp
+    export OMPI_ALLOW_RUN_AS_ROOT=1
+    export OMPI_ALLOW_RUN_AS_ROOT_CONFIRM=1
+    # Check the final image's dependencies, including transitive library failures.
+    : > /tmp/runtime-ldd.txt
+    dependency_failure=0
+    for binary in "$(command -v gmx_mpi)" "$(command -v mpirun)" "$(command -v ompi_info)" /opt/openmpi/4.1.5/lib/libmpi.so; do
+        printf '\nDependencies: %s\n' "$binary" >> /tmp/runtime-ldd.txt
+        ldd "$binary" >> /tmp/runtime-ldd.txt 2>&1 || dependency_failure=1
+    done
+    cat /tmp/runtime-ldd.txt
+    if [ "$dependency_failure" -ne 0 ] || grep -q 'not found' /tmp/runtime-ldd.txt; then
+        echo 'Final image has unresolved runtime dependencies.' >&2
+        exit 1
+    fi
+    # A recovered executable alone is not a complete GROMACS/MPI installation.
+    test -s /opt/gromacs/2025.3/share/gromacs/top/residuetypes.dat
+    test -s /opt/openmpi/4.1.5/share/pmix/help-pmix-runtime.txt
+    gmx_mpi --version > /tmp/gmx-version.txt 2>&1 || {
+        status=$?
+        cat /tmp/gmx-version.txt
+        exit "$status"
+    }
+    cat /tmp/gmx-version.txt
+    grep -E '^GROMACS version: +2025\.3$' /tmp/gmx-version.txt
+    grep -E '^MPI library: +MPI( +\(GPU-aware: [^)]+\))? *$' /tmp/gmx-version.txt
+    grep -E '^MPI library version: +Open MPI v4\.1\.5([, ]|$)' /tmp/gmx-version.txt
+    grep -E '^GPU support: +CUDA$' /tmp/gmx-version.txt
+    ompi_info --version
+    mpirun --allow-run-as-root --oversubscribe -np 2 /bin/true
+    mpirun --allow-run-as-root --oversubscribe -np 2 gmx_mpi --version

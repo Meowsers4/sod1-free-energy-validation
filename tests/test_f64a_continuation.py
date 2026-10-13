@@ -396,6 +396,9 @@ def test_cpu_analysis_only_consumes_completed_inputs(tmp_path, completed):
         (tmp_path / name).mkdir(parents=True)
     for name in ('config/pipeline.yaml', 'workflow/Snakefile',
                  'workflow/f64a_late_window_audit.smk', 'workflow/f64a_raw_energy_audit.smk',
+                 'workflow/f64a_lambda_comparator.smk',
+                 'workflow/known_answer_model.smk',
+                 'workflow/exchange_feasibility.smk',
                  'pilots/f64a_sampling_extension_v1/config.yaml',
                  'pilots/f64a_sampling_extension_v1/cpu_blocks.yaml',
                  'pilots/f64a_sampling_extension_v1/cpu_sensitivity.yaml',

@@ -8,10 +8,14 @@ the single source of deterministic seeds; never seed from :func:`hash`.
 
 Seed scope matters (see :mod:`src.fep.perses_engine`):
 
-* ``stable_seed(variant, leg)`` -- the *system* seed. Every window and replicate of a
-  leg must build the SAME solvated system, or MBAR is combining different Hamiltonians.
-* ``stable_seed(variant, leg, window, rep)`` -- the *sampling* seed (velocities,
-  integrator). Distinct per replicate, which is what makes replicates independent.
+* The Perses engine uses ``stable_seed(variant, leg, "system")`` for its shared
+  system. The pmx engine uses that key only with shared-system mode; with
+  ``independent_replicate_systems=true`` it uses
+  ``stable_seed(variant, leg, rep, "system")`` for distinct ion placement.
+  Every window *within one replicate* still uses the same solvated system.
+* The pmx engine uses ``stable_seed(variant, leg, window, rep, "sampling")``
+  for per-window sampling seeds; the Perses engine uses the same key. These
+  are distinct from the system seed and deterministic across processes.
 """
 
 from __future__ import annotations

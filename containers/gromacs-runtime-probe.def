@@ -1,0 +1,62 @@
+Bootstrap: docker
+From: nvidia/cuda:12.8.0-runtime-rockylinux8
+
+%labels
+    purpose retained_build_runtime_diagnostic_only
+    production_authorized false
+
+%files
+    payload/gromacs /opt/gromacs
+    payload/openmpi /opt/openmpi
+    payload/fftw /opt/fftw
+    payload/SHA256SUMS /opt/probe-payload.sha256
+
+%post
+    set -eu
+    dnf install -y ca-certificates grep libgcc libgomp libstdc++ libxml2 numactl-libs zlib
+    rpm -q libgcc libgomp libstdc++ libxml2 numactl-libs zlib > /opt/probe-runtime-rpms.txt
+    dnf clean all
+    cd /opt
+    sha256sum --check --strict probe-payload.sha256
+
+%environment
+    export PATH=/opt/gromacs/2025.3/bin:/opt/openmpi/4.1.5/bin:$PATH
+    export LD_LIBRARY_PATH=/opt/gromacs/2025.3/lib64:/opt/openmpi/4.1.5/lib:/opt/fftw/3.3.10/lib:/usr/local/cuda/lib64
+    export OMP_NUM_THREADS=1
+    export OMPI_MCA_plm=isolated
+    unset OMPI_MCA_orte_local_tmpdir_base OMPI_MCA_orte_remote_tmpdir_base
+    export OMPI_MCA_orte_tmpdir_base=/tmp
+
+%runscript
+    exec "$@"
+
+%test
+    set -eu
+    export OMPI_ALLOW_RUN_AS_ROOT=1 OMPI_ALLOW_RUN_AS_ROOT_CONFIRM=1
+    export OMPI_MCA_plm=isolated OMPI_MCA_orte_tmpdir_base=/tmp
+    unset OMPI_MCA_orte_local_tmpdir_base OMPI_MCA_orte_remote_tmpdir_base
+    # Exercise the reported host setting while explicitly selecting writable MPI scratch.
+    export TMPDIR=/scratch
+    session_probe=$(mktemp -d /tmp/gmx-runtime-probe.XXXXXXXX)
+    trap 'rm -rf "$session_probe"' EXIT
+    printf 'TMPDIR=%s; MPI session root=%s\n' "$TMPDIR" "$OMPI_MCA_orte_tmpdir_base"
+    dependency_failure=0
+    for binary in /opt/gromacs/2025.3/bin/gmx_mpi /opt/openmpi/4.1.5/bin/orterun /opt/openmpi/4.1.5/bin/orted /opt/openmpi/4.1.5/bin/ompi_info /opt/openmpi/4.1.5/lib/libmpi.so; do
+        printf '\nDependencies: %s\n' "$binary"
+        ldd "$binary" > "$session_probe/ldd.txt" 2>&1 || dependency_failure=1
+        cat "$session_probe/ldd.txt"
+        if grep -q 'not found' "$session_probe/ldd.txt"; then dependency_failure=1; fi
+    done
+    test "$dependency_failure" -eq 0
+    timeout 60 gmx_mpi --version > "$session_probe/version.txt" 2>&1 || {
+        status=$?; cat "$session_probe/version.txt"; exit "$status";
+    }
+    cat "$session_probe/version.txt"
+    grep -E '^GROMACS version: +2025\.3$' "$session_probe/version.txt"
+    grep -E '^MPI library version: +Open MPI v4\.1\.5([, ]|$)' "$session_probe/version.txt"
+    grep -E '^GPU support: +CUDA$' "$session_probe/version.txt"
+    ompi_info --version
+    timeout 60 mpirun --oversubscribe -np 2 /bin/true
+    # Each rank must initialize MPI, not merely execute a non-MPI program.
+    timeout 60 mpirun --oversubscribe -np 2 gmx_mpi --version
+    echo 'RUNTIME_PROBE_PASSED (diagnostic only; GPU and production unqualified)'
