@@ -10,3 +10,6 @@ tmp/
 # SGE task logs (108 per array)
 logs/
 releases/
+
+# Snakemake directory-output markers
+.snakemake_timestamp

@@ -284,6 +284,7 @@ def test_snakemake_cpu_target_uses_completed_inputs_and_never_schedules_gpu(tmp_
         "f64a_lambda_comparator.smk",
         "known_answer_model.smk",
         "exchange_feasibility.smk",
+        "manuscript_figures.smk",
     ):
         (tmp_path / "workflow" / name).write_bytes((ROOT / "workflow" / name).read_bytes())
     package = tmp_path / "pilots/f64a_sampling_extension_v1"

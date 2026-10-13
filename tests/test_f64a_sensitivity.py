@@ -154,6 +154,7 @@ def test_snakemake_sensitivity_cpu_only_and_missing_report_fatal(tmp_path):
                  "workflow/f64a_lambda_comparator.smk",
                  "workflow/known_answer_model.smk",
                  "workflow/exchange_feasibility.smk",
+                 "workflow/manuscript_figures.smk",
                  "pilots/f64a_sampling_extension_v1/cpu_blocks.yaml",
                  "pilots/f64a_sampling_extension_v1/cpu_sensitivity.yaml"):
         (tmp_path / path).write_bytes((ROOT / path).read_bytes())

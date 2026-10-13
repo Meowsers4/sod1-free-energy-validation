@@ -143,8 +143,8 @@ paper focuses on diagnostics; do not present every audit as a separate discovery
 | Figure 3 | A4V repeat spread and reference discrepancy | `review/a4v_sampling_sensitivity.png` |
 | Figure 4 | reference scenarios, fixed predictions/exclusion | `review/reference_sensitivity.png` |
 | Figure 5 | G93A replicate values and contrast interval | `review/g93a_disulfide_diagnostic.png` |
-| Temporal main figure (assembly pending) | F64A early low hysteresis, disjoint-block movement and all late repeats/policies | Existing reports in `f64a_extension_review/`; no new manuscript panel generated in this revision |
-| Lambda supplementary figure (planned) | Per-repeat/per-block fixed-observable movement against actual λ | Publication plan work package A; not yet generated |
+| Figure 6 (temporal main figure) | F64A disjoint 3-ns blocks 0–15 ns, net hysteresis per block, primary v2 contrast under all three policies, adaptive selected suffixes vs actual λ | `manuscript/figures_v1/fig6_f64a_temporal.{png,pdf,json}` (built 2026-10-13 by `manuscript_figures_v1`; reads only hashed v1/v2 reports and verifies every quoted Result 6 value) |
+| Figures S2–S4 (λ supplement) | Fixed λ-pair drift, neighbor-energy descriptions and adaptive-selection context against actual λ | `manuscript/figures_v1/figS2–S4_*.png`, byte-identical copies of the hashed λ-comparator outputs |
 | Table 1 | protocol and archive history, per leg | `raw_result_reconciliation.md` |
 | Table 2 | state/construct/source compatibility | `../data/benchmark_state_audit.csv` |
 | Table 3 | correlation intervals and leave-group-out results | `review/diagnostic_audit.json` |

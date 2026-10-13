@@ -1,0 +1,59 @@
+# Manuscript figure assembly v1 — CPU-only, reads committed/hashed reports only.
+# Builds the F64A temporal main figure (outline Result 6) and copies the
+# completed lambda-comparator figures as supplementary panels. No estimate is
+# recomputed; every plotted number is read from the registered reports below.
+# The builder refuses to run if any hash or quoted outline value disagrees.
+spec_id: manuscript_figures_v1
+output_dir: docs/manuscript/figures_v1
+
+inputs:
+  blocks_v1:
+    path: docs/f64a_extension_review/f64a_blocks_v1.json
+    sha256: bc8355a9b0d7af7eb027eb571d176d9ad9f3771f6109529866965b4bb6d5692e
+  continuation_v2:
+    path: docs/f64a_extension_review/f64a_continuation_v2.json
+    sha256: ddb20589d809682f7ef72a4fddc55c6998c48ca3b7a06b1b466682291a24ab71
+  lambda_comparator:
+    path: results/cpu_audits/f64a_lambda_comparator_v1/lambda_comparator.json
+    sha256: 49fe3be23a29026d4e9e0cca719d3a31bbae957b5303e8758c492a278520cca7
+  pipeline_config:
+    path: config/pipeline.yaml
+
+temporal:
+  output_stem: fig6_f64a_temporal
+  policy: adaptive               # registered primary policy for v1 and v2 blocks
+  blocks:                        # disjoint retained-time blocks, in order
+    - {label: block_0_3_ns, report: blocks_v1, start_ns: 0, stop_ns: 3}
+    - {label: block_3_6_ns, report: blocks_v1, start_ns: 3, stop_ns: 6}
+    - {label: block_6_9_ns, report: blocks_v1, start_ns: 6, stop_ns: 9}
+    - {label: block_9_12_ns, report: continuation_v2, start_ns: 9, stop_ns: 12}
+    - {label: block_12_15_ns, report: continuation_v2, start_ns: 12, stop_ns: 15}
+  registration_boundary_ns: 9    # v1 retained 3-9 ns; v2 retained 9-15 ns
+  primary_contrast: primary_new_blocks
+  policies:                      # label in report -> display name
+    adaptive: Adaptive trim
+    untrimmed: Untrimmed
+    fixed_25_percent: Fixed 25% trim
+  suffix_block: block_12_15_ns
+  suffix_block_raw_columns: 3000
+  # Values quoted in docs/methods_limitations_outline.md (Result 6 / Result 2).
+  # Absolute tolerance covers the outline's six-decimal rounding only.
+  quoted_tolerance: 1.0e-6
+  quoted:
+    r1_early_dg: 2.505942
+    r1_early_net_hysteresis: 0.022705
+    r1_early_sum_abs: 1.678103
+    r1_early_max_abs: 0.222590
+    r1_6_9_dg: 0.429467
+    r1_early_to_6_9_movement: -2.076474
+    adaptive_primary_mean: -0.049510
+    adaptive_primary_r1: -0.695174
+    adaptive_primary_r2: 0.598142
+    untrimmed_primary_mean: 0.579425
+    fixed_25_primary_mean: 0.410739
+    adaptive_12_15_range: 1.946359
+
+supplement:
+  - {source: fixed_pair_metrics.png, output: figS2_lambda_fixed_pair.png}
+  - {source: neighbor_full_block_metrics.png, output: figS3_lambda_neighbor.png}
+  - {source: selection_context.png, output: figS4_adaptive_selection.png}
