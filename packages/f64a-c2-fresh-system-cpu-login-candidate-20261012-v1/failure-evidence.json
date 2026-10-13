@@ -1,0 +1,17 @@
+{
+  "job_id": "8032575",
+  "selected_manifest_sha256": "2df16c4e9930a89a2a141438386677bae225c13041891c4a0765c63c85d17a2c",
+  "queue": "p8",
+  "host": "scc-pf8.scc.bu.edu",
+  "granted_pe": "omp8",
+  "slots": 8,
+  "failed": 0,
+  "exit_status": 1,
+  "wall_seconds": 1,
+  "batch_modulepath_undefined": true,
+  "conda_activation_failed": true,
+  "fallback_python_syntax_error": true,
+  "prepared_exists": false,
+  "prepared_incomplete_exists": false,
+  "source": "user-supplied submission/job.log, output-tree checks and qacct excerpt"
+}

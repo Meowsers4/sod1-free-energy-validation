@@ -1,0 +1,39 @@
+{
+  "scope": "isolated_cpu_only_f64a_folded_r3_system_build_rehearsal",
+  "variant": "F64A",
+  "leg": "folded",
+  "repeat": 3,
+  "source_repo": "/projectnb/rise-batteries/bode/rise-project",
+  "candidate_manifest_sha256": "3d81f4c8c077e736919da9e54b7d60bcdcc432748cccf6d21548b76c4b02559d",
+  "release_candidate_manifest_sha256": "015b32ea7a038ac069dfd36557da7795d7f65d0677bcc2fcbd6bdc941974451d",
+  "failed_selected_manifest_sha256": "2df16c4e9930a89a2a141438386677bae225c13041891c4a0765c63c85d17a2c",
+  "login_candidate_manifest_sha256": "1c926cf2349aeb43602c3e39a93453b7c38324a487dbd6fe652f6729065b8a28",
+  "source_wt_relative": "results/fep/F64A/inputs/wt_apo.pdb",
+  "source_wt_sha256": "394776d7388e79c8de7ecd46b96b16c1eaf3aaa3a7e4a4a1a2173db397bc6f29",
+  "source_config_relative": "config/pipeline.yaml",
+  "source_config_sha256": "af866a49f017d40af13101b561906cb049e336be1741d2d2255ce50b2e9dde29",
+  "panel_csv_sha256": "2e5b8fde7a6fc7d7ec47f60e27ab6a85f5a5723d82871be341ddb9f070f96597",
+  "source_code_sha256": {
+    "src/fep/pmx_engine.py": "64aa5a2897d7f565195c7bb4250399115727cf1f167d3d97259e0554aad36512",
+    "src/prep/build.py": "84688d26188b17126c573f249f73697295c96bf7c7cd8222c531cc636e2c9441",
+    "src/panel/build.py": "c84b14913c3db302f759b79ed06e311759e16b749c5cf20e5f0f658a99306abe",
+    "src/panel/interface.py": "385b52975bbccfe7d4c66cce7c946b616f6a866c8ab29f8e7d07ce1fc230eb7a",
+    "scripts/scc_env.sh": "cb7e3e7e0aa3c4b3fa2d12bd75c2cebd01cafce56169ffe894d6e65fae298c7e"
+  },
+  "historical_ion_seeds": [331504349, 313761282, 1063212952],
+  "historical_ions_gro_sha256": [
+    "e422aa39fd78882d5d0c607bcb8d4d78a6147a7de467a54c4e7cdc121a4a3508",
+    "09ef202d2667cbe367cf1bdb1fe797bdbc6cd5ea7281a3d6b1d9837c4c8ff22c",
+    "36b003c612b91ce129b1f6e18d9519c7ca8104a201be1c854afac71a642350bf"
+  ],
+  "expected_r3_ion_seed": 2072077476,
+  "expected_atom_count": 38414,
+  "expected_ion_counts": {"NA": 41, "CL": 36},
+  "output_root": "prepared",
+  "requested_cpu_slots": 8,
+  "scheduler_walltime": "01:00:00",
+  "lambda_aware_state_starts_in_scope": false,
+  "gpu_requested": false,
+  "execution_authorized": false,
+  "production_authorized": false
+}

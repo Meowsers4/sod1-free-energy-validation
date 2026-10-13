@@ -1,0 +1,54 @@
+# Reviewable GPU runtime code; this candidate cannot execute or submit.
+schema_version: 1
+scope: f64a_folded_apo_2sh_r0_paired_100ps_timing_scout_candidate
+execution_authorized: false
+production_authorized: false
+prepared_source:
+  path: /project/rise-batteries/bode/container-build-packages/f64a-c2-scout-runtime-cpu-20260929-v1/prepared
+  package_manifest_sha256: 8d8919e005da81b44e8dbd973a5935eda406f4e23c9c1f8b3d8abd59f4a288af
+  prepared_manifest_sha256: cffefe198d66e670ebc7db2960039e2cfc159e64bb238af7d5c3fe13c7f64487
+  prepared_manifest_entries: 381
+image:
+  path: /projectnb/rise-batteries/bode/containers/builds/gmx-hrex.IylQZ9Uj/gromacs-2025.3-mpi-cuda-l40s.sif
+  sha256: 0e3770f4506a2c376a3cf7a635971c0dd01161417cc3e613c8351446bb0d45ee
+  gmx: /opt/gromacs/2025.3/bin/gmx_mpi
+  mpirun: /opt/openmpi/4.1.5/bin/mpirun
+  python: /usr/libexec/platform-python
+scheduler:
+  project: rise-batteries
+  queue: l40s
+  pe: omp16
+  slots: 16
+  gpus: 1
+  gpu_type: L40S
+  ranks: 20
+  threads: 1
+  walltime_seconds: 7200
+  work_deadline_seconds: 6300
+  attempts_per_arm: 1
+  storage_stop_bytes_each: 805306368
+  storage_cap_bytes_each: 1073741824
+  minimum_free_bytes_each: 3221225472
+cpu_sharing:
+  mode: explicit_oversubscription
+  affinity_cpus: 16
+  mpi_yield_when_idle: 1
+sharing:
+  mode: private_MPS
+  control_timeout_seconds: 5
+  graceful_stop_seconds: 40
+  shutdown_timeout_seconds: 10
+scout:
+  nsteps: 50000
+  dt_ps: 0.002
+  energy_stride: 500
+  coordinate_stride: 25000
+  log_stride: 5000
+  checkpoint_minutes: 15
+  maxh_hours: 1.7
+  baseline_replex: 0
+  hrex_replex: 500
+  hrex_seed: 20260929
+  arm_order: [baseline, hrex]
+  no_planned_restart: true
+  no_automatic_retry: true

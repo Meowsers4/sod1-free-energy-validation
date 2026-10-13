@@ -1,0 +1,13 @@
+#!/bin/bash -l
+#$ -N c2-branch-fixture
+#$ -P rise-batteries
+#$ -q l40s
+#$ -pe omp16 16
+#$ -l gpus=1,gpu_type=L40S
+#$ -l h_rt=00:30:00
+#$ -r n
+#$ -j y
+#$ -cwd
+set -euo pipefail
+export PYTHONDONTWRITEBYTECODE=1
+exec /usr/libexec/platform-python runtime.py job

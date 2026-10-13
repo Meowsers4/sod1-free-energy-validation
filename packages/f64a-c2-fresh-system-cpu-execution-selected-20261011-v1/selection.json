@@ -1,0 +1,13 @@
+{
+  "decision": "one_isolated_r3_cpu_system_build",
+  "selection_date": "2026-10-11",
+  "authorization_source": "user direction after passing inactive release review",
+  "release_candidate_manifest_sha256": "015b32ea7a038ac069dfd36557da7795d7f65d0677bcc2fcbd6bdc941974451d",
+  "repeat": 3,
+  "max_jobs": 1,
+  "cpu_slots": 8,
+  "walltime": "01:00:00",
+  "gpu_requested": false,
+  "automatic_retry": false,
+  "production_authorized": false
+}

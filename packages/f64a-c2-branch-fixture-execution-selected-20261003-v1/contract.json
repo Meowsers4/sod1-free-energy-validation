@@ -1,0 +1,244 @@
+{
+  "cpu_sharing": {
+    "affinity_cpus": 16,
+    "mode": "explicit_oversubscription",
+    "mpi_yield_when_idle": 1
+  },
+  "execution_authorized": true,
+  "expected_atom_count": 38414,
+  "expected_dt_ps": 0.002,
+  "expected_lambdas": [
+    0.0,
+    0.0588,
+    0.1176,
+    0.1765,
+    0.2353,
+    0.2941,
+    0.3529,
+    0.4118,
+    0.4706,
+    0.5294,
+    0.5882,
+    0.6471,
+    0.7059,
+    0.7647,
+    0.8235,
+    0.8824,
+    0.92,
+    0.95,
+    0.975,
+    1.0
+  ],
+  "expected_source_nsteps": 2000,
+  "fixture": {
+    "common_step": 1100,
+    "expected_exchange_steps": [
+      1500,
+      2000,
+      2500
+    ],
+    "hrex_replex": 500,
+    "hrex_seed": 20261001,
+    "output_strides": {
+      "nstdhdl": 100,
+      "nstenergy": 100,
+      "nstxout-compressed": 200
+    },
+    "retained_steps": {
+      "baseline": 2000,
+      "hrex": 1500
+    }
+  },
+  "forcefield_root": "/projectnb/rise-batteries/bode/.conda/envs/sod1-fep/lib/python3.11/site-packages/pmx/data/mutff",
+  "gpu_type": "L40S",
+  "gpus": 1,
+  "image": {
+    "gmx": "/opt/gromacs/2025.3/bin/gmx_mpi",
+    "mpirun": "/opt/openmpi/4.1.5/bin/mpirun",
+    "path": "/projectnb/rise-batteries/bode/containers/builds/gmx-hrex.IylQZ9Uj/gromacs-2025.3-mpi-cuda-l40s.sif",
+    "python": "/usr/libexec/platform-python",
+    "sha256": "0e3770f4506a2c376a3cf7a635971c0dd01161417cc3e613c8351446bb0d45ee"
+  },
+  "image_path": "/projectnb/rise-batteries/bode/containers/builds/gmx-hrex.IylQZ9Uj/gromacs-2025.3-mpi-cuda-l40s.sif",
+  "image_sha256": "0e3770f4506a2c376a3cf7a635971c0dd01161417cc3e613c8351446bb0d45ee",
+  "min_filesystem_free_bytes": 3221225472,
+  "min_project_quota_free_bytes": 3221225472,
+  "pe": "omp16",
+  "persistent_root": "/project/rise-batteries/bode/container-build-packages",
+  "preflight": {
+    "package_manifest_sha256": "66ecf45d671fca74909d897ae356dec3bd515197dfbcf0851225744773e3389e",
+    "path": "/project/rise-batteries/bode/container-build-packages/f64a-c2-branch-fixture-preflight-20261001-v1/preflight.json"
+  },
+  "production_authorized": false,
+  "project": "rise-batteries",
+  "queue": "l40s",
+  "ranks": 20,
+  "release_source_candidate_sha256": "27e712a4dfc1e43d8e1d1eb3a8544224d86be95b4e758a33a27f327eb5de92d3",
+  "reviewed_release_candidate_sha256": "951d9f722fe693935fb3c7d2788bc4d503125e3dae6746551d854dbf5896268f",
+  "scheduler": {
+    "gpu_type": "L40S",
+    "gpus": 1,
+    "minimum_free_bytes_each": 3221225472,
+    "pe": "omp16",
+    "project": "rise-batteries",
+    "queue": "l40s",
+    "ranks": 20,
+    "slots": 16,
+    "storage_cap_bytes_each": 2147483648,
+    "storage_stop_bytes_each": 1610612736,
+    "threads": 1,
+    "walltime_seconds": 1800,
+    "work_deadline_seconds": 1560
+  },
+  "schema_version": 1,
+  "scope": "f64a_c2_live_branch_fixture_runtime",
+  "selection_record": {
+    "decision": "one_bounded_technical_live_branch_fixture",
+    "decision_date_local": "2026-10-03 America/Chicago",
+    "max_allocated_gpu_hours": 0.5,
+    "max_requested_cpu_slot_hours": 8,
+    "no_retry": true,
+    "production_authorized": false,
+    "reviewed_release_candidate_sha256": "951d9f722fe693935fb3c7d2788bc4d503125e3dae6746551d854dbf5896268f",
+    "su_balance_agent_verified": false,
+    "su_balance_decision": "user_reported_balance",
+    "su_balance_reported_by": "user",
+    "su_balance_su_reported": 15000,
+    "su_charge_rate_known": false,
+    "user_selection": "In response to the one-fixture selection question, user replied: continue. SU balance is 15k, which is more than enough."
+  },
+  "sharing": {
+    "control_timeout_seconds": 5,
+    "graceful_stop_seconds": 40,
+    "mode": "private_MPS",
+    "shutdown_timeout_seconds": 10
+  },
+  "slots": 16,
+  "source_manifest_entries": 344,
+  "source_manifest_sha256": "858070ac1c8d757d0fdb0fa744148865e24abdccb8d82e3d1a670698734e77b9",
+  "source_prepared": "/projectnb/rise-batteries/bode/container-build-packages/f64a-protein-technical-20260928-v1/prepared",
+  "source_spec_sha256": "155a24a60191334c0c06a3e02d3c21ecf51cea0902f5ebe5e53370b3c6c322cf",
+  "states": [
+    {
+      "directory": "state00",
+      "lambda_value": 0.0,
+      "local_index": 0,
+      "tpr_sha256": "0c079617ddd45bdc8548e6c0ab11a9af156dbeaef77fb0bf6665c531803b31a6"
+    },
+    {
+      "directory": "state01",
+      "lambda_value": 0.0588,
+      "local_index": 1,
+      "tpr_sha256": "7df76e5c769e9dc8c197cc4b15bb09a75b5f8dc7ad2377e29d2a3ccb16e9dfe3"
+    },
+    {
+      "directory": "state02",
+      "lambda_value": 0.1176,
+      "local_index": 2,
+      "tpr_sha256": "9839dfcda4d6322470193986a5e89e6bcb085441c61a33231082ddee0727bd86"
+    },
+    {
+      "directory": "state03",
+      "lambda_value": 0.1765,
+      "local_index": 3,
+      "tpr_sha256": "7afb8d0d14b41721a67b0c55d113c2684fc7bb559826aeb77341de006b071613"
+    },
+    {
+      "directory": "state04",
+      "lambda_value": 0.2353,
+      "local_index": 4,
+      "tpr_sha256": "fe52f50ffd6b915d9df8d88b494ed879e96b28f8d03807a6710efe34c9b69ec4"
+    },
+    {
+      "directory": "state05",
+      "lambda_value": 0.2941,
+      "local_index": 5,
+      "tpr_sha256": "392c5ed26427bf0dd1d0271b8c9691d6849f0d6cc91f138ad02c26066ed49aca"
+    },
+    {
+      "directory": "state06",
+      "lambda_value": 0.3529,
+      "local_index": 6,
+      "tpr_sha256": "5a767a7565d21b6b902af853693946a3d47b8a9291d7cc669859f213bf8cb088"
+    },
+    {
+      "directory": "state07",
+      "lambda_value": 0.4118,
+      "local_index": 7,
+      "tpr_sha256": "484226714cd7b8f522c6f93454ab2134f25d9f57a5963aaeefc4b7dae27d64ba"
+    },
+    {
+      "directory": "state08",
+      "lambda_value": 0.4706,
+      "local_index": 8,
+      "tpr_sha256": "f8489bee0d3ed7f27353136d909651df54f9336967c10a50cf3c17c4f77c39c6"
+    },
+    {
+      "directory": "state09",
+      "lambda_value": 0.5294,
+      "local_index": 9,
+      "tpr_sha256": "1f7355e7341184117ba432f810c895b500e54a59c68cc67f2b7d542309bc0d5f"
+    },
+    {
+      "directory": "state10",
+      "lambda_value": 0.5882,
+      "local_index": 10,
+      "tpr_sha256": "62863e957f3a694d46c78208212edceeed89d1c071c888c3378c55050fa347fc"
+    },
+    {
+      "directory": "state11",
+      "lambda_value": 0.6471,
+      "local_index": 11,
+      "tpr_sha256": "c8c4595ccc4633953b80197132c1b271ea37fda21f5e8b1b31c6f040f4a9737c"
+    },
+    {
+      "directory": "state12",
+      "lambda_value": 0.7059,
+      "local_index": 12,
+      "tpr_sha256": "c99956ea00e6c3f366ab3794911768b7ced9459b94820de705e9079f5bfd7972"
+    },
+    {
+      "directory": "state13",
+      "lambda_value": 0.7647,
+      "local_index": 13,
+      "tpr_sha256": "7011d763ea7e999a9c94b551623cca99d73435fd9ca6cdb292d45276a46d5b06"
+    },
+    {
+      "directory": "state14",
+      "lambda_value": 0.8235,
+      "local_index": 14,
+      "tpr_sha256": "2b03f9b40b9c152ae254d487e1726c6dc1812cf33d6461a03ee422eed76a7fab"
+    },
+    {
+      "directory": "state15",
+      "lambda_value": 0.8824,
+      "local_index": 15,
+      "tpr_sha256": "84c44dff148f43756a90a2f3e0a4ea451800be6e5cf121578fbd33cc0ca3cee4"
+    },
+    {
+      "directory": "state16",
+      "lambda_value": 0.92,
+      "local_index": 16,
+      "tpr_sha256": "ad0ce7703d24400931c4da88bfc9b04a6e5ae9f72df8bb42f7dc8d02eaf5def7"
+    },
+    {
+      "directory": "state17",
+      "lambda_value": 0.95,
+      "local_index": 17,
+      "tpr_sha256": "07262424bc9492aee3207ba654d8675a1f1fd4c84611685ca59513c3488a6400"
+    },
+    {
+      "directory": "state18",
+      "lambda_value": 0.975,
+      "local_index": 18,
+      "tpr_sha256": "9e76466d389c22f7f3a66b8ab7a97d3eb163fae4d17bfd3925ea159527500d0f"
+    },
+    {
+      "directory": "state19",
+      "lambda_value": 1.0,
+      "local_index": 19,
+      "tpr_sha256": "37f47a745f0d2ecfa7cf6aed7aa850be2cfb225c653dcc4532d92568d99b72e6"
+    }
+  ],
+  "walltime": "00:30:00"
+}

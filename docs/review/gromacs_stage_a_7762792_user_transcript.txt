@@ -1,0 +1,292 @@
+(brp-w1)[bodeb@scc-505 gmx-mps-probe-20260927-v1]$ cat attempt/result.json
+{
+  "sharing_passed": true,
+  "cleanup_confirmed": true,
+  "gpu_uuid": "GPU-7ab63c30-8edc-e49c-e306-922c040486e6",
+  "mpi_tested": false,
+  "dynamics_tested": false
+}(brp-w1)[bodeb@scc-505 gmx-mps-probe-20260927-v1]$ ezit
+-bash: ezit: command not found
+(brp-w1)[bodeb@scc-505 gmx-mps-probe-20260927-v1]$ Connection to scc-505.scc.bu.edu closed by remote host.
+(brp-w1)[bodeb@scc-i01 ~]$ cd /projectnb/rise-batteries/bode/container-build-packages/gmx-gpu-stage-a-20260927-v4-mps &&
+> sha256sum -c SHA256SUMS &&
+> bash PREPARE_ON_SCC.sh &&
+> bash REVIEW_ON_SCC.sh &&
+> bash REPLACE_AND_SUBMIT_ON_SCC.sh
+PREPARE_ON_SCC.sh: OK
+README.md: OK
+REPLACE_AND_SUBMIT_ON_SCC.sh: OK
+REVIEW_ON_SCC.sh: OK
+contract.json: OK
+generator.py: OK
+historical-pipeline.yaml: OK
+inputs/conf.gro: OK
+inputs/state00.mdp: OK
+inputs/state01.mdp: OK
+inputs/state02.mdp: OK
+inputs/state03.mdp: OK
+inputs/topol.top: OK
+mps.py: OK
+runtime.py: OK
+source-spec.yaml: OK
+stage_A.sge: OK
+workflow-source.smk: OK
+EXISTING_TPRS_IMPORTED_AND_VERIFIED; no grompp or GPU job run
+PACKAGE_AND_PREPARED_INPUTS_VERIFIED; submission remains a separate decision
+PREPARE_ON_SCC.sh: OK
+README.md: OK
+REPLACE_AND_SUBMIT_ON_SCC.sh: OK
+REVIEW_ON_SCC.sh: OK
+contract.json: OK
+generator.py: OK
+historical-pipeline.yaml: OK
+inputs/conf.gro: OK
+inputs/state00.mdp: OK
+inputs/state01.mdp: OK
+inputs/state02.mdp: OK
+inputs/state03.mdp: OK
+inputs/topol.top: OK
+mps.py: OK
+runtime.py: OK
+source-spec.yaml: OK
+stage_A.sge: OK
+workflow-source.smk: OK
+PACKAGE_AND_PREPARED_INPUTS_VERIFIED; submission remains a separate decision
+verification: found suitable queue(s)
+7762792
+One-GPU replacement submitted. Preserve the new job ID and logs.
+(brp-w1)[bodeb@scc-i01 gmx-gpu-stage-a-20260927-v4-mps]$ qstat -u bodeb
+(brp-w1)[bodeb@scc-i01 gmx-gpu-stage-a-20260927-v4-mps]$ tail -n 60 -F /projectnb/rise-batteries/bode/container-build-packages/gmx-gpu-stage-a-20260927-v4-mps/submission-A/job.log
+{
+  "technical_status": "pass_pending_review_and_accounting",
+  "stage": "A",
+  "production_authorized": false,
+  "job_id": "7762792",
+  "accounting": "pending_qacct",
+  "failure": null,
+  "mps_cleanup_confirmed": true,
+  "mps_four_clients_observed": true,
+  "wall_seconds": 8.91108157596318,
+  "allocated_gpu_hours_observed": 0.0024753004377675502
+}
+Private scratch retained: /scratch/gmx-smoke-A-7762792.tpam9sla
+^C
+(brp-w1)[bodeb@scc-i01 gmx-gpu-stage-a-20260927-v4-mps]$ cd /projectnb/rise-batteries/bode/container-build-packages/gmx-gpu-stage-a-20260927-v4-mps &&
+> cat attempt/mps-overlap.json attempt/permutations.json
+{
+  "gpu_uuid": "GPU-48f8c4f9-3f7d-4979-a18d-0916a5aa435c",
+  "servers": {
+    "649761": [
+      649823,
+      649824,
+      649825,
+      649826
+    ]
+  },
+  "rank_pids": [
+    649823,
+    649824,
+    649825,
+    649826
+  ]
+}[
+  {
+    "accepted_pairs": [
+      [
+        0,
+        1
+      ],
+      [
+        2,
+        3
+      ]
+    ],
+    "state_to_walker": [
+      1,
+      0,
+      3,
+      2
+    ],
+    "step": 100
+  },
+  {
+    "accepted_pairs": [
+      [
+        1,
+        2
+      ]
+    ],
+    "state_to_walker": [
+      1,
+      3,
+      0,
+      2
+    ],
+    "step": 200
+  },
+  {
+    "accepted_pairs": [
+      [
+        0,
+        1
+      ],
+      [
+        2,
+        3
+      ]
+    ],
+    "state_to_walker": [
+      3,
+      1,
+      2,
+      0
+    ],
+    "step": 300
+  },
+  {
+    "accepted_pairs": [
+      [
+        1,
+        2
+      ]
+    ],
+    "state_to_walker": [
+      3,
+      2,
+      1,
+      0
+    ],
+    "step": 400
+  },
+  {
+    "accepted_pairs": [
+      [
+        0,
+        1
+      ],
+      [
+        2,
+        3
+      ]
+    ],
+    "state_to_walker": [
+      2,
+      3,
+      0,
+      1
+    ],
+    "step": 500
+  },
+  {
+    "accepted_pairs": [
+      [
+        1,
+        2
+      ]
+    ],
+    "state_to_walker": [
+      2,
+      0,
+      3,
+      1
+    ],
+    "step": 600
+  },
+  {
+    "accepted_pairs": [
+      [
+        0,
+        1
+      ],
+      [
+        2,
+        3
+      ]
+    ],
+    "state_to_walker": [
+      0,
+      2,
+      1,
+      3
+    ],
+    "step": 700
+  },
+  {
+    "accepted_pairs": [
+      [
+        1,
+        2
+      ]
+    ],
+    "state_to_walker": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "step": 800
+  },
+  {
+    "accepted_pairs": [
+      [
+        0,
+        1
+      ],
+      [
+        2,
+        3
+      ]
+    ],
+    "state_to_walker": [
+      1,
+      0,
+      3,
+      2
+    ],
+    "step": 900
+  }
+]
+(brp-w1)[bodeb@scc-i01 gmx-gpu-stage-a-20260927-v4-mps]$ qacct -j 7762792
+==============================================================
+qname        l40s                
+hostname     scc-502.scc.bu.edu  
+group        rise-batteries      
+owner        bodeb               
+project      rise-batteries      
+department   defaultdepartment   
+jobname      gmx-smoke-A-MPS     
+jobnumber    7762792             
+taskid       undefined
+account      sge                 
+priority     0                   
+qsub_time    Sun Sep 27 23:37:48 2026
+start_time   Sun Sep 27 23:39:30 2026
+end_time     Sun Sep 27 23:39:44 2026
+granted_pe   omp                 
+slots        4                   
+failed       0    
+exit_status  0                   
+ru_wallclock 14           
+ru_utime     4.755        
+ru_stime     4.735        
+ru_maxrss    135776              
+ru_ixrss     0                   
+ru_ismrss    0                   
+ru_idrss     0                   
+ru_isrss     0                   
+ru_minflt    309989              
+ru_majflt    3549                
+ru_nswap     0                   
+ru_inblock   4782376             
+ru_oublock   23368               
+ru_msgsnd    0                   
+ru_msgrcv    0                   
+ru_nsignals  0                   
+ru_nvcsw     41733               
+ru_nivcsw    121481              
+cpu          9.490        
+mem          6.749             
+io           2.244             
+iow          0.000             
+maxvmem      29.224G
+arid         undefined

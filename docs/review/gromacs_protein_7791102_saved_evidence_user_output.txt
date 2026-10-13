@@ -1,0 +1,9 @@
+exchange_rounds=19 attempted=181 accepted=113
+neighbor_attempts_accepts=0-1:10/6 1-2:9/7 2-3:10/8 3-4:9/5 4-5:10/7 5-6:9/6 6-7:10/6 7-8:9/5 8-9:10/6 9-10:9/5 10-11:10/6 11-12:9/5 12-13:10/4 13-14:9/2 14-15:10/7 15-16:9/5 16-17:10/9 17-18:9/8 18-19:10/6
+checkpoints=20; each state 1000/2ps/part1 to 2000/4ps/part2
+pre_checkpoint_data_preserved=True boundary_output_unique=True
+phase1_mps_clients=20 server=826770 gpu=GPU-9dab95cd-93b6-8551-58e3-71a474c82587
+phase2_mps_clients=20 server=826770 gpu=GPU-9dab95cd-93b6-8551-58e3-71a474c82587
+cpu_affinity=20 ranks within 16 selected CPU IDs
+output_hashes_verified=614
+STAGE_P_SAVED_EVIDENCE_CHECK_PASS

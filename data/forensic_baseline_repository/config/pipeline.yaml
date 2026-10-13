@@ -1,0 +1,361 @@
+# pipeline.yaml — global parameters for the SOD1 FEP variant pipeline
+# Every stage reads from here. Do not hardcode these values in scripts.
+# README.md §9 (Open decisions) resolved 2026-07-16 with the user. No TODOs remain.
+
+project:
+  name: sod1-fep
+  target: SOD1
+  uniprot: P00441
+  # Mature protein has initiator Met removed -> 153 residues.
+  # Variant names (A4V, G93A) use MATURE numbering. This offset lives here, once.
+  mature_offset: 1          # precursor_pos = mature_pos + mature_offset
+  n_residues_mature: 153
+
+structure:
+  form: apo                 # apo | holo   -- KEEP apo for v1 (README §2.1)
+  disulfide: reduced        # reduced | oxidized  (apo disease-relevant = reduced)
+  starting_pdb: 3ECU        # apo (no metals), WT human SOD1, 1.90 Å, 4 chains in the AU (RCSB 3ECU)
+                            # NB: 3ECU is apo but disulfide-OXIDIZED (SSBOND Cys57-Cys146, 2.04 Å).
+                            # src/prep/build.py breaks that bond before protonating and verifies
+                            # the result; do not assume "apo" implies "reduced" here.
+  fallback_pdb: 2C9V        # 1.07 Å metallated; strip metals + re-equilibrate IF apo loop rebuild is unstable
+  default_oligomer: monomer # monomer | dimer -- per-variant override in variants.csv
+  interface_cutoff_A: 5.0   # residue -> dimer if any heavy atom within this of the partner monomer (Stage 0)
+  water_model: tip3p        # pmx's mutff ships tip3p.itp/.gro -- keep tip3p
+  ff_protein: amber99sb-star-ildn   # DESCRIPTIVE ONLY -- the authoritative value for
+                            # Stage 3 is fep.pmx_forcefield (amber99sb-star-ildn-mut),
+                            # since the alchemical mutation must use a force field pmx has
+                            # hybrid parameters for. pmx/data/mutff45 ships complete
+                            # GROMACS force fields (aminoacids.rtp, ffbonded/ffnonbonded,
+                            # forcefield.itp, tip3p.itp) plus its mutres.* overlay, so
+                            # pdb2gmx uses them directly via GMXLIB.
+                            # Stage 1 prep is unaffected: on the FEP path it only emits
+                            # coordinates (solvate=False, no force field constructed) and
+                            # pdb2gmx rebuilds hydrogens under the pmx force field anyway.
+  ion_conc_M: 0.15
+  ph: 7.0                   # Stage 1 protonation pH (PDBFixer addMissingHydrogens)
+  solvent_padding_nm: 1.2   # min solute-box padding. Used by Stage 1 (Modeller.addSolvent)
+                            # AND by Stage 3 (`editconf -d`).
+                            # RAISED from 1.0 on 2026-08-09. At 1.0 against
+                            # fep.nonbonded_cutoff_nm 1.0 the minimum periodic-image
+                            # distance was exactly 2x the cutoff -- the theoretical floor,
+                            # with no slack for the protein reorienting or the box
+                            # breathing under NPT. Costs ~20% more atoms per window.
+                            # Changing this invalidates every cached system/ directory.
+  rebuild_missing_loops: true  # 3ECU has disordered metal-binding loops (D5) -> rebuild
+
+panel:
+  csv: data/variants.csv                            # Stage 0 output (source of truth)
+  controls_csv: data/sod1_controls_apo_monomer.csv
+                            # Controls compiled by Kumar 2017 Table S1 (Sci Rep 7:4678). NOT
+                            # "verified apo-monomer" -- that comment was wrong and was removed
+                            # 2026-09-12. Kumar is a COMPILATION with no stated conditions; the
+                            # upstream measurements are apo but disulfide-INTACT (we simulate
+                            # 2SH). G93S/G93V `exp_ddg` are whole-dimer apo DSC values at
+                            # 49.4 C, not monomer values at 25 C; `exp_ddg_dimer` holds the
+                            # corresponding holo-dimer values. See reference_state_audit.md.
+  uncharacterized_csv: data/uncharacterized_variants.csv  # Route B input (variant,bucket,clinvar_id)
+  target_size: 40           # v1 panel size (README suggests 30-50)
+  min_positive_controls: 10 # gate power depends on control count+spread (D3); quality over count
+  require_controls: true    # fail fast if no positive controls present
+  buckets:                  # expected stratification labels
+    - positive_control
+    - negative_control
+    - pathogenic_uncharacterized
+    - vus
+
+prescreen:                  # Stage 2 — cheap empirical ddG (CPU)
+  methods:
+    - foldx
+    - rosetta_cartesian_ddg
+  runs_per_variant: 5       # FoldX BuildModel averaging
+  validate_on_controls: true
+  rosetta_reu_per_kcal: 2.94   # divide Rosetta cartesian ddG (REU) by this -> kcal/mol
+  min_pearson_controls: 0.5    # advisory: warn if prescreen-vs-experiment r on controls is below this
+  # Both methods report positive = destabilizing, matching validation.ddg_sign.
+
+fep:                        # Stage 3 — the cluster workhorse (GPU)
+  framework: gromacs_pmx    # openmm_perses | gromacs_pmx | amber_ti
+                            # D1 REVISED 2026-07-27: GROMACS + pmx. pmx was built for
+                            # protein mutation FEP, needs no OpenEye, and its workflow is
+                            # file-based rather than depending on perses' version-drifty
+                            # lower-level API. Also the provenance tag on every result.
+  lambda_windows: 20        # 12 | 18 | 24  -- cost vs precision.
+                            # Windows run independently (no replica exchange), so neighbour
+                            # overlap comes from window density alone. Cutting the count is
+                            # the one economy that biases ddG rather than just adding noise
+                            # -- cut replicates/length first.
+                            # RAISED 18 -> 20 on 2026-08-15 for the F64A endpoint (see
+                            # lambda_vector). Array size is legs*windows*replicates = 120,
+                            # so submit_array.sh's `#$ -t` was updated to match.
+  lambda_vector:            # F64A's folded leg (docs/f64a_folded_leg_failure.md) showed a
+                            # HEALTHY ladder with one reproducible hole at the very top:
+                            # mean adjacent overlap 0.145, but 16->17 was 0.047/0.033/0.030
+                            # across the three replicates while 15->16 -- at IDENTICAL
+                            # 0.0588 spacing -- was 0.32. A tenfold difference at the same
+                            # spacing is an endpoint effect, not a spacing effect: the last
+                            # decoupling step opens the cavity and shifts the energy
+                            # distribution more than any other step.
+                            # The thin MID-ladder pairs (2-3, 9-10, 10-11, 12-13) move
+                            # between replicates and are undersampling noise, not a coarse
+                            # ladder -- the same signature HANDOFF recorded for A4V. They
+                            # are NOT refined here; independent_replicate_systems addresses
+                            # them instead.
+                            # So: everything below 0.88 is the old uniform i/17 ladder,
+                            # unchanged, and the four windows above it tighten 0.0588 ->
+                            # 0.025 into the endpoint. Every healthy pair is preserved and
+                            # the change is auditable against that run.
+    - 0.0000
+    - 0.0588
+    - 0.1176
+    - 0.1765
+    - 0.2353
+    - 0.2941
+    - 0.3529
+    - 0.4118
+    - 0.4706
+    - 0.5294
+    - 0.5882
+    - 0.6471
+    - 0.7059
+    - 0.7647
+    - 0.8235
+    - 0.8824
+    - 0.9200
+    - 0.9500
+    - 0.9750
+    - 1.0000
+                            # null = uniform spacing over lambda_windows (the historical
+                            # ladder). A list overrides the SPACING but not the COUNT: it
+                            # must have exactly lambda_windows entries, ascend strictly, and
+                            # start at 0.0 and end at 1.0 (src.fep.pmx_engine.lambda_ladder
+                            # enforces all three). Use it to put windows where overlap is
+                            # thin instead of refining uniformly -- F64A's folded leg had
+                            # min adjacent overlap 0.018 at HIGH lambda (cavity opening as
+                            # the benzyl group is deleted) while the low end was healthy.
+                            # Changing this changes the .mdp and therefore the protocol
+                            # hash: existing windows become unmixable with new ones.
+  independent_replicate_systems: true
+                            # TURNED ON 2026-08-15 for the F64A rerun.
+                            # false = one solvated, minimised system per (variant, leg),
+                            # shared by every replicate; replicates differ only in velocity
+                            # seed. That is why F64A's three replicates agreed to 0.64
+                            # kcal/mol while the folded leg's hysteresis ran 1.00-2.52 --
+                            # they were stuck behind the same solvent barrier, so the spread
+                            # measured nothing and ddg_err understated the error ~10x.
+                            # true = each replicate builds its own box (system_r<rep>/,
+                            # distinct genion placement), which is how you sample a slow
+                            # mode you cannot cross within a window. Costs one extra system
+                            # build per replicate (minutes of CPU, not GPU).
+                            # This does NOT appear in the .mdp, so it is folded into the
+                            # protocol hash separately (pmx_engine.protocol_extra) -- when
+                            # false the hash is byte-identical to before it existed.
+  replicates: 3             # >=3 required. 3 = the FLOOR, do not go lower.
+                            # The former 3 -> 5 plan was retired with the GPU campaign on
+                            # 2026-09-14. Keep this frozen for provenance. Any future campaign
+                            # needs a new preregistration and matching array bounds.
+  legs:                     # thermodynamic cycle
+    - folded                # mutation in the folded protein
+    - unfolded              # mutation in capped tripeptide reference
+  softcore: true
+  estimator: mbar
+  temperature_K: 298.15     # reduced potentials -> kcal/mol conversion (kT)
+  # Production time per lambda window. Either a single number (both legs) or a
+  # per-leg mapping. PER-LEG because the two legs have very different problems: across
+  # A4V/G93A/I149A/I18V the unfolded leg reproduces to 0.05-0.23 kcal/mol across
+  # independent boxes with hysteresis never above 0.26, while the folded leg spreads up
+  # to 1.46. A capped tripeptide in water relaxes in tens of ps and has no slow mode to
+  # get stuck in; the folded protein does. Sampling them equally spends ~30% of the
+  # compute where there is no defect.
+  ns_per_window:
+    folded: 9             # TRIPLED 2026-09-03 after the gate failed at r=0.326.
+    unfolded: 3           # Unfolded left alone -- it is already converged.
+  equilibration_ns:         # discarded before MBAR; buys RELAXATION, not samples
+    folded: 2.0           # raised with production: the diagnosis is that the folded leg
+    unfolded: 0.5         # does not RELAX, and discarded time is what buys relaxation.
+  # --- real Perses window: integrator / ensemble / alchemy (read by src/fep/window.py) ---
+  # Solvation reuses structure.solvent_padding_nm + structure.ion_conc_M (Perses solvates the
+  # WT hybrid). Force field reuses structure.ff_protein + structure.water_model.
+  timestep_fs: 2.0             # 2 fs with h-bond constraints -- the standard pmx protocol.
+                               # 4 fs REQUIRES hydrogen-mass repartitioning, which in
+                               # GROMACS means `pdb2gmx -heavyh`; combining that with pmx's
+                               # dummy-atom masses is not something to try before a single
+                               # window has ever run. Revisit after the benchmark.
+  hydrogen_mass_amu: null      # HMR off (see above). Set with heavyh: true to enable.
+  heavyh: false                # pass -heavyh to pdb2gmx (hydrogen-mass repartitioning)
+  constraints: HBonds          # HBonds | AllBonds | None  (HBonds required for 4 fs)
+  collision_rate_per_ps: 1.0   # Langevin friction / thermostat coupling
+  ensemble: NPT                # NPT (MonteCarloBarostat) | NVT
+  pressure_atm: 1.0            # NPT only
+  barostat_interval: 25        # steps between barostat MC moves (NPT only)
+  nonbonded_method: PME
+  nonbonded_cutoff_nm: 1.0
+  minimize: true               # energy-minimize each window before equilibration
+  frames_per_window: 3000      # dH/dl records per window -> nstdhdl = ns_per_window/frames.
+                               # 3000 over 3 ns = one record per 1 ps (nstdhdl 500).
+                               # WAS 150 (one per 20 ps), which kept 151 of the 1.75M
+                               # available evaluations and left MBAR overlap estimates
+                               # badly conditioned. Evaluating dH/dl at all 18 states is
+                               # cheap next to the MD step, so this costs ~nothing in GPU
+                               # time. It also makes nstlog (5000) a clean multiple of
+                               # nstcalcenergy, which it was not at 10000.
+  decorrelate: true            # subsample to statistically independent frames (pymbar.timeseries)
+                               # before MBAR. Correlated frames make MBAR's error bar look
+                               # ~sqrt(g) times smaller than it is; g is the correlation time.
+  # --- GROMACS + pmx specifics (read by src/fep/pmx_engine.py) ---
+  # Name pmx AND pdb2gmx use; must be a <name>.ff directory inside pmx_ff_dir.
+  # Available in this pmx: amber99sbmut, amber99sb-star-ildn-mut, charmm22starmut,
+  # oplsaamut (pmx/data/mutff45/). amber99sb*-ILDN is the one pmx's own benchmarks used.
+  pmx_forcefield: amber99sb-star-ildn-mut
+  # Directory holding the .ff force fields; exported as GMXLIB so pdb2gmx can find them.
+  # "auto" resolves to <pmx package>/data/mutff45 -- derived rather than hardcoded so the
+  # path survives a different pmx install.
+  pmx_ff_dir: auto
+  # Soft-core for the appearing/disappearing atoms.
+  #   beutler -- the classic form; uses sc_alpha/sc_power/sc_sigma. These exact values are
+  #              pmx's published protocol, so this is the low-risk default.
+  #   gapsys  -- newer, better behaved, GROMACS >= 2024. It takes a DIFFERENT parameter
+  #              set (sc-gapsys-*); sc_alpha/power/sigma do not apply to it, and mixing
+  #              them is a grompp error. Switch only after a window has run cleanly.
+  sc_function: beutler
+  sc_alpha: 0.3
+  sc_power: 1
+  sc_sigma: 0.25
+  # used only when sc_function: gapsys
+  sc_gapsys_scale_linpoint_lj: 0.85
+  sc_gapsys_scale_linpoint_q: 0.3
+  sc_gapsys_sigma_lj: 0.3
+  # pdb2gmx must NOT re-form the Cys57-Cys146 disulfide -- v1 is the REDUCED form
+  # (README 2.1). Stage 1's fix operates on an OpenMM topology, so GROMACS needs its own
+  # guard: pdb2gmx is told every cysteine is a free thiol.
+  keep_disulfide_reduced: true
+  lambda_protocol: default     # unused by the GROMACS path (kept for the perses engine)
+  unfolded_reference: tripeptide_native  # ACE-[i-1][i][i+1]-NME, neighbors from the WT structure
+  checkpoint_interval_steps: 50000       # READ ONLY by the dead perses engine; GROMACS's
+                                         # -cpt takes MINUTES, not steps. Kept for that
+                                         # engine's sake -- the live value is below.
+  checkpoint_interval_min: 5             # gmx mdrun -cpt. A folded window is ~15 min, and
+                                         # GROMACS's default is 15 min, so most killed
+                                         # windows previously had NO checkpoint and
+                                         # restarted from zero -- contradicting CLAUDE.md.
+                                         # CONFIRM THIS NUMBER: 5 gives ~3 checkpoints per
+                                         # folded window at a few seconds each.
+  convergence:
+    max_cycle_closure_kcal: 1.0   # flag if fwd/reverse hysteresis exceeds this (kcal/mol)
+    check_hysteresis: true
+
+md:                         # Stage 4 — unbiased mechanism MD (GPU, subset)
+  run_on: fep_flagged       # only variants FEP flags as interesting
+  replicates: 3
+  ns_per_replicate: 200
+  analyses:
+    - rmsf
+    - contact_map
+    - salt_bridges
+    - sasa
+    - dimer_interface
+
+validation:                 # Stage 5 — the GATE (README §2.2)
+  gate_on: positive_control
+  # PRE-REGISTERED 2026-08-07, before any gate evaluation (README §2.2). Do not tune
+  # these after seeing results -- that is the whole point of fixing them here.
+  min_pearson: 0.70         # go/no-go threshold vs experimental ddG. Raised from 0.6 by the
+                            # literature audit: Wells 2021 reported 0.81 on 10 variants with
+                            # the same toolchain, so 0.6 is not a defensible bar. README §10
+                            # treats r < 0.60 as the PIVOT trigger (methods paper), which is a
+                            # different number from the pass mark -- do not conflate them.
+  pivot_pearson: 0.60       # below this, stop and reframe (README §10) rather than retune.
+  max_median_cycle_closure_kcal: 0.75
+                            # Median |forward-reverse hysteresis| across the usable gate
+                            # variants. fep.convergence.max_cycle_closure_kcal (1.0) excludes
+                            # an INDIVIDUAL bad variant; this bounds the SET, so a gate cannot
+                            # pass on variants that each squeak under the per-variant cap.
+                            # Carries claim C2 (apo-2SH convergence), so it is a gate
+                            # criterion, not a warning.
+  ddg_sign: positive_destabilizing  # exp_ddg AND FEP ddG: positive = destabilizing.
+                                     # src/fep must emit this sign so gate Pearson is positive.
+  ddg_gate_column: exp_ddg  # apo-MONOMER ddG is the gate value; exp_ddg_dimer is a
+                            # carried cross-check only and is NOT used in the gate.
+  cross_check: [foldx, rosetta_cartesian_ddg]
+  # M3 validates on this 8-variant subset BEFORE scaling to the full 54 controls.
+  # Every entry must exist in the controls (build.py enforces).
+  #
+  # CHARGE-NEUTRAL ONLY (resolved 2026-07-26; still true for THIS gate). A mutation that
+  # changes net charge carries a PME finite-size artifact that does NOT cancel between the
+  # folded and unfolded legs (different box sizes), worth a few kcal/mol against a 0-7
+  # kcal/mol signal. The pmx engine has no counterion co-alchemy, so charge-changing
+  # variants are OUT of this gate. 37 of the 54 controls are charge-neutral.
+  #
+  # NOTE (2026-08-07 audit): charge-changing variants are no longer merely deferred --
+  # covering them is claim C1, the project's strongest surviving methods claim (README
+  # §11.3), and they get their own SUB-GATE (README §5 Stage 5) once net-charge handling
+  # exists. 17 charge-changing positive controls carry experimental ddG and form that
+  # sub-gate's validation set. Keep them out of charge_neutral_gate_subset regardless.
+  #
+  # Spread: -0.20 .. 7.00 kcal/mol. G93A/G93S/G93V is a same-site ladder (2.43/3.70/7.00)
+  # that doubles as an internal consistency check.
+  gate_subset:
+    [F64A, I18V, I113T, A4V, G93A, G93S, I149A, G93V]
+  min_gate_points: 6            # require >= this many gate_subset variants (FEP + exp) to judge
+                                # (8 submitted, so 2 may fail/not converge and the gate still stands)
+  max_rmse_kcal: 1.5            # CONFIRM THIS NUMBER. Correlation alone cannot see a constant
+                                # offset or a wrong slope; RMSE is the "can I trust one number"
+                                # metric. Both r and RMSE must pass.
+  destabilizing_ddg_kcal: 1.0   # classify a variant destabilizing if FEP ddG > this (kcal/mol)
+  outputs:
+    ddg_map: results/ddg_map.csv       # written ONLY if the gate passes
+    gate_report: results/validation_gate.json  # always written (control correlation is presentable)
+    figures: results/figures/
+
+cluster:
+  scheduler: sge                 # BU SCC runs Open Grid Scheduler (SGE/OGS), NOT SLURM
+  project: rise-batteries        # SGE -P flag
+  conda_module: "miniconda/25.3.1"  # SCC modules are versioned (no bare `miniconda`)
+  # PINNED, do not auto-discover: /usr/local/lmod also contains a stale 7.8 tree whose
+  # init script points at a libexec/lmod that no longer exists, and it sorts BEFORE
+  # 8.7.12 in a glob. 8.7.12 is the version $LMOD_PKG reports in a working login shell.
+  # Needed because /etc/profile.d skips Lmod setup in non-interactive shells
+  # (qrsh ... bash -lc), which is exactly how the batch jobs run.
+  lmod_init: "/usr/local/lmod/8.7.12/init/bash"
+  gromacs_module: ""                # deliberately EMPTY: `module load gromacs/2025.3`
+                                    # selects the CPU-only install_mpi_avx2 build. We use
+                                    # the CUDA tree instead, via cluster.gmx_gmxrc below.
+  # Modules the CUDA build needs at RUNTIME (it links MKL for FFT and CUDA 12.8), loaded
+  # in order. Space-separated: the setup/submit scripts read this with grep, before python
+  # exists. Confirmed working: gmx --version reports "GPU support: CUDA".
+  gromacs_prereq_modules: "cuda/12.8 intel/2024.0 gcc/12.2.0"
+  # The gromacs/2025.3 module puts the CPU-ONLY build (install_mpi_avx2) on PATH --
+  # `gmx_mpi --version` reports "GPU support: disabled". The CUDA build is a separate
+  # tree in the same package. Point at it explicitly.
+  gmx_binary: "/share/pkg.8/gromacs/2025.3/install_gpu/bin/gmx"
+  gmx_gmxrc: "/share/pkg.8/gromacs/2025.3/install_gpu/bin/GMXRC"   # sourced by scc_env.sh
+  mdrun_launcher: ""                # install_gpu is built GMX_MPI=off, GMX_THREAD_MPI=off
+                                    # ("MPI library: none") -- a serial CUDA build. One
+                                    # rank per window is exactly what we want, so there is
+                                    # no mpirun and no -ntmpi.
+  mdrun_ntomp: 8                    # keep equal to cluster.pe_omp
+  gpu_retry_attempts: 3             # mdrun dies with CUDA #46 (device busy) when two
+  gpu_retry_delay_s: 120            # array tasks launch into the same GPU in the same
+                                    # instant -- transient, and it cost 4 windows on
+                                    # 2026-08-09. Retried ONLY on that signature; a blown-up
+                                    # system still fails immediately.
+                                    # RAISED 3x60s -> 12x120s on 2026-08-12. The losers are
+                                    # systematically the tasks that BUILD the system (task 1
+                                    # of each leg): they spend minutes on pdb2gmx/pmx/solvate
+                                    # /EM while their siblings go straight to mdrun and take
+                                    # the GPUs for a whole 7-16 min window. Three minutes of
+                                    # patience can never outlast that; 24 minutes can.
+                                    # Cost of waiting is zero -- the task would otherwise die.
+  mdrun_gpu_flags: "-nb gpu -pme gpu"   # offload nonbonded + PME. NOTE: with free-energy
+                                    # on, GROMACS computes the PERTURBED interactions on
+                                    # CPU regardless, so FEP never reaches plain-MD GPU
+                                    # speed -- the benchmark decides the real budget.
+  cuda_module: ""                   # usually unnecessary -- the gromacs module pulls its own
+                                    # CUDA. Set e.g. "cuda/12.8" only if gmx reports no GPU.
+  gpu_c: "7.0"                   # request GPUs by compute capability >=7.0, not by model name
+  gpus_available: 8              # planning/throughput number ONLY -- not requested in a single qsub
+  pe_omp: 8                      # -pe omp slots (CPU cores per task)
+  max_walltime_hr: 12            # stay <=12h to keep buy-in nodes in the pool
+  array_unit: [variant, leg, window, replicate]   # one SGE array task (qsub -t) per tuple
+  checkpoint: true
+  trajectory_retention: estimates_only            # keep ddG + analysis, drop raw frames

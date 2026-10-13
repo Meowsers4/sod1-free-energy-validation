@@ -1,0 +1,42 @@
+# CPU-only preparation candidate for a paired F64A C2 timing scout.
+schema_version: 1
+scope: f64a_folded_apo_2sh_r0_paired_timing_scout_inputs_only
+execution_authorized: false
+production_authorized: false
+source:
+  prepared: /projectnb/rise-batteries/bode/container-build-packages/f64a-protein-technical-20260928-v1/prepared
+  manifest_sha256: 858070ac1c8d757d0fdb0fa744148865e24abdccb8d82e3d1a670698734e77b9
+  manifest_entries: 344
+  source_spec_sha256: 155a24a60191334c0c06a3e02d3c21ecf51cea0902f5ebe5e53370b3c6c322cf
+  source_inventory_sha256: c908e1c1695e0ebe8bd02dce2fece5bdbc83332d617528ca81495bd826c51fe2
+  pipeline_sha256: af866a49f017d40af13101b561906cb049e336be1741d2d2255ce50b2e9dde29
+image:
+  path: /projectnb/rise-batteries/bode/containers/builds/gmx-hrex.IylQZ9Uj/gromacs-2025.3-mpi-cuda-l40s.sif
+  sha256: 0e3770f4506a2c376a3cf7a635971c0dd01161417cc3e613c8351446bb0d45ee
+  gmx: /opt/gromacs/2025.3/bin/gmx_mpi
+mdp_changes:
+  nsteps: 50000
+  nstcalcenergy: 500
+  nstenergy: 500
+  nstdhdl: 500
+  nstlog: 5000
+  nstxout-compressed: 25000
+expected_effective_mdp:
+  dt_ps: 0.002
+  calc-lambda-neighbors: -1
+  compressed-x-grps: System
+  compressed-x-precision: 1000
+  nstxout: 0
+  nstvout: 0
+  nstfout: 0
+scout_candidate:
+  baseline_replex: 0
+  hrex_replex: 500
+  target_steps: 50000
+  target_ps_per_state: 100
+  checkpoint_minutes: 15
+  gpu_jobs_authorized: 0
+  attempts_per_arm: null
+preparation:
+  command_timeout_seconds: 180
+  total_timeout_seconds: 900

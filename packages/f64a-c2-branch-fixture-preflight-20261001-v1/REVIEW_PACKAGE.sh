@@ -1,0 +1,5 @@
+#!/bin/bash
+set -euo pipefail
+cd -- "$(dirname -- "$0")"
+sha256sum -c SHA256SUMS
+/usr/libexec/platform-python preflight.py verify-package --package "$PWD"

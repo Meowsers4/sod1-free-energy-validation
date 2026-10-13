@@ -1,0 +1,48 @@
+# Non-submitting candidate for the paired 100-ps F64A timing scout.
+schema_version: 1
+scope: f64a_folded_apo_2sh_r0_paired_timing_scout_runtime_candidate
+execution_authorized: false
+production_authorized: false
+prepared_source:
+  path: /project/rise-batteries/bode/container-build-packages/f64a-c2-scout-cpu-20260929-v3/prepared
+  manifest_sha256: cffefe198d66e670ebc7db2960039e2cfc159e64bb238af7d5c3fe13c7f64487
+  manifest_entries: 381
+  source_spec_sha256: 50d2964cfef6ca95091ae05c390e3f7626dc66028d0599bdb28f05c11520cb60
+image:
+  path: /projectnb/rise-batteries/bode/containers/builds/gmx-hrex.IylQZ9Uj/gromacs-2025.3-mpi-cuda-l40s.sif
+  sha256: 0e3770f4506a2c376a3cf7a635971c0dd01161417cc3e613c8351446bb0d45ee
+  gmx: /opt/gromacs/2025.3/bin/gmx_mpi
+  mpirun: /opt/openmpi/4.1.5/bin/mpirun
+  python: /usr/libexec/platform-python
+scheduler:
+  project: rise-batteries
+  queue: l40s
+  pe: omp16
+  slots: 16
+  gpus: 1
+  gpu_type: L40S
+  ranks: 20
+  threads: 1
+  walltime_seconds_per_arm: 7200
+  work_deadline_seconds_per_arm: 6300
+  attempts_per_arm: 1
+  stop_bytes_per_location: 805306368
+  cap_bytes_per_location: 1073741824
+  minimum_free_bytes_per_location: 3221225472
+sharing:
+  mode: private_MPS
+  cpu_affinity_count: 16
+  mpi_yield_when_idle: 1
+scout:
+  nsteps: 50000
+  dt_ps: 0.002
+  output_stride: 500
+  coordinate_stride: 25000
+  log_stride: 5000
+  checkpoint_minutes: 15
+  baseline_replex: 0
+  hrex_replex: 500
+  hrex_seed: 20260929
+  arm_order: [baseline, hrex]
+  no_planned_restart: true
+  no_automatic_retry: true

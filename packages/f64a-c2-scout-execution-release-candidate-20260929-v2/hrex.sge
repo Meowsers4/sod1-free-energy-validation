@@ -1,0 +1,12 @@
+#!/bin/bash -l
+#$ -N c2-scout-hrex
+#$ -P rise-batteries
+#$ -q l40s
+#$ -pe omp16 16
+#$ -l gpus=1,gpu_type=L40S
+#$ -l h_rt=02:00:00
+#$ -r n
+#$ -j y
+#$ -cwd
+set -euo pipefail
+exec /usr/libexec/platform-python runtime.py job hrex

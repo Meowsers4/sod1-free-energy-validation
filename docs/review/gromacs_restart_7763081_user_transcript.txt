@@ -1,0 +1,312 @@
+n-R/job.log
+{
+  "technical_status": "pass_pending_review_and_accounting",
+  "stage": "R",
+  "production_authorized": false,
+  "job_id": "7763081",
+  "accounting": "pending_qacct",
+  "failure": null,
+  "restart_verified": true,
+  "mps_cleanup_confirmed": true,
+  "mps_four_clients_observed": true,
+  "wall_seconds": 14.486157707986422,
+  "allocated_gpu_hours_observed": 0.004023932696662895
+}
+Private scratch retained: /scratch/gmx-smoke-A-7763081.10mnahsl
+^C
+(brp-w1)[bodeb@scc-i01 gmx-gpu-restart-20260927-v1]$ cd /projectnb/rise-batteries/bode/container-build-packages/gmx-gpu-restart-20260927-v1 &&
+> cat attempt/restart-review.json attempt/permutations.json
+{
+  "boundary_output_unique": true,
+  "combined_exchange_rounds": 9,
+  "final_checkpoints": {
+    "state00": {
+      "fep_state": 0,
+      "part": 2,
+      "step": 1000,
+      "time_ps": 1.0
+    },
+    "state01": {
+      "fep_state": 1,
+      "part": 2,
+      "step": 1000,
+      "time_ps": 1.0
+    },
+    "state02": {
+      "fep_state": 2,
+      "part": 2,
+      "step": 1000,
+      "time_ps": 1.0
+    },
+    "state03": {
+      "fep_state": 3,
+      "part": 2,
+      "step": 1000,
+      "time_ps": 1.0
+    }
+  },
+  "first_checkpoints": {
+    "state00": {
+      "fep_state": 0,
+      "part": 1,
+      "step": 500,
+      "time_ps": 0.5
+    },
+    "state01": {
+      "fep_state": 1,
+      "part": 1,
+      "step": 500,
+      "time_ps": 0.5
+    },
+    "state02": {
+      "fep_state": 2,
+      "part": 1,
+      "step": 500,
+      "time_ps": 0.5
+    },
+    "state03": {
+      "fep_state": 3,
+      "part": 1,
+      "step": 500,
+      "time_ps": 0.5
+    }
+  },
+  "phase1_exchange_rounds": 4,
+  "phase1_mps_overlap": {
+    "gpu_uuid": "GPU-baba41da-924a-885e-18d6-82cfaef802fd",
+    "rank_pids": [
+      293424,
+      293425,
+      293426,
+      293427
+    ],
+    "servers": {
+      "293361": [
+        293424,
+        293425,
+        293426,
+        293427
+      ]
+    }
+  },
+  "phase2_mps_overlap": {
+    "gpu_uuid": "GPU-baba41da-924a-885e-18d6-82cfaef802fd",
+    "rank_pids": [
+      293937,
+      293938,
+      293939,
+      293940
+    ],
+    "servers": {
+      "293361": [
+        293937,
+        293938,
+        293939,
+        293940
+      ]
+    }
+  },
+  "pre_checkpoint_data_preserved": true,
+  "restart_verified": true
+}
+[
+  {
+    "accepted_pairs": [
+      [
+        0,
+        1
+      ],
+      [
+        2,
+        3
+      ]
+    ],
+    "state_to_walker": [
+      1,
+      0,
+      3,
+      2
+    ],
+    "step": 100
+  },
+  {
+    "accepted_pairs": [
+      [
+        1,
+        2
+      ]
+    ],
+    "state_to_walker": [
+      1,
+      3,
+      0,
+      2
+    ],
+    "step": 200
+  },
+  {
+    "accepted_pairs": [
+      [
+        0,
+        1
+      ],
+      [
+        2,
+        3
+      ]
+    ],
+    "state_to_walker": [
+      3,
+      1,
+      2,
+      0
+    ],
+    "step": 300
+  },
+  {
+    "accepted_pairs": [
+      [
+        1,
+        2
+      ]
+    ],
+    "state_to_walker": [
+      3,
+      2,
+      1,
+      0
+    ],
+    "step": 400
+  },
+  {
+    "accepted_pairs": [
+      [
+        0,
+        1
+      ],
+      [
+        2,
+        3
+      ]
+    ],
+    "state_to_walker": [
+      2,
+      3,
+      0,
+      1
+    ],
+    "step": 500
+  },
+  {
+    "accepted_pairs": [
+      [
+        1,
+        2
+      ]
+    ],
+    "state_to_walker": [
+      2,
+      0,
+      3,
+      1
+    ],
+    "step": 600
+  },
+  {
+    "accepted_pairs": [
+      [
+        0,
+        1
+      ],
+      [
+        2,
+        3
+      ]
+    ],
+    "state_to_walker": [
+      0,
+      2,
+      1,
+      3
+    ],
+    "step": 700
+  },
+  {
+    "accepted_pairs": [
+      [
+        1,
+        2
+      ]
+    ],
+    "state_to_walker": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "step": 800
+  },
+  {
+    "accepted_pairs": [
+      [
+        0,
+        1
+      ],
+      [
+        2,
+        3
+      ]
+    ],
+    "state_to_walker": [
+      1,
+      0,
+      3,
+      2
+    ],
+    "step": 900
+  }
+]
+(brp-w1)[bodeb@scc-i01 gmx-gpu-restart-20260927-v1]$ qacct -j 7763081
+==============================================================
+qname        l40s                
+hostname     scc-512.scc.bu.edu  
+group        rise-batteries      
+owner        bodeb               
+project      rise-batteries      
+department   defaultdepartment   
+jobname      gmx-smoke-R         
+jobnumber    7763081             
+taskid       undefined
+account      sge                 
+priority     0                   
+qsub_time    Mon Sep 28 00:48:42 2026
+start_time   Mon Sep 28 00:50:15 2026
+end_time     Mon Sep 28 00:50:33 2026
+granted_pe   omp                 
+slots        4                   
+failed       0    
+exit_status  0                   
+ru_wallclock 18           
+ru_utime     6.636        
+ru_stime     8.636        
+ru_maxrss    136912              
+ru_ixrss     0                   
+ru_ismrss    0                   
+ru_idrss     0                   
+ru_isrss     0                   
+ru_minflt    486896              
+ru_majflt    6689                
+ru_nswap     0                   
+ru_inblock   5058628             
+ru_oublock   48592               
+ru_msgsnd    0                   
+ru_msgrcv    0                   
+ru_nsignals  0                   
+ru_nvcsw     65106               
+ru_nivcsw    228575              
+cpu          15.272       
+mem          1.210             
+io           2.278             
+iow          0.000             
+maxvmem      8.922G
+arid         undefined

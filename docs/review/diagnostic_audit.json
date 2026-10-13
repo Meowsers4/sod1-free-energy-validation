@@ -1,0 +1,2841 @@
+{
+  "status": "exploratory_post_verdict_not_a_gate",
+  "settings": {
+    "main_archive": "../sod1fep_archive_2026-09-11",
+    "ss_archive": "../sod1fep_archive_2026-09-14/G93A_SS_diagnostic",
+    "output_dir": "docs/review",
+    "bootstrap_draws": 2000,
+    "bootstrap_seed": 20260914,
+    "confidence_level": 0.95,
+    "reproduction_atol_kcal": 1e-08,
+    "release_file": "releases/sod1fep-forensic-review.tar.gz"
+  },
+  "limitations": [
+    "Few variant/site groups; bootstrap intervals are approximate.",
+    "Sibling disagreement is dependent and is not accuracy.",
+    "A4V original windows are lost; its retained data use 9 ns folded.",
+    "No new diagnostic threshold or superiority claim is validated."
+  ],
+  "rows": [
+    {
+      "variant": "F64A",
+      "site": 64,
+      "leg": "folded",
+      "replicate": 0,
+      "protocol": "822108e9db71124d",
+      "sampling_record": "attempt1",
+      "dg_kcal": 1.249622431801854,
+      "net_hysteresis": 0.7865844539286555,
+      "sum_absolute_hysteresis": 3.2457641067075116,
+      "max_absolute_hysteresis": 0.9686705568248908,
+      "cancellation_fraction": 0.7576581575034536,
+      "min_adjacent_overlap": 0.014574195563933254,
+      "mbar_error": 0.08926575059022566,
+      "n_raw": 60020,
+      "n_used": 9405,
+      "solver_notes": [],
+      "disagreement_kcal": 0.6819249662383549
+    },
+    {
+      "variant": "F64A",
+      "site": 64,
+      "leg": "folded",
+      "replicate": 1,
+      "protocol": "822108e9db71124d",
+      "sampling_record": "attempt1",
+      "dg_kcal": 2.5059415651979804,
+      "net_hysteresis": 0.022704558407728115,
+      "sum_absolute_hysteresis": 1.6781026847585594,
+      "max_absolute_hysteresis": 0.22259038260983385,
+      "cancellation_fraction": 0.9864701018513686,
+      "min_adjacent_overlap": 0.05538125308214983,
+      "mbar_error": 0.08849625786066466,
+      "n_raw": 60020,
+      "n_used": 7735,
+      "solver_notes": [],
+      "disagreement_kcal": 1.2025537338558347
+    },
+    {
+      "variant": "F64A",
+      "site": 64,
+      "leg": "folded",
+      "replicate": 2,
+      "protocol": "822108e9db71124d",
+      "sampling_record": "attempt1",
+      "dg_kcal": 1.3571532308824372,
+      "net_hysteresis": 1.1037599674717555,
+      "sum_absolute_hysteresis": 2.26211581829741,
+      "max_absolute_hysteresis": 0.8263016103106338,
+      "cancellation_fraction": 0.5120674376864998,
+      "min_adjacent_overlap": 0.0288643333090179,
+      "mbar_error": 0.09321088814610475,
+      "n_raw": 60020,
+      "n_used": 8320,
+      "solver_notes": [],
+      "disagreement_kcal": 0.5206287676174799
+    },
+    {
+      "variant": "F64A",
+      "site": 64,
+      "leg": "unfolded",
+      "replicate": 0,
+      "protocol": "822108e9db71124d",
+      "sampling_record": "attempt1",
+      "dg_kcal": -5.356749287958449,
+      "net_hysteresis": 0.17937555413665734,
+      "sum_absolute_hysteresis": 0.6029796771686778,
+      "max_absolute_hysteresis": 0.18030446927286808,
+      "cancellation_fraction": 0.702518076597665,
+      "min_adjacent_overlap": 0.07447823493134788,
+      "mbar_error": 0.06584450948085813,
+      "n_raw": 60020,
+      "n_used": 11070,
+      "solver_notes": [],
+      "disagreement_kcal": 0.17496236078987693
+    },
+    {
+      "variant": "F64A",
+      "site": 64,
+      "leg": "unfolded",
+      "replicate": 1,
+      "protocol": "822108e9db71124d",
+      "sampling_record": "attempt1",
+      "dg_kcal": -5.11593111076772,
+      "net_hysteresis": 0.12582097738442816,
+      "sum_absolute_hysteresis": 0.43709856464964275,
+      "max_absolute_hysteresis": 0.10025597497818428,
+      "cancellation_fraction": 0.7121450685035302,
+      "min_adjacent_overlap": 0.08805945978315333,
+      "mbar_error": 0.06371584090852138,
+      "n_raw": 60020,
+      "n_used": 11655,
+      "solver_notes": [],
+      "disagreement_kcal": 0.18626490499621617
+    },
+    {
+      "variant": "F64A",
+      "site": 64,
+      "leg": "unfolded",
+      "replicate": 2,
+      "protocol": "822108e9db71124d",
+      "sampling_record": "attempt1",
+      "dg_kcal": -5.247642743569424,
+      "net_hysteresis": 0.19175345550865613,
+      "sum_absolute_hysteresis": 0.7451187129745127,
+      "max_absolute_hysteresis": 0.15972793543853708,
+      "cancellation_fraction": 0.7426538185530509,
+      "min_adjacent_overlap": 0.029075352531897778,
+      "mbar_error": 0.06327781835332626,
+      "n_raw": 60020,
+      "n_used": 12432,
+      "solver_notes": [],
+      "disagreement_kcal": 0.011302544206339249
+    },
+    {
+      "variant": "I18V",
+      "site": 18,
+      "leg": "folded",
+      "replicate": 0,
+      "protocol": "822108e9db71124d",
+      "sampling_record": "attempt1",
+      "dg_kcal": -17.62397364352141,
+      "net_hysteresis": 0.18102429947840035,
+      "sum_absolute_hysteresis": 1.1461179830905903,
+      "max_absolute_hysteresis": 0.2058705522200061,
+      "cancellation_fraction": 0.8420543939200262,
+      "min_adjacent_overlap": 0.029905462075204177,
+      "mbar_error": 0.04051498753603853,
+      "n_raw": 60020,
+      "n_used": 8048,
+      "solver_notes": [
+        "Failed to reach a solution to within tolerance with hybr: trying next method"
+      ],
+      "disagreement_kcal": 0.4310942322539333
+    },
+    {
+      "variant": "I18V",
+      "site": 18,
+      "leg": "folded",
+      "replicate": 1,
+      "protocol": "822108e9db71124d",
+      "sampling_record": "attempt1",
+      "dg_kcal": -17.068255032535113,
+      "net_hysteresis": 0.15305648954301726,
+      "sum_absolute_hysteresis": 0.8101773954168823,
+      "max_absolute_hysteresis": 0.1385010376611634,
+      "cancellation_fraction": 0.8110827450767606,
+      "min_adjacent_overlap": 0.015365193411587767,
+      "mbar_error": 0.04207649698771672,
+      "n_raw": 60020,
+      "n_used": 8026,
+      "solver_notes": [
+        "Failed to reach a solution to within tolerance with hybr: trying next method"
+      ],
+      "disagreement_kcal": 0.4024836842255084
+    },
+    {
+      "variant": "I18V",
+      "site": 18,
+      "leg": "folded",
+      "replicate": 2,
+      "protocol": "822108e9db71124d",
+      "sampling_record": "attempt1",
+      "dg_kcal": -17.317503789999837,
+      "net_hysteresis": 0.04293107870896164,
+      "sum_absolute_hysteresis": 0.8019243363643133,
+      "max_absolute_hysteresis": 0.168635118418159,
+      "cancellation_fraction": 0.9464649259759363,
+      "min_adjacent_overlap": 0.005398173214690766,
+      "mbar_error": 0.03424757150561969,
+      "n_raw": 60020,
+      "n_used": 10758,
+      "solver_notes": [
+        "Failed to reach a solution to within tolerance with hybr: trying next method"
+      ],
+      "disagreement_kcal": 0.028610548028424887
+    },
+    {
+      "variant": "I18V",
+      "site": 18,
+      "leg": "unfolded",
+      "replicate": 0,
+      "protocol": "822108e9db71124d",
+      "sampling_record": "attempt1",
+      "dg_kcal": -18.14478647645856,
+      "net_hysteresis": 0.10917099549542922,
+      "sum_absolute_hysteresis": 0.8784743410937058,
+      "max_absolute_hysteresis": 0.18016804360613992,
+      "cancellation_fraction": 0.8757265973648011,
+      "min_adjacent_overlap": 0.019602169137204667,
+      "mbar_error": 0.03644654393828288,
+      "n_raw": 60020,
+      "n_used": 10084,
+      "solver_notes": [
+        "Failed to reach a solution to within tolerance with hybr: trying next method"
+      ],
+      "disagreement_kcal": 0.03150181653136386
+    },
+    {
+      "variant": "I18V",
+      "site": 18,
+      "leg": "unfolded",
+      "replicate": 1,
+      "protocol": "822108e9db71124d",
+      "sampling_record": "attempt1",
+      "dg_kcal": -18.29185284534276,
+      "net_hysteresis": 0.08187341801311733,
+      "sum_absolute_hysteresis": 0.9564161852966117,
+      "max_absolute_hysteresis": 0.1810058780543875,
+      "cancellation_fraction": 0.914395616394001,
+      "min_adjacent_overlap": 0.015483209311344488,
+      "mbar_error": 0.037467969639232164,
+      "n_raw": 60020,
+      "n_used": 8790,
+      "solver_notes": [
+        "Failed to reach a solution to within tolerance with hybr: trying next method"
+      ],
+      "disagreement_kcal": 0.1890977367949347
+    },
+    {
+      "variant": "I18V",
+      "site": 18,
+      "leg": "unfolded",
+      "replicate": 2,
+      "protocol": "822108e9db71124d",
+      "sampling_record": "attempt1",
+      "dg_kcal": -18.06072374063709,
+      "net_hysteresis": 0.06911112455418413,
+      "sum_absolute_hysteresis": 0.5666941634324665,
+      "max_absolute_hysteresis": 0.07824672137460577,
+      "cancellation_fraction": 0.8780451096662474,
+      "min_adjacent_overlap": 0.03672551295779089,
+      "mbar_error": 0.03549590221060158,
+      "n_raw": 60020,
+      "n_used": 9567,
+      "solver_notes": [
+        "Failed to reach a solution to within tolerance with hybr: trying next method"
+      ],
+      "disagreement_kcal": 0.15759592026357083
+    },
+    {
+      "variant": "I113T",
+      "site": 113,
+      "leg": "folded",
+      "replicate": 0,
+      "protocol": "822108e9db71124d",
+      "sampling_record": "attempt1",
+      "dg_kcal": -27.430714063431864,
+      "net_hysteresis": 0.1753874584110293,
+      "sum_absolute_hysteresis": 1.314478893316356,
+      "max_absolute_hysteresis": 0.23323732241388476,
+      "cancellation_fraction": 0.8665726324684175,
+      "min_adjacent_overlap": 0.028759924319430353,
+      "mbar_error": 0.06240873651037554,
+      "n_raw": 60020,
+      "n_used": 10053,
+      "solver_notes": [
+        "Failed to reach a solution to within tolerance with hybr: trying next method"
+      ],
+      "disagreement_kcal": 0.3747706430974347
+    },
+    {
+      "variant": "I113T",
+      "site": 113,
+      "leg": "folded",
+      "replicate": 1,
+      "protocol": "822108e9db71124d",
+      "sampling_record": "attempt1",
+      "dg_kcal": -26.847954191709576,
+      "net_hysteresis": 0.22492691299624126,
+      "sum_absolute_hysteresis": 1.3876452811440392,
+      "max_absolute_hysteresis": 0.15281681974702543,
+      "cancellation_fraction": 0.8379074853979966,
+      "min_adjacent_overlap": 0.04258506509472233,
+      "mbar_error": 0.06101589035391236,
+      "n_raw": 60020,
+      "n_used": 9547,
+      "solver_notes": [
+        "Failed to reach a solution to within tolerance with hybr: trying next method"
+      ],
+      "disagreement_kcal": 0.4993691644859979
+    },
+    {
+      "variant": "I113T",
+      "site": 113,
+      "leg": "folded",
+      "replicate": 2,
+      "protocol": "822108e9db71124d",
+      "sampling_record": "attempt1",
+      "dg_kcal": -27.263932648959283,
+      "net_hysteresis": 0.041055093664922104,
+      "sum_absolute_hysteresis": 1.8865462434119922,
+      "max_absolute_hysteresis": 0.354443398764859,
+      "cancellation_fraction": 0.9782379606074908,
+      "min_adjacent_overlap": 0.0428622808228973,
+      "mbar_error": 0.0651414694171156,
+      "n_raw": 60020,
+      "n_used": 9657,
+      "solver_notes": [
+        "Failed to reach a solution to within tolerance with hybr: trying next method"
+      ],
+      "disagreement_kcal": 0.1245985213885632
+    },
+    {
+      "variant": "I113T",
+      "site": 113,
+      "leg": "unfolded",
+      "replicate": 0,
+      "protocol": "822108e9db71124d",
+      "sampling_record": "attempt1",
+      "dg_kcal": -30.05632538898761,
+      "net_hysteresis": 0.0815154045968842,
+      "sum_absolute_hysteresis": 0.6364416194721105,
+      "max_absolute_hysteresis": 0.08320573180409703,
+      "cancellation_fraction": 0.8719200597464127,
+      "min_adjacent_overlap": 0.08966298481143177,
+      "mbar_error": 0.06016005099697712,
+      "n_raw": 60020,
+      "n_used": 12139,
+      "solver_notes": [
+        "Failed to reach a solution to within tolerance with hybr: trying next method"
+      ],
+      "disagreement_kcal": 0.4270350606070359
+    },
+    {
+      "variant": "I113T",
+      "site": 113,
+      "leg": "unfolded",
+      "replicate": 1,
+      "protocol": "822108e9db71124d",
+      "sampling_record": "attempt1",
+      "dg_kcal": -29.824938783830365,
+      "net_hysteresis": 0.01895995171622649,
+      "sum_absolute_hysteresis": 0.4633324733845616,
+      "max_absolute_hysteresis": 0.10561421788246533,
+      "cancellation_fraction": 0.9590791649509748,
+      "min_adjacent_overlap": 0.09144812908109565,
+      "mbar_error": 0.05943420721803317,
+      "n_raw": 60020,
+      "n_used": 12490,
+      "solver_notes": [
+        "Failed to reach a solution to within tolerance with hybr: trying next method"
+      ],
+      "disagreement_kcal": 0.07995515287116817
+    },
+    {
+      "variant": "I113T",
+      "site": 113,
+      "leg": "unfolded",
+      "replicate": 2,
+      "protocol": "822108e9db71124d",
+      "sampling_record": "attempt1",
+      "dg_kcal": -29.43364187293078,
+      "net_hysteresis": 0.15142647967506487,
+      "sum_absolute_hysteresis": 0.43489647335447296,
+      "max_absolute_hysteresis": 0.0441995222359936,
+      "cancellation_fraction": 0.6518102837048279,
+      "min_adjacent_overlap": 0.0844041439642618,
+      "mbar_error": 0.058085539525254075,
+      "n_raw": 60020,
+      "n_used": 12984,
+      "solver_notes": [
+        "Failed to reach a solution to within tolerance with hybr: trying next method"
+      ],
+      "disagreement_kcal": 0.5069902134782076
+    },
+    {
+      "variant": "A4V",
+      "site": 4,
+      "leg": "folded",
+      "replicate": 0,
+      "protocol": "cf1e632168579261",
+      "sampling_record": "A4V_attempt2",
+      "dg_kcal": -13.089832302016795,
+      "net_hysteresis": 0.24436405509549008,
+      "sum_absolute_hysteresis": 2.381296113338292,
+      "max_absolute_hysteresis": 0.3482447409067827,
+      "cancellation_fraction": 0.8973819115872486,
+      "min_adjacent_overlap": 0.05281287893558936,
+      "mbar_error": 0.05605537580893047,
+      "n_raw": 60000,
+      "n_used": 15825,
+      "solver_notes": [
+        "Failed to reach a solution to within tolerance with hybr: trying next method"
+      ],
+      "disagreement_kcal": 0.1955038735100576
+    },
+    {
+      "variant": "A4V",
+      "site": 4,
+      "leg": "folded",
+      "replicate": 1,
+      "protocol": "cf1e632168579261",
+      "sampling_record": "A4V_attempt2",
+      "dg_kcal": -12.823872353495748,
+      "net_hysteresis": 0.5053650389099991,
+      "sum_absolute_hysteresis": 1.5790696817287349,
+      "max_absolute_hysteresis": 0.34565086101009024,
+      "cancellation_fraction": 0.6799602672652576,
+      "min_adjacent_overlap": 0.04760738115429595,
+      "mbar_error": 0.06925575200937226,
+      "n_raw": 60000,
+      "n_used": 14005,
+      "solver_notes": [
+        "Failed to reach a solution to within tolerance with hybr: trying next method"
+      ],
+      "disagreement_kcal": 0.20343604927151304
+    },
+    {
+      "variant": "A4V",
+      "site": 4,
+      "leg": "folded",
+      "replicate": 2,
+      "protocol": "cf1e632168579261",
+      "sampling_record": "A4V_attempt2",
+      "dg_kcal": -12.964784503517727,
+      "net_hysteresis": 0.49517519818800393,
+      "sum_absolute_hysteresis": 3.1569749883463243,
+      "max_absolute_hysteresis": 0.6085310937875912,
+      "cancellation_fraction": 0.8431488370937696,
+      "min_adjacent_overlap": 0.03840947898905858,
+      "mbar_error": 0.06040694779365479,
+      "n_raw": 60000,
+      "n_used": 13971,
+      "solver_notes": [
+        "Failed to reach a solution to within tolerance with hybr: trying next method"
+      ],
+      "disagreement_kcal": 0.00793217576145544
+    },
+    {
+      "variant": "A4V",
+      "site": 4,
+      "leg": "unfolded",
+      "replicate": 0,
+      "protocol": "822108e9db71124d",
+      "sampling_record": "A4V_attempt2",
+      "dg_kcal": -16.364464531801264,
+      "net_hysteresis": 0.02755212530527888,
+      "sum_absolute_hysteresis": 0.6964621207979665,
+      "max_absolute_hysteresis": 0.10001071511792606,
+      "cancellation_fraction": 0.9604398796682421,
+      "min_adjacent_overlap": 0.07951609070200989,
+      "mbar_error": 0.0403154332959144,
+      "n_raw": 60020,
+      "n_used": 12835,
+      "solver_notes": [],
+      "disagreement_kcal": 0.06877175287124615
+    },
+    {
+      "variant": "A4V",
+      "site": 4,
+      "leg": "unfolded",
+      "replicate": 1,
+      "protocol": "822108e9db71124d",
+      "sampling_record": "A4V_attempt2",
+      "dg_kcal": -16.34841806241617,
+      "net_hysteresis": 0.0033600741136061325,
+      "sum_absolute_hysteresis": 0.6551146368627027,
+      "max_absolute_hysteresis": 0.09071413195661629,
+      "cancellation_fraction": 0.9948710135226144,
+      "min_adjacent_overlap": 0.06599060075671326,
+      "mbar_error": 0.04166928941217418,
+      "n_raw": 60020,
+      "n_used": 12158,
+      "solver_notes": [
+        "Failed to reach a solution to within tolerance with hybr: trying next method"
+      ],
+      "disagreement_kcal": 0.0447020487935994
+    },
+    {
+      "variant": "A4V",
+      "site": 4,
+      "leg": "unfolded",
+      "replicate": 2,
+      "protocol": "822108e9db71124d",
+      "sampling_record": "A4V_attempt2",
+      "dg_kcal": -16.24296749544387,
+      "net_hysteresis": 0.027449016386618487,
+      "sum_absolute_hysteresis": 0.7027617612416852,
+      "max_absolute_hysteresis": 0.10581093583659698,
+      "cancellation_fraction": 0.960941220908036,
+      "min_adjacent_overlap": 0.06619447287249466,
+      "mbar_error": 0.04034929517644648,
+      "n_raw": 60020,
+      "n_used": 12949,
+      "solver_notes": [],
+      "disagreement_kcal": 0.11347380166484555
+    },
+    {
+      "variant": "G93A",
+      "site": 93,
+      "leg": "folded",
+      "replicate": 0,
+      "protocol": "822108e9db71124d",
+      "sampling_record": "attempt1",
+      "dg_kcal": 9.913833780355363,
+      "net_hysteresis": 0.0188603577113538,
+      "sum_absolute_hysteresis": 0.4888639307737093,
+      "max_absolute_hysteresis": 0.09466899211116621,
+      "cancellation_fraction": 0.9614200260561172,
+      "min_adjacent_overlap": 0.03252306522129069,
+      "mbar_error": 0.04093597408375695,
+      "n_raw": 60020,
+      "n_used": 10747,
+      "solver_notes": [],
+      "disagreement_kcal": 0.22147799019867698
+    },
+    {
+      "variant": "G93A",
+      "site": 93,
+      "leg": "folded",
+      "replicate": 1,
+      "protocol": "822108e9db71124d",
+      "sampling_record": "attempt1",
+      "dg_kcal": 9.663658419317764,
+      "net_hysteresis": 0.019486695356023574,
+      "sum_absolute_hysteresis": 0.7905650776214167,
+      "max_absolute_hysteresis": 0.18594550522582443,
+      "cancellation_fraction": 0.9753509282061213,
+      "min_adjacent_overlap": 0.0781626211007637,
+      "mbar_error": 0.03834007215680363,
+      "n_raw": 60020,
+      "n_used": 11224,
+      "solver_notes": [],
+      "disagreement_kcal": 0.1537850513577208
+    },
+    {
+      "variant": "G93A",
+      "site": 93,
+      "leg": "folded",
+      "replicate": 2,
+      "protocol": "822108e9db71124d",
+      "sampling_record": "attempt1",
+      "dg_kcal": 9.721053160995607,
+      "net_hysteresis": 0.04497021390126107,
+      "sum_absolute_hysteresis": 0.7886847455006768,
+      "max_absolute_hysteresis": 0.12878553567276954,
+      "cancellation_fraction": 0.9429807484450421,
+      "min_adjacent_overlap": 0.024861921095060798,
+      "mbar_error": 0.041131056367922615,
+      "n_raw": 60020,
+      "n_used": 10625,
+      "solver_notes": [],
+      "disagreement_kcal": 0.06769293884095617
+    },
+    {
+      "variant": "G93A",
+      "site": 93,
+      "leg": "unfolded",
+      "replicate": 0,
+      "protocol": "822108e9db71124d",
+      "sampling_record": "attempt1",
+      "dg_kcal": 8.535600082944937,
+      "net_hysteresis": 0.023120850615543916,
+      "sum_absolute_hysteresis": 0.25822771939972816,
+      "max_absolute_hysteresis": 0.0384352959244492,
+      "cancellation_fraction": 0.9104633279909289,
+      "min_adjacent_overlap": 0.05089501466166936,
+      "mbar_error": 0.028379338461110865,
+      "n_raw": 60020,
+      "n_used": 12291,
+      "solver_notes": [
+        "Failed to reach a solution to within tolerance with hybr: trying next method"
+      ],
+      "disagreement_kcal": 0.042143631882437305
+    },
+    {
+      "variant": "G93A",
+      "site": 93,
+      "leg": "unfolded",
+      "replicate": 1,
+      "protocol": "822108e9db71124d",
+      "sampling_record": "attempt1",
+      "dg_kcal": 8.487736840188973,
+      "net_hysteresis": 0.0435531500477088,
+      "sum_absolute_hysteresis": 0.2502832045816899,
+      "max_absolute_hysteresis": 0.04986550123388046,
+      "cancellation_fraction": 0.8259845277252973,
+      "min_adjacent_overlap": 0.07127118797763235,
+      "mbar_error": 0.027195024797962725,
+      "n_raw": 60020,
+      "n_used": 13367,
+      "solver_notes": [
+        "Failed to reach a solution to within tolerance with hybr: trying next method"
+      ],
+      "disagreement_kcal": 0.029651232251509896
+    },
+    {
+      "variant": "G93A",
+      "site": 93,
+      "leg": "unfolded",
+      "replicate": 2,
+      "protocol": "822108e9db71124d",
+      "sampling_record": "attempt1",
+      "dg_kcal": 8.499176061936026,
+      "net_hysteresis": 0.001718121932145037,
+      "sum_absolute_hysteresis": 0.4421306738345779,
+      "max_absolute_hysteresis": 0.0873418604976041,
+      "cancellation_fraction": 0.9961139951742234,
+      "min_adjacent_overlap": 0.028733855212477344,
+      "mbar_error": 0.02804618204338999,
+      "n_raw": 60020,
+      "n_used": 12457,
+      "solver_notes": [
+        "Failed to reach a solution to within tolerance with hybr: trying next method"
+      ],
+      "disagreement_kcal": 0.012492399630929185
+    },
+    {
+      "variant": "G93S",
+      "site": 93,
+      "leg": "folded",
+      "replicate": 0,
+      "protocol": "822108e9db71124d",
+      "sampling_record": "attempt1",
+      "dg_kcal": -1.1289925430234207,
+      "net_hysteresis": 0.00667611799978186,
+      "sum_absolute_hysteresis": 0.7320408028628033,
+      "max_absolute_hysteresis": 0.12402483275215756,
+      "cancellation_fraction": 0.9908801285752468,
+      "min_adjacent_overlap": 0.04248942524625089,
+      "mbar_error": 0.06499282901320538,
+      "n_raw": 60020,
+      "n_used": 10750,
+      "solver_notes": [],
+      "disagreement_kcal": 0.11163250305145977
+    },
+    {
+      "variant": "G93S",
+      "site": 93,
+      "leg": "folded",
+      "replicate": 1,
+      "protocol": "822108e9db71124d",
+      "sampling_record": "attempt1",
+      "dg_kcal": -1.3182985412854757,
+      "net_hysteresis": 0.009770218056015828,
+      "sum_absolute_hysteresis": 0.6285483443605983,
+      "max_absolute_hysteresis": 0.11977163931043783,
+      "cancellation_fraction": 0.984455900419315,
+      "min_adjacent_overlap": 0.08190972167246602,
+      "mbar_error": 0.06215507200998112,
+      "n_raw": 60020,
+      "n_used": 11305,
+      "solver_notes": [],
+      "disagreement_kcal": 0.17232649434162295
+    },
+    {
+      "variant": "G93S",
+      "site": 93,
+      "leg": "folded",
+      "replicate": 2,
+      "protocol": "822108e9db71124d",
+      "sampling_record": "attempt1",
+      "dg_kcal": -1.1629515508642851,
+      "net_hysteresis": 0.10997090865944781,
+      "sum_absolute_hysteresis": 0.5320220488253146,
+      "max_absolute_hysteresis": 0.11671603865973589,
+      "cancellation_fraction": 0.7932963325443756,
+      "min_adjacent_overlap": 0.11845371833684645,
+      "mbar_error": 0.06417352370058975,
+      "n_raw": 60020,
+      "n_used": 11528,
+      "solver_notes": [],
+      "disagreement_kcal": 0.060693991290163174
+    },
+    {
+      "variant": "G93S",
+      "site": 93,
+      "leg": "unfolded",
+      "replicate": 0,
+      "protocol": "822108e9db71124d",
+      "sampling_record": "attempt1",
+      "dg_kcal": -2.4628588866967345,
+      "net_hysteresis": 0.014738378618277748,
+      "sum_absolute_hysteresis": 0.5687457171543588,
+      "max_absolute_hysteresis": 0.16385688279952373,
+      "cancellation_fraction": 0.9740861721262374,
+      "min_adjacent_overlap": 0.0869485824383746,
+      "mbar_error": 0.053200031022227666,
+      "n_raw": 60020,
+      "n_used": 12170,
+      "solver_notes": [],
+      "disagreement_kcal": 0.08375285196390703
+    },
+    {
+      "variant": "G93S",
+      "site": 93,
+      "leg": "unfolded",
+      "replicate": 1,
+      "protocol": "822108e9db71124d",
+      "sampling_record": "attempt1",
+      "dg_kcal": -2.4614993589281076,
+      "net_hysteresis": 0.02397865354382843,
+      "sum_absolute_hysteresis": 0.7663075518494338,
+      "max_absolute_hysteresis": 0.08548858335709274,
+      "cancellation_fraction": 0.9687088382647966,
+      "min_adjacent_overlap": 0.11303606267824634,
+      "mbar_error": 0.050328290599870706,
+      "n_raw": 60020,
+      "n_used": 13372,
+      "solver_notes": [],
+      "disagreement_kcal": 0.08171356031096622
+    },
+    {
+      "variant": "G93S",
+      "site": 93,
+      "leg": "unfolded",
+      "replicate": 2,
+      "protocol": "822108e9db71124d",
+      "sampling_record": "attempt1",
+      "dg_kcal": -2.2967127105375478,
+      "net_hysteresis": 0.11617343208551434,
+      "sum_absolute_hysteresis": 0.911693864176897,
+      "max_absolute_hysteresis": 0.23431260868018833,
+      "cancellation_fraction": 0.8725740770555707,
+      "min_adjacent_overlap": 0.04765324323719642,
+      "mbar_error": 0.054084251324881975,
+      "n_raw": 60020,
+      "n_used": 12167,
+      "solver_notes": [],
+      "disagreement_kcal": 0.16546641227487324
+    },
+    {
+      "variant": "I149A",
+      "site": 149,
+      "leg": "folded",
+      "replicate": 0,
+      "protocol": "822108e9db71124d",
+      "sampling_record": "attempt1",
+      "dg_kcal": 2.713048461015095,
+      "net_hysteresis": 0.4810993888352507,
+      "sum_absolute_hysteresis": 3.1471810757040077,
+      "max_absolute_hysteresis": 0.7469917824595252,
+      "cancellation_fraction": 0.8471332353421606,
+      "min_adjacent_overlap": 0.028179215885010996,
+      "mbar_error": 0.06935344652726981,
+      "n_raw": 60020,
+      "n_used": 7265,
+      "solver_notes": [],
+      "disagreement_kcal": 0.3317341021128022
+    },
+    {
+      "variant": "I149A",
+      "site": 149,
+      "leg": "folded",
+      "replicate": 1,
+      "protocol": "822108e9db71124d",
+      "sampling_record": "attempt1",
+      "dg_kcal": 2.31248679522562,
+      "net_hysteresis": 0.7677812956513757,
+      "sum_absolute_hysteresis": 3.3245942702285984,
+      "max_absolute_hysteresis": 0.7736504130806802,
+      "cancellation_fraction": 0.7690601519328903,
+      "min_adjacent_overlap": 0.029080616413100484,
+      "mbar_error": 0.059103040997495464,
+      "n_raw": 60020,
+      "n_used": 9341,
+      "solver_notes": [],
+      "disagreement_kcal": 0.26910839657141095
+    },
+    {
+      "variant": "I149A",
+      "site": 149,
+      "leg": "folded",
+      "replicate": 2,
+      "protocol": "822108e9db71124d",
+      "sampling_record": "attempt1",
+      "dg_kcal": 2.450141922578966,
+      "net_hysteresis": 0.28130949728336063,
+      "sum_absolute_hysteresis": 2.92071404898821,
+      "max_absolute_hysteresis": 0.41833469086339514,
+      "cancellation_fraction": 0.9036846837571068,
+      "min_adjacent_overlap": 0.009559949717788323,
+      "mbar_error": 0.07379545787964277,
+      "n_raw": 60020,
+      "n_used": 6930,
+      "solver_notes": [],
+      "disagreement_kcal": 0.06262570554139169
+    },
+    {
+      "variant": "I149A",
+      "site": 149,
+      "leg": "unfolded",
+      "replicate": 0,
+      "protocol": "822108e9db71124d",
+      "sampling_record": "attempt1",
+      "dg_kcal": -2.512544759653861,
+      "net_hysteresis": 0.07100516412266258,
+      "sum_absolute_hysteresis": 0.5479029150794045,
+      "max_absolute_hysteresis": 0.13225768631510323,
+      "cancellation_fraction": 0.870405573380875,
+      "min_adjacent_overlap": 0.12872677678620198,
+      "mbar_error": 0.052121487403785124,
+      "n_raw": 60020,
+      "n_used": 12566,
+      "solver_notes": [],
+      "disagreement_kcal": 0.033781534101354094
+    },
+    {
+      "variant": "I149A",
+      "site": 149,
+      "leg": "unfolded",
+      "replicate": 1,
+      "protocol": "822108e9db71124d",
+      "sampling_record": "attempt1",
+      "dg_kcal": -2.3768379922907155,
+      "net_hysteresis": 0.04838545681065792,
+      "sum_absolute_hysteresis": 0.33786439503894816,
+      "max_absolute_hysteresis": 0.05427568839388561,
+      "cancellation_fraction": 0.856790305456483,
+      "min_adjacent_overlap": 0.07640286174496708,
+      "mbar_error": 0.052011066402513274,
+      "n_raw": 60020,
+      "n_used": 12389,
+      "solver_notes": [],
+      "disagreement_kcal": 0.16977861694336394
+    },
+    {
+      "variant": "I149A",
+      "site": 149,
+      "leg": "unfolded",
+      "replicate": 2,
+      "protocol": "822108e9db71124d",
+      "sampling_record": "attempt1",
+      "dg_kcal": -2.580688458814298,
+      "net_hysteresis": 0.016206228260689987,
+      "sum_absolute_hysteresis": 0.44680168597926007,
+      "max_absolute_hysteresis": 0.07070373698959993,
+      "cancellation_fraction": 0.9637283636806996,
+      "min_adjacent_overlap": 0.11314748330560448,
+      "mbar_error": 0.04963222081212673,
+      "n_raw": 60020,
+      "n_used": 13699,
+      "solver_notes": [],
+      "disagreement_kcal": 0.13599708284200984
+    },
+    {
+      "variant": "G93V",
+      "site": 93,
+      "leg": "folded",
+      "replicate": 0,
+      "protocol": "822108e9db71124d",
+      "sampling_record": "attempt1",
+      "dg_kcal": -6.274692380475989,
+      "net_hysteresis": 0.5099251310176168,
+      "sum_absolute_hysteresis": 1.180103613227422,
+      "max_absolute_hysteresis": 0.2603666720117101,
+      "cancellation_fraction": 0.5678980003941847,
+      "min_adjacent_overlap": 0.04790918118194336,
+      "mbar_error": 0.09085879869695927,
+      "n_raw": 60020,
+      "n_used": 8212,
+      "solver_notes": [],
+      "disagreement_kcal": 0.007222772740914429
+    },
+    {
+      "variant": "G93V",
+      "site": 93,
+      "leg": "folded",
+      "replicate": 1,
+      "protocol": "822108e9db71124d",
+      "sampling_record": "attempt1",
+      "dg_kcal": -6.237963361430138,
+      "net_hysteresis": 0.6603598916020603,
+      "sum_absolute_hysteresis": 2.3066887779887693,
+      "max_absolute_hysteresis": 0.5753651423506777,
+      "cancellation_fraction": 0.7137195542357316,
+      "min_adjacent_overlap": 0.061376666321805995,
+      "mbar_error": 0.10071659160021884,
+      "n_raw": 60020,
+      "n_used": 9074,
+      "solver_notes": [],
+      "disagreement_kcal": 0.06231630130969101
+    },
+    {
+      "variant": "G93V",
+      "site": 93,
+      "leg": "folded",
+      "replicate": 2,
+      "protocol": "822108e9db71124d",
+      "sampling_record": "attempt1",
+      "dg_kcal": -6.325866945003669,
+      "net_hysteresis": 0.6695929101449904,
+      "sum_absolute_hysteresis": 3.0096456378483407,
+      "max_absolute_hysteresis": 0.5339012651518,
+      "cancellation_fraction": 0.7775176912110834,
+      "min_adjacent_overlap": 0.034153134015482506,
+      "mbar_error": 0.09050556628946006,
+      "n_raw": 60020,
+      "n_used": 8174,
+      "solver_notes": [],
+      "disagreement_kcal": 0.06953907405060544
+    },
+    {
+      "variant": "G93V",
+      "site": 93,
+      "leg": "unfolded",
+      "replicate": 0,
+      "protocol": "822108e9db71124d",
+      "sampling_record": "attempt1",
+      "dg_kcal": -8.942112673601619,
+      "net_hysteresis": 0.1322084620338838,
+      "sum_absolute_hysteresis": 0.8603598443594532,
+      "max_absolute_hysteresis": 0.12185747187398725,
+      "cancellation_fraction": 0.8463335278829588,
+      "min_adjacent_overlap": 0.07143607098492795,
+      "mbar_error": 0.061488308557860416,
+      "n_raw": 60020,
+      "n_used": 10952,
+      "solver_notes": [],
+      "disagreement_kcal": 0.2525141576662495
+    },
+    {
+      "variant": "G93V",
+      "site": 93,
+      "leg": "unfolded",
+      "replicate": 1,
+      "protocol": "822108e9db71124d",
+      "sampling_record": "attempt1",
+      "dg_kcal": -9.123416646028893,
+      "net_hysteresis": 0.10453466778921379,
+      "sum_absolute_hysteresis": 0.5402659534672671,
+      "max_absolute_hysteresis": 0.11036713142193795,
+      "cancellation_fraction": 0.8065125756706651,
+      "min_adjacent_overlap": 0.06293976868076752,
+      "mbar_error": 0.06044608560825004,
+      "n_raw": 60020,
+      "n_used": 10256,
+      "solver_notes": [],
+      "disagreement_kcal": 0.019441800974661305
+    },
+    {
+      "variant": "G93V",
+      "site": 93,
+      "leg": "unfolded",
+      "replicate": 2,
+      "protocol": "822108e9db71124d",
+      "sampling_record": "attempt1",
+      "dg_kcal": -9.265837016506845,
+      "net_hysteresis": 0.09786717197179834,
+      "sum_absolute_hysteresis": 0.9890181609572664,
+      "max_absolute_hysteresis": 0.14428008896885036,
+      "cancellation_fraction": 0.9010461325835786,
+      "min_adjacent_overlap": 0.05778582535513219,
+      "mbar_error": 0.05698688101702644,
+      "n_raw": 60020,
+      "n_used": 11300,
+      "solver_notes": [],
+      "disagreement_kcal": 0.2330723566915882
+    }
+  ],
+  "strata": {
+    "folded/all_retained": {
+      "n_records": 24,
+      "n_variants": 8,
+      "n_sites": 6,
+      "metrics": {
+        "net_hysteresis": {
+          "pearson_spearman": [
+            0.07186586571336696,
+            0.08
+          ],
+          "grouping": {
+            "variant": {
+              "percentile_interval_pearson_spearman": [
+                [
+                  -0.3392195104621997,
+                  0.3544327034711934
+                ],
+                [
+                  -0.3217088055797733,
+                  0.4332972456560007
+                ]
+              ],
+              "valid_draws": 2000,
+              "total_draws": 2000,
+              "leave_one_group_out": {
+                "A4V": [
+                  0.10569238789873109,
+                  0.14545454545454545
+                ],
+                "F64A": [
+                  -0.08564427138895583,
+                  -0.07792207792207792
+                ],
+                "G93A": [
+                  0.01689700796011509,
+                  0.059740259740259746
+                ],
+                "G93S": [
+                  0.00473197229933308,
+                  0.0012987012987012987
+                ],
+                "G93V": [
+                  0.20655238723524696,
+                  0.29480519480519485
+                ],
+                "I113T": [
+                  0.07863983740365955,
+                  0.09480519480519481
+                ],
+                "I149A": [
+                  0.06692633543790814,
+                  0.05584415584415584
+                ],
+                "I18V": [
+                  0.0680634337473279,
+                  0.059740259740259746
+                ]
+              }
+            },
+            "site": {
+              "percentile_interval_pearson_spearman": [
+                [
+                  -0.28667458000747553,
+                  0.16480929407234501
+                ],
+                [
+                  -0.30954228083785884,
+                  0.3206136640357771
+                ]
+              ],
+              "valid_draws": 2000,
+              "total_draws": 2000,
+              "leave_one_group_out": {
+                "113": [
+                  0.07863983740365955,
+                  0.09480519480519481
+                ],
+                "149": [
+                  0.06692633543790814,
+                  0.05584415584415584
+                ],
+                "18": [
+                  0.0680634337473279,
+                  0.059740259740259746
+                ],
+                "4": [
+                  0.10569238789873109,
+                  0.14545454545454545
+                ],
+                "64": [
+                  -0.08564427138895583,
+                  -0.07792207792207792
+                ],
+                "93": [
+                  0.030696251021047446,
+                  0.05714285714285713
+                ]
+              }
+            }
+          }
+        },
+        "sum_absolute_hysteresis": {
+          "pearson_spearman": [
+            0.10378155848490725,
+            0.16173913043478258
+          ],
+          "grouping": {
+            "variant": {
+              "percentile_interval_pearson_spearman": [
+                [
+                  -0.32601993623868797,
+                  0.4072147447556006
+                ],
+                [
+                  -0.22699386503067484,
+                  0.5383361127444837
+                ]
+              ],
+              "valid_draws": 2000,
+              "total_draws": 2000,
+              "leave_one_group_out": {
+                "A4V": [
+                  0.18869369585711201,
+                  0.28051948051948056
+                ],
+                "F64A": [
+                  -0.080772215490235,
+                  0.023376623376623374
+                ],
+                "G93A": [
+                  0.04701338464678209,
+                  0.14155844155844155
+                ],
+                "G93S": [
+                  0.016199510541069,
+                  0.05844155844155843
+                ],
+                "G93V": [
+                  0.1618740831221353,
+                  0.26493506493506497
+                ],
+                "I113T": [
+                  0.1335352988532363,
+                  0.18051948051948052
+                ],
+                "I149A": [
+                  0.15456506875180953,
+                  0.16233766233766234
+                ],
+                "I18V": [
+                  0.11708956165938934,
+                  0.17012987012987013
+                ]
+              }
+            },
+            "site": {
+              "percentile_interval_pearson_spearman": [
+                [
+                  -0.48233121127287404,
+                  0.3414411485822128
+                ],
+                [
+                  -0.4857386277194583,
+                  0.4696016771488469
+                ]
+              ],
+              "valid_draws": 2000,
+              "total_draws": 2000,
+              "leave_one_group_out": {
+                "113": [
+                  0.1335352988532363,
+                  0.18051948051948052
+                ],
+                "149": [
+                  0.15456506875180953,
+                  0.16233766233766234
+                ],
+                "18": [
+                  0.11708956165938934,
+                  0.17012987012987013
+                ],
+                "4": [
+                  0.18869369585711201,
+                  0.28051948051948056
+                ],
+                "64": [
+                  -0.080772215490235,
+                  0.023376623376623374
+                ],
+                "93": [
+                  -0.11213839849973108,
+                  -0.09285714285714285
+                ]
+              }
+            }
+          }
+        },
+        "max_absolute_hysteresis": {
+          "pearson_spearman": [
+            0.15764874627568765,
+            0.13565217391304346
+          ],
+          "grouping": {
+            "variant": {
+              "percentile_interval_pearson_spearman": [
+                [
+                  -0.43634295829472963,
+                  0.3637861457712349
+                ],
+                [
+                  -0.3926818580192813,
+                  0.5302715798277648
+                ]
+              ],
+              "valid_draws": 2000,
+              "total_draws": 2000,
+              "leave_one_group_out": {
+                "A4V": [
+                  0.20637606180680548,
+                  0.22597402597402597
+                ],
+                "F64A": [
+                  -0.09591118947275519,
+                  -0.087012987012987
+                ],
+                "G93A": [
+                  0.11414245814881817,
+                  0.12207792207792208
+                ],
+                "G93S": [
+                  0.09200244396305517,
+                  0.02727272727272727
+                ],
+                "G93V": [
+                  0.2098303038068297,
+                  0.2753246753246753
+                ],
+                "I113T": [
+                  0.20824589778193606,
+                  0.22597402597402597
+                ],
+                "I149A": [
+                  0.17167315057731125,
+                  0.07662337662337662
+                ],
+                "I18V": [
+                  0.17961002899444337,
+                  0.17272727272727273
+                ]
+              }
+            },
+            "site": {
+              "percentile_interval_pearson_spearman": [
+                [
+                  -0.4490063186513967,
+                  0.284689936804419
+                ],
+                [
+                  -0.6095534787123573,
+                  0.4222027972027972
+                ]
+              ],
+              "valid_draws": 2000,
+              "total_draws": 2000,
+              "leave_one_group_out": {
+                "113": [
+                  0.20824589778193606,
+                  0.22597402597402597
+                ],
+                "149": [
+                  0.17167315057731125,
+                  0.07662337662337662
+                ],
+                "18": [
+                  0.17961002899444337,
+                  0.17272727272727273
+                ],
+                "4": [
+                  0.20637606180680548,
+                  0.22597402597402597
+                ],
+                "64": [
+                  -0.09591118947275519,
+                  -0.087012987012987
+                ],
+                "93": [
+                  0.020400041622057826,
+                  -0.03214285714285714
+                ]
+              }
+            }
+          }
+        },
+        "min_adjacent_overlap": {
+          "pearson_spearman": [
+            -0.11977850328229502,
+            -0.18869565217391301
+          ],
+          "grouping": {
+            "variant": {
+              "percentile_interval_pearson_spearman": [
+                [
+                  -0.3071075802694615,
+                  0.2877676682695695
+                ],
+                [
+                  -0.3919715260831908,
+                  0.2516447522663332
+                ]
+              ],
+              "valid_draws": 2000,
+              "total_draws": 2000,
+              "leave_one_group_out": {
+                "A4V": [
+                  -0.11918336915934216,
+                  -0.15844155844155844
+                ],
+                "F64A": [
+                  -0.2031304896268752,
+                  -0.1922077922077922
+                ],
+                "G93A": [
+                  -0.1253901213341681,
+                  -0.212987012987013
+                ],
+                "G93S": [
+                  0.027763494328132698,
+                  -0.11818181818181818
+                ],
+                "G93V": [
+                  -0.0949263197597697,
+                  -0.07272727272727272
+                ],
+                "I113T": [
+                  -0.11441482662140345,
+                  -0.1987012987012987
+                ],
+                "I149A": [
+                  -0.16596739304072297,
+                  -0.22337662337662337
+                ],
+                "I18V": [
+                  -0.15241147048782863,
+                  -0.2636363636363636
+                ]
+              }
+            },
+            "site": {
+              "percentile_interval_pearson_spearman": [
+                [
+                  -0.2501607630702113,
+                  0.6546331729298033
+                ],
+                [
+                  -0.31297707248698436,
+                  0.545171339563863
+                ]
+              ],
+              "valid_draws": 2000,
+              "total_draws": 2000,
+              "leave_one_group_out": {
+                "113": [
+                  -0.11441482662140345,
+                  -0.1987012987012987
+                ],
+                "149": [
+                  -0.16596739304072297,
+                  -0.22337662337662337
+                ],
+                "18": [
+                  -0.15241147048782863,
+                  -0.2636363636363636
+                ],
+                "4": [
+                  -0.11918336915934216,
+                  -0.15844155844155844
+                ],
+                "64": [
+                  -0.2031304896268752,
+                  -0.1922077922077922
+                ],
+                "93": [
+                  0.29297626479293426,
+                  0.11785714285714284
+                ]
+              }
+            }
+          }
+        },
+        "mbar_error": {
+          "pearson_spearman": [
+            0.23341140467779892,
+            0.017391304347826087
+          ],
+          "grouping": {
+            "variant": {
+              "percentile_interval_pearson_spearman": [
+                [
+                  -0.5279615357366726,
+                  0.6993190225411519
+                ],
+                [
+                  -0.5411207640569817,
+                  0.6224390672371838
+                ]
+              ],
+              "valid_draws": 2000,
+              "total_draws": 2000,
+              "leave_one_group_out": {
+                "A4V": [
+                  0.226827820164097,
+                  -0.01038961038961039
+                ],
+                "F64A": [
+                  -0.32038520179087093,
+                  -0.2935064935064935
+                ],
+                "G93A": [
+                  0.18059786056452726,
+                  -0.012987012987012986
+                ],
+                "G93S": [
+                  0.23534070878644456,
+                  0.04805194805194805
+                ],
+                "G93V": [
+                  0.5274288336978225,
+                  0.32597402597402597
+                ],
+                "I113T": [
+                  0.25128471480388953,
+                  0.025974025974025972
+                ],
+                "I149A": [
+                  0.2512871313746566,
+                  0.04025974025974026
+                ],
+                "I18V": [
+                  0.2870721406132829,
+                  -0.005194805194805195
+                ]
+              }
+            },
+            "site": {
+              "percentile_interval_pearson_spearman": [
+                [
+                  -0.43478179428272257,
+                  0.6795028736019046
+                ],
+                [
+                  -0.47495244216993315,
+                  0.6490381619937694
+                ]
+              ],
+              "valid_draws": 2000,
+              "total_draws": 2000,
+              "leave_one_group_out": {
+                "113": [
+                  0.25128471480388953,
+                  0.025974025974025972
+                ],
+                "149": [
+                  0.2512871313746566,
+                  0.04025974025974026
+                ],
+                "18": [
+                  0.2870721406132829,
+                  -0.005194805194805195
+                ],
+                "4": [
+                  0.226827820164097,
+                  -0.01038961038961039
+                ],
+                "64": [
+                  -0.32038520179087093,
+                  -0.2935064935064935
+                ],
+                "93": [
+                  0.5247136334373171,
+                  0.41785714285714276
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "folded/uniform_attempt1_without_A4V": {
+      "n_records": 21,
+      "n_variants": 7,
+      "n_sites": 5,
+      "metrics": {
+        "net_hysteresis": {
+          "pearson_spearman": [
+            0.10569238789873109,
+            0.14545454545454545
+          ],
+          "grouping": {
+            "variant": {
+              "percentile_interval_pearson_spearman": [
+                [
+                  -0.33209665526303667,
+                  0.43381354637388375
+                ],
+                [
+                  -0.3259307642064011,
+                  0.5318865750996895
+                ]
+              ],
+              "valid_draws": 2000,
+              "total_draws": 2000,
+              "leave_one_group_out": {
+                "F64A": [
+                  -0.03627267586917527,
+                  -0.011351909184726523
+                ],
+                "G93A": [
+                  0.04321254969737704,
+                  0.12487100103199174
+                ],
+                "G93S": [
+                  0.03179236083124004,
+                  0.08978328173374613
+                ],
+                "G93V": [
+                  0.2789247787108793,
+                  0.42002063983488136
+                ],
+                "I113T": [
+                  0.10707884505065604,
+                  0.1455108359133127
+                ],
+                "I149A": [
+                  0.11318361601891366,
+                  0.12899896800825592
+                ],
+                "I18V": [
+                  0.096716927462601,
+                  0.1042311661506708
+                ]
+              }
+            },
+            "site": {
+              "percentile_interval_pearson_spearman": [
+                [
+                  -0.3132077901085366,
+                  0.27292960945141215
+                ],
+                [
+                  -0.3742434431741761,
+                  0.5693430656934305
+                ]
+              ],
+              "valid_draws": 2000,
+              "total_draws": 2000,
+              "leave_one_group_out": {
+                "113": [
+                  0.10707884505065604,
+                  0.1455108359133127
+                ],
+                "149": [
+                  0.11318361601891366,
+                  0.12899896800825592
+                ],
+                "18": [
+                  0.096716927462601,
+                  0.1042311661506708
+                ],
+                "64": [
+                  -0.03627267586917527,
+                  -0.011351909184726523
+                ],
+                "93": [
+                  0.07807433873802103,
+                  0.17482517482517487
+                ]
+              }
+            }
+          }
+        },
+        "sum_absolute_hysteresis": {
+          "pearson_spearman": [
+            0.18869369585711201,
+            0.28051948051948056
+          ],
+          "grouping": {
+            "variant": {
+              "percentile_interval_pearson_spearman": [
+                [
+                  -0.2536642927328674,
+                  0.6096445973096508
+                ],
+                [
+                  -0.13573770491803283,
+                  0.697049180327869
+                ]
+              ],
+              "valid_draws": 2000,
+              "total_draws": 2000,
+              "leave_one_group_out": {
+                "F64A": [
+                  0.014581684467875953,
+                  0.13725490196078433
+                ],
+                "G93A": [
+                  0.12959262517583198,
+                  0.2672858617131063
+                ],
+                "G93S": [
+                  0.09831392347896059,
+                  0.19091847265221878
+                ],
+                "G93V": [
+                  0.29028252352005784,
+                  0.4633642930856553
+                ],
+                "I113T": [
+                  0.21799086571677614,
+                  0.28792569659442724
+                ],
+                "I149A": [
+                  0.305676813455995,
+                  0.3168214654282766
+                ],
+                "I18V": [
+                  0.1992256640257651,
+                  0.28792569659442724
+                ]
+              }
+            },
+            "site": {
+              "percentile_interval_pearson_spearman": [
+                [
+                  -0.3840755695198481,
+                  0.4095416247737173
+                ],
+                [
+                  -0.3065693430656934,
+                  0.7184115523465705
+                ]
+              ],
+              "valid_draws": 2000,
+              "total_draws": 2000,
+              "leave_one_group_out": {
+                "113": [
+                  0.21799086571677614,
+                  0.28792569659442724
+                ],
+                "149": [
+                  0.305676813455995,
+                  0.3168214654282766
+                ],
+                "18": [
+                  0.1992256640257651,
+                  0.28792569659442724
+                ],
+                "64": [
+                  0.014581684467875953,
+                  0.13725490196078433
+                ],
+                "93": [
+                  -0.010186406998989513,
+                  0.07692307692307693
+                ]
+              }
+            }
+          }
+        },
+        "max_absolute_hysteresis": {
+          "pearson_spearman": [
+            0.20637606180680548,
+            0.22597402597402597
+          ],
+          "grouping": {
+            "variant": {
+              "percentile_interval_pearson_spearman": [
+                [
+                  -0.3603881421422535,
+                  0.43616149594738013
+                ],
+                [
+                  -0.337747573470696,
+                  0.611214333112143
+                ]
+              ],
+              "valid_draws": 2000,
+              "total_draws": 2000,
+              "leave_one_group_out": {
+                "F64A": [
+                  -0.013986706456931345,
+                  -0.017543859649122806
+                ],
+                "G93A": [
+                  0.15721737811844705,
+                  0.20949432404540763
+                ],
+                "G93S": [
+                  0.1344611852828206,
+                  0.12280701754385966
+                ],
+                "G93V": [
+                  0.28030917927213317,
+                  0.43653250773993807
+                ],
+                "I113T": [
+                  0.2549467510277505,
+                  0.31475748194014447
+                ],
+                "I149A": [
+                  0.24790030844229827,
+                  0.19504643962848298
+                ],
+                "I18V": [
+                  0.22406272858314524,
+                  0.2631578947368421
+                ]
+              }
+            },
+            "site": {
+              "percentile_interval_pearson_spearman": [
+                [
+                  -0.33411902793892645,
+                  0.30549938928141634
+                ],
+                [
+                  -0.5054151624548737,
+                  0.5018050541516247
+                ]
+              ],
+              "valid_draws": 2000,
+              "total_draws": 2000,
+              "leave_one_group_out": {
+                "113": [
+                  0.2549467510277505,
+                  0.31475748194014447
+                ],
+                "149": [
+                  0.24790030844229827,
+                  0.19504643962848298
+                ],
+                "18": [
+                  0.22406272858314524,
+                  0.2631578947368421
+                ],
+                "64": [
+                  -0.013986706456931345,
+                  -0.017543859649122806
+                ],
+                "93": [
+                  0.054072719994247315,
+                  0.09090909090909093
+                ]
+              }
+            }
+          }
+        },
+        "min_adjacent_overlap": {
+          "pearson_spearman": [
+            -0.11918336915934216,
+            -0.15844155844155844
+          ],
+          "grouping": {
+            "variant": {
+              "percentile_interval_pearson_spearman": [
+                [
+                  -0.34024110913842337,
+                  0.39485213195414776
+                ],
+                [
+                  -0.4490437520356095,
+                  0.396159333950816
+                ]
+              ],
+              "valid_draws": 2000,
+              "total_draws": 2000,
+              "leave_one_group_out": {
+                "F64A": [
+                  -0.2237252782019663,
+                  -0.16408668730650156
+                ],
+                "G93A": [
+                  -0.12130562404115922,
+                  -0.1826625386996904
+                ],
+                "G93S": [
+                  0.07180945425072674,
+                  -0.034055727554179564
+                ],
+                "G93V": [
+                  -0.08696526807755618,
+                  0.011351909184726523
+                ],
+                "I113T": [
+                  -0.11550337219710587,
+                  -0.16202270381836945
+                ],
+                "I149A": [
+                  -0.17433680316826122,
+                  -0.2260061919504644
+                ],
+                "I18V": [
+                  -0.1631790535561759,
+                  -0.281733746130031
+                ]
+              }
+            },
+            "site": {
+              "percentile_interval_pearson_spearman": [
+                [
+                  -0.2613758677843573,
+                  0.8193999149186613
+                ],
+                [
+                  -0.35600490196078427,
+                  0.6897810218978101
+                ]
+              ],
+              "valid_draws": 2000,
+              "total_draws": 2000,
+              "leave_one_group_out": {
+                "113": [
+                  -0.11550337219710587,
+                  -0.16202270381836945
+                ],
+                "149": [
+                  -0.17433680316826122,
+                  -0.2260061919504644
+                ],
+                "18": [
+                  -0.1631790535561759,
+                  -0.281733746130031
+                ],
+                "64": [
+                  -0.2237252782019663,
+                  -0.16408668730650156
+                ],
+                "93": [
+                  0.5907584639774105,
+                  0.4265734265734266
+                ]
+              }
+            }
+          }
+        },
+        "mbar_error": {
+          "pearson_spearman": [
+            0.226827820164097,
+            -0.01038961038961039
+          ],
+          "grouping": {
+            "variant": {
+              "percentile_interval_pearson_spearman": [
+                [
+                  -0.5811927598166127,
+                  0.7086057089951695
+                ],
+                [
+                  -0.6557873065535852,
+                  0.6354247215699791
+                ]
+              ],
+              "valid_draws": 2000,
+              "total_draws": 2000,
+              "leave_one_group_out": {
+                "F64A": [
+                  -0.33982776896890954,
+                  -0.3622291021671827
+                ],
+                "G93A": [
+                  0.15344640591793024,
+                  -0.06707946336429307
+                ],
+                "G93S": [
+                  0.227478061480314,
+                  0.03199174406604747
+                ],
+                "G93V": [
+                  0.554985383822147,
+                  0.3560371517027864
+                ],
+                "I113T": [
+                  0.24436796169899355,
+                  0.0196078431372549
+                ],
+                "I149A": [
+                  0.2462043410460986,
+                  0.005159958720330237
+                ],
+                "I18V": [
+                  0.26695267106835224,
+                  -0.08978328173374613
+                ]
+              }
+            },
+            "site": {
+              "percentile_interval_pearson_spearman": [
+                [
+                  -0.4841720085249243,
+                  0.6803263595633684
+                ],
+                [
+                  -0.5545776001212089,
+                  0.6931407942238268
+                ]
+              ],
+              "valid_draws": 2000,
+              "total_draws": 2000,
+              "leave_one_group_out": {
+                "113": [
+                  0.24436796169899355,
+                  0.0196078431372549
+                ],
+                "149": [
+                  0.2462043410460986,
+                  0.005159958720330237
+                ],
+                "18": [
+                  0.26695267106835224,
+                  -0.08978328173374613
+                ],
+                "64": [
+                  -0.33982776896890954,
+                  -0.3622291021671827
+                ],
+                "93": [
+                  0.5453734422298674,
+                  0.4755244755244756
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "unfolded/all_retained": {
+      "n_records": 24,
+      "n_variants": 8,
+      "n_sites": 6,
+      "metrics": {
+        "net_hysteresis": {
+          "pearson_spearman": [
+            0.3830917600744048,
+            0.3565217391304348
+          ],
+          "grouping": {
+            "variant": {
+              "percentile_interval_pearson_spearman": [
+                [
+                  0.020489586216911708,
+                  0.7592722371898275
+                ],
+                [
+                  -0.006586433260393835,
+                  0.6215065866058598
+                ]
+              ],
+              "valid_draws": 2000,
+              "total_draws": 2000,
+              "leave_one_group_out": {
+                "A4V": [
+                  0.34221272231539657,
+                  0.33766233766233766
+                ],
+                "F64A": [
+                  0.5937894327075204,
+                  0.45714285714285713
+                ],
+                "G93A": [
+                  0.3030547448730728,
+                  0.2831168831168831
+                ],
+                "G93S": [
+                  0.3621824699518658,
+                  0.3155844155844156
+                ],
+                "G93V": [
+                  0.3791253294218779,
+                  0.37142857142857144
+                ],
+                "I113T": [
+                  0.30949077675507397,
+                  0.2935064935064935
+                ],
+                "I149A": [
+                  0.40372831838140666,
+                  0.3649350649350649
+                ],
+                "I18V": [
+                  0.4164278068078606,
+                  0.3844155844155844
+                ]
+              }
+            },
+            "site": {
+              "percentile_interval_pearson_spearman": [
+                [
+                  -0.08709089335740382,
+                  0.7592722371898278
+                ],
+                [
+                  -0.11740041928721172,
+                  0.6157549234135667
+                ]
+              ],
+              "valid_draws": 2000,
+              "total_draws": 2000,
+              "leave_one_group_out": {
+                "113": [
+                  0.30949077675507397,
+                  0.2935064935064935
+                ],
+                "149": [
+                  0.40372831838140666,
+                  0.3649350649350649
+                ],
+                "18": [
+                  0.4164278068078606,
+                  0.3844155844155844
+                ],
+                "4": [
+                  0.34221272231539657,
+                  0.33766233766233766
+                ],
+                "64": [
+                  0.5937894327075204,
+                  0.45714285714285713
+                ],
+                "93": [
+                  0.25988925692289044,
+                  0.2285714285714285
+                ]
+              }
+            }
+          }
+        },
+        "sum_absolute_hysteresis": {
+          "pearson_spearman": [
+            0.11199403336304885,
+            0.19565217391304346
+          ],
+          "grouping": {
+            "variant": {
+              "percentile_interval_pearson_spearman": [
+                [
+                  -0.30379332422637867,
+                  0.6401855035498756
+                ],
+                [
+                  -0.38993435448577685,
+                  0.6199785334401804
+                ]
+              ],
+              "valid_draws": 2000,
+              "total_draws": 2000,
+              "leave_one_group_out": {
+                "A4V": [
+                  0.13796579494249686,
+                  0.24285714285714283
+                ],
+                "F64A": [
+                  0.16227897733598287,
+                  0.3311688311688311
+                ],
+                "G93A": [
+                  -0.07869233930574132,
+                  -0.01038961038961039
+                ],
+                "G93S": [
+                  0.11790243611339554,
+                  0.16103896103896104
+                ],
+                "G93V": [
+                  -0.016394304673431514,
+                  0.029870129870129873
+                ],
+                "I113T": [
+                  0.3761002103975375,
+                  0.34415584415584416
+                ],
+                "I149A": [
+                  0.12345765844402162,
+                  0.24415584415584415
+                ],
+                "I18V": [
+                  0.1483766596485662,
+                  0.18181818181818182
+                ]
+              }
+            },
+            "site": {
+              "percentile_interval_pearson_spearman": [
+                [
+                  -0.48552153101267115,
+                  0.6698959432632199
+                ],
+                [
+                  -0.6241614255765197,
+                  0.6735520410645212
+                ]
+              ],
+              "valid_draws": 2000,
+              "total_draws": 2000,
+              "leave_one_group_out": {
+                "113": [
+                  0.3761002103975375,
+                  0.34415584415584416
+                ],
+                "149": [
+                  0.12345765844402162,
+                  0.24415584415584415
+                ],
+                "18": [
+                  0.1483766596485662,
+                  0.18181818181818182
+                ],
+                "4": [
+                  0.13796579494249686,
+                  0.24285714285714283
+                ],
+                "64": [
+                  0.16227897733598287,
+                  0.3311688311688311
+                ],
+                "93": [
+                  -0.29177024781358296,
+                  -0.39999999999999997
+                ]
+              }
+            }
+          }
+        },
+        "max_absolute_hysteresis": {
+          "pearson_spearman": [
+            -0.1304126394578681,
+            0.010434782608695651
+          ],
+          "grouping": {
+            "variant": {
+              "percentile_interval_pearson_spearman": [
+                [
+                  -0.5261836504249834,
+                  0.44828866898150665
+                ],
+                [
+                  -0.48271334792122533,
+                  0.4508948057616762
+                ]
+              ],
+              "valid_draws": 2000,
+              "total_draws": 2000,
+              "leave_one_group_out": {
+                "A4V": [
+                  -0.1574845682668682,
+                  -0.01038961038961039
+                ],
+                "F64A": [
+                  -0.11354678836516574,
+                  0.01038961038961039
+                ],
+                "G93A": [
+                  -0.3090920843238712,
+                  -0.17922077922077922
+                ],
+                "G93S": [
+                  -0.1768804109878739,
+                  -0.03896103896103896
+                ],
+                "G93V": [
+                  -0.1728199684083955,
+                  -0.007792207792207793
+                ],
+                "I113T": [
+                  0.22300941662121718,
+                  0.2324675324675325
+                ],
+                "I149A": [
+                  -0.11205577768096352,
+                  0.08181818181818182
+                ],
+                "I18V": [
+                  -0.11448872088353237,
+                  -0.0025974025974025974
+                ]
+              }
+            },
+            "site": {
+              "percentile_interval_pearson_spearman": [
+                [
+                  -0.6587895872778415,
+                  0.4272917163371261
+                ],
+                [
+                  -0.671858774662513,
+                  0.4443248615013416
+                ]
+              ],
+              "valid_draws": 2000,
+              "total_draws": 2000,
+              "leave_one_group_out": {
+                "113": [
+                  0.22300941662121718,
+                  0.2324675324675325
+                ],
+                "149": [
+                  -0.11205577768096352,
+                  0.08181818181818182
+                ],
+                "18": [
+                  -0.11448872088353237,
+                  -0.0025974025974025974
+                ],
+                "4": [
+                  -0.1574845682668682,
+                  -0.01038961038961039
+                ],
+                "64": [
+                  -0.11354678836516574,
+                  0.01038961038961039
+                ],
+                "93": [
+                  -0.4672081612499106,
+                  -0.3428571428571428
+                ]
+              }
+            }
+          }
+        },
+        "min_adjacent_overlap": {
+          "pearson_spearman": [
+            0.16880457933256457,
+            0.24
+          ],
+          "grouping": {
+            "variant": {
+              "percentile_interval_pearson_spearman": [
+                [
+                  -0.248812827405193,
+                  0.5108917892290555
+                ],
+                [
+                  -0.27515830411919345,
+                  0.6262800875273522
+                ]
+              ],
+              "valid_draws": 2000,
+              "total_draws": 2000,
+              "leave_one_group_out": {
+                "A4V": [
+                  0.17844609440621464,
+                  0.2155844155844156
+                ],
+                "F64A": [
+                  0.10464397225384768,
+                  0.14025974025974028
+                ],
+                "G93A": [
+                  0.09490337483949826,
+                  0.07532467532467534
+                ],
+                "G93S": [
+                  0.23625848050344161,
+                  0.3337662337662338
+                ],
+                "G93V": [
+                  0.1807496349289473,
+                  0.2324675324675325
+                ],
+                "I113T": [
+                  0.042694516218167666,
+                  0.17662337662337665
+                ],
+                "I149A": [
+                  0.2953610765675563,
+                  0.34545454545454546
+                ],
+                "I18V": [
+                  0.1888648262575002,
+                  0.33246753246753247
+                ]
+              }
+            },
+            "site": {
+              "percentile_interval_pearson_spearman": [
+                [
+                  -0.1434292775689521,
+                  0.482199661185577
+                ],
+                [
+                  -0.26834381551362685,
+                  0.5381400208986417
+                ]
+              ],
+              "valid_draws": 2000,
+              "total_draws": 2000,
+              "leave_one_group_out": {
+                "113": [
+                  0.042694516218167666,
+                  0.17662337662337665
+                ],
+                "149": [
+                  0.2953610765675563,
+                  0.34545454545454546
+                ],
+                "18": [
+                  0.1888648262575002,
+                  0.33246753246753247
+                ],
+                "4": [
+                  0.17844609440621464,
+                  0.2155844155844156
+                ],
+                "64": [
+                  0.10464397225384768,
+                  0.14025974025974028
+                ],
+                "93": [
+                  0.17779821594629555,
+                  0.1607142857142857
+                ]
+              }
+            }
+          }
+        },
+        "mbar_error": {
+          "pearson_spearman": [
+            0.42064730974384246,
+            0.38956521739130434
+          ],
+          "grouping": {
+            "variant": {
+              "percentile_interval_pearson_spearman": [
+                [
+                  0.08671641940017603,
+                  0.6460422357041816
+                ],
+                [
+                  0.061597374179431265,
+                  0.7010512110588798
+                ]
+              ],
+              "valid_draws": 2000,
+              "total_draws": 2000,
+              "leave_one_group_out": {
+                "A4V": [
+                  0.39551709456822215,
+                  0.36233766233766235
+                ],
+                "F64A": [
+                  0.5081633606783481,
+                  0.4896103896103896
+                ],
+                "G93A": [
+                  0.2852488921752697,
+                  0.22987012987012984
+                ],
+                "G93S": [
+                  0.4327363814492969,
+                  0.3649350649350649
+                ],
+                "G93V": [
+                  0.43841857728987904,
+                  0.45454545454545453
+                ],
+                "I113T": [
+                  0.4145381446321952,
+                  0.374025974025974
+                ],
+                "I149A": [
+                  0.43570948922945857,
+                  0.387012987012987
+                ],
+                "I18V": [
+                  0.45352522701438,
+                  0.43506493506493504
+                ]
+              }
+            },
+            "site": {
+              "percentile_interval_pearson_spearman": [
+                [
+                  0.024568496697780783,
+                  0.6090708736545486
+                ],
+                [
+                  -0.0010384215991692627,
+                  0.570209464701319
+                ]
+              ],
+              "valid_draws": 2000,
+              "total_draws": 2000,
+              "leave_one_group_out": {
+                "113": [
+                  0.4145381446321952,
+                  0.374025974025974
+                ],
+                "149": [
+                  0.43570948922945857,
+                  0.387012987012987
+                ],
+                "18": [
+                  0.45352522701438,
+                  0.43506493506493504
+                ],
+                "4": [
+                  0.39551709456822215,
+                  0.36233766233766235
+                ],
+                "64": [
+                  0.5081633606783481,
+                  0.4896103896103896
+                ],
+                "93": [
+                  0.31737139125980957,
+                  0.2285714285714285
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "unfolded/uniform_attempt1_without_A4V": {
+      "n_records": 21,
+      "n_variants": 7,
+      "n_sites": 5,
+      "metrics": {
+        "net_hysteresis": {
+          "pearson_spearman": [
+            0.34221272231539657,
+            0.33766233766233766
+          ],
+          "grouping": {
+            "variant": {
+              "percentile_interval_pearson_spearman": [
+                [
+                  -0.08607389870875777,
+                  0.7329468390246692
+                ],
+                [
+                  -0.11606557377049181,
+                  0.6245868296749094
+                ]
+              ],
+              "valid_draws": 2000,
+              "total_draws": 2000,
+              "leave_one_group_out": {
+                "F64A": [
+                  0.570647559922692,
+                  0.4757481940144479
+                ],
+                "G93A": [
+                  0.2163462086935166,
+                  0.2198142414860681
+                ],
+                "G93S": [
+                  0.3101110320971332,
+                  0.29411764705882354
+                ],
+                "G93V": [
+                  0.33980279074529346,
+                  0.35810113519091846
+                ],
+                "I113T": [
+                  0.2633339510563371,
+                  0.27966976264189886
+                ],
+                "I149A": [
+                  0.35735896677053486,
+                  0.31888544891640863
+                ],
+                "I18V": [
+                  0.37587860552713087,
+                  0.3663570691434469
+                ]
+              }
+            },
+            "site": {
+              "percentile_interval_pearson_spearman": [
+                [
+                  -0.32079105924832446,
+                  0.7165063401407317
+                ],
+                [
+                  -0.328440366972477,
+                  0.6204188481675393
+                ]
+              ],
+              "valid_draws": 2000,
+              "total_draws": 2000,
+              "leave_one_group_out": {
+                "113": [
+                  0.2633339510563371,
+                  0.27966976264189886
+                ],
+                "149": [
+                  0.35735896677053486,
+                  0.31888544891640863
+                ],
+                "18": [
+                  0.37587860552713087,
+                  0.3663570691434469
+                ],
+                "64": [
+                  0.570647559922692,
+                  0.4757481940144479
+                ],
+                "93": [
+                  0.12495092846594334,
+                  0.1328671328671329
+                ]
+              }
+            }
+          }
+        },
+        "sum_absolute_hysteresis": {
+          "pearson_spearman": [
+            0.13796579494249686,
+            0.24285714285714283
+          ],
+          "grouping": {
+            "variant": {
+              "percentile_interval_pearson_spearman": [
+                [
+                  -0.3018939051243792,
+                  0.6748799208031988
+                ],
+                [
+                  -0.312688681281677,
+                  0.613158506867523
+                ]
+              ],
+              "valid_draws": 2000,
+              "total_draws": 2000,
+              "leave_one_group_out": {
+                "F64A": [
+                  0.19184539856581245,
+                  0.3663570691434469
+                ],
+                "G93A": [
+                  -0.0677597247923269,
+                  0.05675954592363261
+                ],
+                "G93S": [
+                  0.15757799647449042,
+                  0.2198142414860681
+                ],
+                "G93V": [
+                  0.018685812832211754,
+                  0.09803921568627451
+                ],
+                "I113T": [
+                  0.40269408813137425,
+                  0.3869969040247678
+                ],
+                "I149A": [
+                  0.14382311558162666,
+                  0.283797729618163
+                ],
+                "I18V": [
+                  0.19387572553381638,
+                  0.22187822497420018
+                ]
+              }
+            },
+            "site": {
+              "percentile_interval_pearson_spearman": [
+                [
+                  -0.42538308134157665,
+                  0.7032926525324977
+                ],
+                [
+                  -0.5094339622641509,
+                  0.7037659717552117
+                ]
+              ],
+              "valid_draws": 2000,
+              "total_draws": 2000,
+              "leave_one_group_out": {
+                "113": [
+                  0.40269408813137425,
+                  0.3869969040247678
+                ],
+                "149": [
+                  0.14382311558162666,
+                  0.283797729618163
+                ],
+                "18": [
+                  0.19387572553381638,
+                  0.22187822497420018
+                ],
+                "64": [
+                  0.19184539856581245,
+                  0.3663570691434469
+                ],
+                "93": [
+                  -0.24697235422757174,
+                  -0.2377622377622378
+                ]
+              }
+            }
+          }
+        },
+        "max_absolute_hysteresis": {
+          "pearson_spearman": [
+            -0.1574845682668682,
+            -0.01038961038961039
+          ],
+          "grouping": {
+            "variant": {
+              "percentile_interval_pearson_spearman": [
+                [
+                  -0.6007719189554918,
+                  0.4420125822710095
+                ],
+                [
+                  -0.5497382198952879,
+                  0.43155149934810955
+                ]
+              ],
+              "valid_draws": 2000,
+              "total_draws": 2000,
+              "leave_one_group_out": {
+                "F64A": [
+                  -0.1354161269387625,
+                  -0.003095975232198142
+                ],
+                "G93A": [
+                  -0.3789936531928829,
+                  -0.21568627450980388
+                ],
+                "G93S": [
+                  -0.1992927213852786,
+                  -0.05056759545923632
+                ],
+                "G93V": [
+                  -0.19840532888829682,
+                  -0.013415892672858616
+                ],
+                "I113T": [
+                  0.1983082279045876,
+                  0.2260061919504644
+                ],
+                "I149A": [
+                  -0.14949398041972614,
+                  0.023735810113519093
+                ],
+                "I18V": [
+                  -0.13687311926426715,
+                  -0.05056759545923632
+                ]
+              }
+            },
+            "site": {
+              "percentile_interval_pearson_spearman": [
+                [
+                  -0.7099620917090748,
+                  0.4217146354445805
+                ],
+                [
+                  -0.7335766423357664,
+                  0.43853211009174303
+                ]
+              ],
+              "valid_draws": 2000,
+              "total_draws": 2000,
+              "leave_one_group_out": {
+                "113": [
+                  0.1983082279045876,
+                  0.2260061919504644
+                ],
+                "149": [
+                  -0.14949398041972614,
+                  0.023735810113519093
+                ],
+                "18": [
+                  -0.13687311926426715,
+                  -0.05056759545923632
+                ],
+                "64": [
+                  -0.1354161269387625,
+                  -0.003095975232198142
+                ],
+                "93": [
+                  -0.5459919698627191,
+                  -0.3076923076923077
+                ]
+              }
+            }
+          }
+        },
+        "min_adjacent_overlap": {
+          "pearson_spearman": [
+            0.17844609440621464,
+            0.2155844155844156
+          ],
+          "grouping": {
+            "variant": {
+              "percentile_interval_pearson_spearman": [
+                [
+                  -0.24428274519030108,
+                  0.5372111027668621
+                ],
+                [
+                  -0.3640655737704916,
+                  0.589047176924235
+                ]
+              ],
+              "valid_draws": 2000,
+              "total_draws": 2000,
+              "leave_one_group_out": {
+                "F64A": [
+                  0.11179580727422113,
+                  0.11455108359133126
+                ],
+                "G93A": [
+                  0.0969739732557941,
+                  0.005159958720330237
+                ],
+                "G93S": [
+                  0.2553744870663649,
+                  0.3106295149638803
+                ],
+                "G93V": [
+                  0.18902138989353534,
+                  0.1867905056759546
+                ],
+                "I113T": [
+                  0.056877001244829216,
+                  0.17027863777089783
+                ],
+                "I149A": [
+                  0.3306101531015626,
+                  0.33952528379772956
+                ],
+                "I18V": [
+                  0.180964673563315,
+                  0.29205366357069146
+                ]
+              }
+            },
+            "site": {
+              "percentile_interval_pearson_spearman": [
+                [
+                  -0.17019368180156683,
+                  0.5690875085648925
+                ],
+                [
+                  -0.3862815884476534,
+                  0.49509803921568624
+                ]
+              ],
+              "valid_draws": 2000,
+              "total_draws": 2000,
+              "leave_one_group_out": {
+                "113": [
+                  0.056877001244829216,
+                  0.17027863777089783
+                ],
+                "149": [
+                  0.3306101531015626,
+                  0.33952528379772956
+                ],
+                "18": [
+                  0.180964673563315,
+                  0.29205366357069146
+                ],
+                "64": [
+                  0.11179580727422113,
+                  0.11455108359133126
+                ],
+                "93": [
+                  0.18883079617872295,
+                  0.013986013986013986
+                ]
+              }
+            }
+          }
+        },
+        "mbar_error": {
+          "pearson_spearman": [
+            0.39551709456822215,
+            0.36233766233766235
+          ],
+          "grouping": {
+            "variant": {
+              "percentile_interval_pearson_spearman": [
+                [
+                  0.01315101996664242,
+                  0.6386533306792616
+                ],
+                [
+                  -0.058393442622950764,
+                  0.6852632429288468
+                ]
+              ],
+              "valid_draws": 2000,
+              "total_draws": 2000,
+              "leave_one_group_out": {
+                "F64A": [
+                  0.48946924396885805,
+                  0.48813209494324045
+                ],
+                "G93A": [
+                  0.19856096440857082,
+                  0.17440660474716205
+                ],
+                "G93S": [
+                  0.4066235994088805,
+                  0.32714138286893707
+                ],
+                "G93V": [
+                  0.41790263375288644,
+                  0.44272445820433437
+                ],
+                "I113T": [
+                  0.3985834052144872,
+                  0.37048503611971106
+                ],
+                "I149A": [
+                  0.4092852295939361,
+                  0.3415892672858617
+                ],
+                "I18V": [
+                  0.4228122503064062,
+                  0.3766769865841073
+                ]
+              }
+            },
+            "site": {
+              "percentile_interval_pearson_spearman": [
+                [
+                  -0.028015970292749888,
+                  0.5768111636828475
+                ],
+                [
+                  -0.0875912408759124,
+                  0.5719569603227975
+                ]
+              ],
+              "valid_draws": 2000,
+              "total_draws": 2000,
+              "leave_one_group_out": {
+                "113": [
+                  0.3985834052144872,
+                  0.37048503611971106
+                ],
+                "149": [
+                  0.4092852295939361,
+                  0.3415892672858617
+                ],
+                "18": [
+                  0.4228122503064062,
+                  0.3766769865841073
+                ],
+                "64": [
+                  0.48946924396885805,
+                  0.48813209494324045
+                ],
+                "93": [
+                  0.21996001464768872,
+                  0.18181818181818185
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

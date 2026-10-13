@@ -1,0 +1,23 @@
+{
+  "baseline": [
+    9.913833780355363,
+    9.663658419317764,
+    9.721053160995607
+  ],
+  "ss": [
+    9.776773029356843,
+    9.784770965936376,
+    9.68624642740324
+  ],
+  "baseline_mean": 9.766181786889577,
+  "ss_mean": 9.749263474232153,
+  "shift": -0.01691831265742394,
+  "shift_standard_error": 0.0819933439667356,
+  "confidence_level": 0.95,
+  "welch_degrees_of_freedom": 2.6768261220811613,
+  "shift_interval": [
+    -0.2966175980164651,
+    0.2627809727016172
+  ],
+  "interval_scope": "Unpaired Welch approximation; conditional on sampled basins; excludes model bias and unsampled modes."
+}

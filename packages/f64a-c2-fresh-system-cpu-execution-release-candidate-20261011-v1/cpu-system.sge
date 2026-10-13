@@ -1,0 +1,18 @@
+#!/bin/bash
+#$ -P rise-batteries
+#$ -pe omp 8
+#$ -l h_rt=01:00:00
+#$ -r n
+#$ -N c2-r3-cpu-system
+#$ -S /bin/bash
+#$ -cwd
+#$ -j y
+#$ -o job.log
+set -eo pipefail
+package_dir=/project/rise-batteries/bode/container-build-packages/f64a-c2-fresh-system-cpu-execution-release-candidate-20261011-v1
+cd /projectnb/rise-batteries/bode/rise-project
+source scripts/scc_env.sh
+cd "$package_dir"
+export PYTHONDONTWRITEBYTECODE=1
+export CUDA_VISIBLE_DEVICES=""
+python builder.py prepare --package "$package_dir"

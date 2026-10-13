@@ -1,0 +1,175 @@
+
+===== snapshot identity =====
+
+$ hostname -f
+scc1.bu.edu
+
+$ date -u +%Y-%m-%dT%H:%M:%SZ
+2026-09-19T23:28:00Z
+
+$ uname -srm
+Linux 4.18.0-553.162.1.el8_10.x86_64 x86_64
+
+===== Lmod discovery =====
+
+$ type module
+module is a function
+module () 
+{ 
+    if [ -z "${LMOD_SH_DBG_ON+x}" ]; then
+        case "$-" in 
+            *v*x*)
+                __lmod_sh_dbg='vx'
+            ;;
+            *v*)
+                __lmod_sh_dbg='v'
+            ;;
+            *x*)
+                __lmod_sh_dbg='x'
+            ;;
+        esac;
+    fi;
+    if [ -n "${__lmod_sh_dbg:-}" ]; then
+        set +$__lmod_sh_dbg;
+        echo "Shell debugging temporarily silenced: export LMOD_SH_DBG_ON=1 for Lmod's output" 1>&2;
+    fi;
+    eval "$($LMOD_CMD $LMOD_SHELL_PRGM "$@")" && eval "$(${LMOD_SETTARG_CMD:-:} -s sh)";
+    __lmod_my_status=$?;
+    if [ -n "${__lmod_sh_dbg:-}" ]; then
+        echo "Shell debugging restarted" 1>&2;
+        set -$__lmod_sh_dbg;
+    fi;
+    unset __lmod_sh_dbg;
+    return $__lmod_my_status
+}
+
+$ module --version
+
+Modules based on Lua: Version 8.7.12  2022-08-18 15:45 -05:00
+    by Robert McLay mclay@tacc.utexas.edu
+
+
+$ module spider gromacs/2025.3
+Lmod has detected the following error: Unable to find: "gromacs/2025.3".
+
+
+
+[exit status 1]
+
+$ module avail gromacs
+Lmod has detected the following error: module avail is not possible.
+MODULEPATH is not set or not set with valid paths.
+
+
+
+[exit status 1]
+
+===== Grid Engine parallel environments =====
+
+$ command -v qconf
+/usr/local/bin/qconf
+
+$ qconf -spl
+critical error: Please set the environment variable SGE_ROOT.
+
+===== Grid Engine GPU complexes and L40S queues =====
+
+$ qconf -sc | GPU-related rows
+critical error: Please set the environment variable SGE_ROOT.
+
+$ qconf -sql
+critical error: Please set the environment variable SGE_ROOT.
+
+$ qhost -q -F gpus\,gpu_c\,gpu_type
+critical error: Please set the environment variable SGE_ROOT.
+[exit status 1]
+
+===== GROMACS 2025.3 executable inventory =====
+search root: /share/pkg.8/gromacs/2025.3
+
+===== binary /share/pkg.8/gromacs/2025.3/install_gpu/bin/gmx =====
+
+$ readlink -f /share/pkg.8/gromacs/2025.3/install_gpu/bin/gmx
+/share/pkg.8/gromacs/2025.3/install_gpu/bin/gmx
+
+$ /share/pkg.8/gromacs/2025.3/install_gpu/bin/gmx --version
+/share/pkg.8/gromacs/2025.3/install_gpu/bin/gmx: error while loading shared libraries: libmkl_core.so.2: cannot open shared object file: No such file or directory
+[exit status 127]
+
+$ ldd /share/pkg.8/gromacs/2025.3/install_gpu/bin/gmx | MPI/CUDA-related rows
+	libgomp.so.1 => /lib64/libgomp.so.1 (0x00007fd2f6c35000)
+	libcufft.so.11 => /share/pkg.8/cuda/12.8/install/lib64/libcufft.so.11 (0x00007fd2e4b4c000)
+
+===== binary /share/pkg.8/gromacs/2025.3/install_mpi_avx2/bin/gmx_mpi =====
+
+$ readlink -f /share/pkg.8/gromacs/2025.3/install_mpi_avx2/bin/gmx_mpi
+/share/pkg.8/gromacs/2025.3/install_mpi_avx2/bin/gmx_mpi
+
+$ /share/pkg.8/gromacs/2025.3/install_mpi_avx2/bin/gmx_mpi --version
+/share/pkg.8/gromacs/2025.3/install_mpi_avx2/bin/gmx_mpi: error while loading shared libraries: libmkl_core.so.2: cannot open shared object file: No such file or directory
+[exit status 127]
+
+$ ldd /share/pkg.8/gromacs/2025.3/install_mpi_avx2/bin/gmx_mpi | MPI/CUDA-related rows
+/share/pkg.8/gromacs/2025.3/install_mpi_avx2/bin/gmx_mpi: /lib64/libstdc++.so.6: version `GLIBCXX_3.4.29' not found (required by /share/pkg.8/gromacs/2025.3/install_mpi_avx2/bin/gmx_mpi)
+/share/pkg.8/gromacs/2025.3/install_mpi_avx2/bin/gmx_mpi: /lib64/libstdc++.so.6: version `CXXABI_1.3.13' not found (required by /share/pkg.8/gromacs/2025.3/install_mpi_avx2/bin/../lib64/libgromacs_mpi.so.10)
+/share/pkg.8/gromacs/2025.3/install_mpi_avx2/bin/gmx_mpi: /lib64/libstdc++.so.6: version `GLIBCXX_3.4.29' not found (required by /share/pkg.8/gromacs/2025.3/install_mpi_avx2/bin/../lib64/libgromacs_mpi.so.10)
+/share/pkg.8/gromacs/2025.3/install_mpi_avx2/bin/gmx_mpi: /lib64/libstdc++.so.6: version `GLIBCXX_3.4.26' not found (required by /share/pkg.8/gromacs/2025.3/install_mpi_avx2/bin/../lib64/libgromacs_mpi.so.10)
+/share/pkg.8/gromacs/2025.3/install_mpi_avx2/bin/gmx_mpi: /lib64/libstdc++.so.6: version `GLIBCXX_3.4.29' not found (required by /share/pkg.8/gromacs/2025.3/install_mpi_avx2/bin/../lib64/../lib64/libmuparser.so.2)
+/share/pkg.8/gromacs/2025.3/install_mpi_avx2/bin/gmx_mpi: /lib64/libstdc++.so.6: version `GLIBCXX_3.4.26' not found (required by /share/pkg.8/gromacs/2025.3/install_mpi_avx2/bin/../lib64/../lib64/libmuparser.so.2)
+	libgromacs_mpi.so.10 => /share/pkg.8/gromacs/2025.3/install_mpi_avx2/bin/../lib64/libgromacs_mpi.so.10 (0x00007fb2abadc000)
+	libgomp.so.1 => /lib64/libgomp.so.1 (0x00007fb2ab8a4000)
+	libmpi_cxx.so.40 => /share/pkg.8/openmpi/4.1.5_gnu-12.2.0/install/lib/libmpi_cxx.so.40 (0x00007fb2ab689000)
+	libmpi.so.40 => /share/pkg.8/openmpi/4.1.5_gnu-12.2.0/install/lib/libmpi.so.40 (0x00007fb2ab34c000)
+	libmuparser.so.2 => /share/pkg.8/gromacs/2025.3/install_mpi_avx2/bin/../lib64/../lib64/libmuparser.so.2 (0x00007fb2a9dc8000)
+	libopen-rte.so.40 => /share/pkg.8/openmpi/4.1.5_gnu-12.2.0/install/lib/libopen-rte.so.40 (0x00007fb2a9b0f000)
+	libopen-pal.so.40 => /share/pkg.8/openmpi/4.1.5_gnu-12.2.0/install/lib/libopen-pal.so.40 (0x00007fb2a985a000)
+
+$ /share/pkg.8/gromacs/2025.3/install_mpi_avx2/bin/gmx_mpi mdrun -h | exchange/runtime option rows
+
+===== binary /share/pkg.8/gromacs/2025.3/install_mpi/bin/gmx_mpi =====
+
+$ readlink -f /share/pkg.8/gromacs/2025.3/install_mpi/bin/gmx_mpi
+/share/pkg.8/gromacs/2025.3/install_mpi/bin/gmx_mpi
+
+$ /share/pkg.8/gromacs/2025.3/install_mpi/bin/gmx_mpi --version
+/share/pkg.8/gromacs/2025.3/install_mpi/bin/gmx_mpi: error while loading shared libraries: libmkl_core.so.2: cannot open shared object file: No such file or directory
+[exit status 127]
+
+$ ldd /share/pkg.8/gromacs/2025.3/install_mpi/bin/gmx_mpi | MPI/CUDA-related rows
+/share/pkg.8/gromacs/2025.3/install_mpi/bin/gmx_mpi: /lib64/libstdc++.so.6: version `GLIBCXX_3.4.29' not found (required by /share/pkg.8/gromacs/2025.3/install_mpi/bin/gmx_mpi)
+/share/pkg.8/gromacs/2025.3/install_mpi/bin/gmx_mpi: /lib64/libstdc++.so.6: version `CXXABI_1.3.13' not found (required by /share/pkg.8/gromacs/2025.3/install_mpi/bin/../lib64/libgromacs_mpi.so.10)
+/share/pkg.8/gromacs/2025.3/install_mpi/bin/gmx_mpi: /lib64/libstdc++.so.6: version `GLIBCXX_3.4.29' not found (required by /share/pkg.8/gromacs/2025.3/install_mpi/bin/../lib64/libgromacs_mpi.so.10)
+/share/pkg.8/gromacs/2025.3/install_mpi/bin/gmx_mpi: /lib64/libstdc++.so.6: version `GLIBCXX_3.4.26' not found (required by /share/pkg.8/gromacs/2025.3/install_mpi/bin/../lib64/libgromacs_mpi.so.10)
+/share/pkg.8/gromacs/2025.3/install_mpi/bin/gmx_mpi: /lib64/libstdc++.so.6: version `GLIBCXX_3.4.29' not found (required by /share/pkg.8/gromacs/2025.3/install_mpi/bin/../lib64/../lib64/libmuparser.so.2)
+/share/pkg.8/gromacs/2025.3/install_mpi/bin/gmx_mpi: /lib64/libstdc++.so.6: version `GLIBCXX_3.4.26' not found (required by /share/pkg.8/gromacs/2025.3/install_mpi/bin/../lib64/../lib64/libmuparser.so.2)
+	libgromacs_mpi.so.10 => /share/pkg.8/gromacs/2025.3/install_mpi/bin/../lib64/libgromacs_mpi.so.10 (0x00007fb7ecec2000)
+	libgomp.so.1 => /lib64/libgomp.so.1 (0x00007fb7ecc8a000)
+	libmpi_cxx.so.40 => /share/pkg.8/openmpi/4.1.5_gnu-12.2.0/install/lib/libmpi_cxx.so.40 (0x00007fb7eca6f000)
+	libmpi.so.40 => /share/pkg.8/openmpi/4.1.5_gnu-12.2.0/install/lib/libmpi.so.40 (0x00007fb7ec732000)
+	libmuparser.so.2 => /share/pkg.8/gromacs/2025.3/install_mpi/bin/../lib64/../lib64/libmuparser.so.2 (0x00007fb7eb1ae000)
+	libopen-rte.so.40 => /share/pkg.8/openmpi/4.1.5_gnu-12.2.0/install/lib/libopen-rte.so.40 (0x00007fb7eaef5000)
+	libopen-pal.so.40 => /share/pkg.8/openmpi/4.1.5_gnu-12.2.0/install/lib/libopen-pal.so.40 (0x00007fb7eac40000)
+
+$ /share/pkg.8/gromacs/2025.3/install_mpi/bin/gmx_mpi mdrun -h | exchange/runtime option rows
+
+===== PATH-visible MPI launchers and GROMACS =====
+
+$ command -v mpirun
+/usr/local/bin/mpirun
+
+$ mpirun --version
+
+Please first load the openmpi module with the following command:
+
+> module load openmpi
+
+and then invoke mpirun with:
+
+> mpirun [argument1 ...]
+
+mpiexec: not on PATH
+gmx_mpi: not on PATH
+gmx: not on PATH
+
+===== inventory complete =====
+No job was submitted and no allocation was requested.

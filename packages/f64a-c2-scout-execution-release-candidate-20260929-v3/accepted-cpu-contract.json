@@ -1,0 +1,79 @@
+{
+  "accepted_tpr_sha256": [
+    "f31aef6118cad78fbe9313944fe3d5a60c849603bab055131e32fa19795d3e45",
+    "9dcd6f1d8c28fd8165936af2c059631a2a6f5ab272eb47d3cf3802ee642973ab",
+    "6e35a82de4d086da9ed171da40ac10d847ce9b34947741ea62f2b94642896f21",
+    "d720c3adbed2eece8e10998f73841d7eb16909afc105493a7c0ef36724f449df",
+    "004a006b88a7ed22c074e1970684929c2b968d41732972b72d78f96ccd686da5",
+    "e93353614b4da850b9d76b82719523c3d7283f9d85622e849e14121769e15b0f",
+    "4248023977b40b47e683fd22f5c14545bd9eaa39b3cb6aaabb39d38d03f97388",
+    "927d24c6a0fada265f85ef44437b13a124235ab4798f4fb690b3286dec83fd5b",
+    "c676ed15ed8719bb791dc5160bb0e6b286c7e944b49ac7959acf3a0d86fac7eb",
+    "112638bd36ce97e1f24a22eddc07763528a8f596f0fafccb5676d324d06c1d3c",
+    "fed2927b6c22845fe3eb2ee754668ef3021ccd1623480ae09d9a85fa0320e549",
+    "1918206efe4d620e8e4ff743a4e72398aa90050df1ab4dcb88bb3e6d4f200e19",
+    "933dfea6035c86de7a0a27a8ef764d372ffa78628b94e4de2d14d66fb8b892c8",
+    "4b6635bbf606cde3fd1c867d96d3e82f35183cb42623cac309d6fe50d0e4f0e0",
+    "757837bfe91fcb926893f649b672405d675c47df3ff4d9d1437239b36ed701e1",
+    "715e59962573a1d32d37142f5c5ddfcdfa4f91fd7b78401900b2bf5f1a4b21f9",
+    "254c7985ee21f54652b020fe139c9b91d8e53c77b973f4b34c00e907dcdd67fc",
+    "347dc12d983efe6561e5e660c108bfdbfe09b22d5159f82d066bbfe1a4d9baa8",
+    "931f266ce03071ee97acdeeb97f31421ffa3424efb373892d31300044439d608",
+    "7a3f65cf4103d7a6bce350e34fa6aa59e4a3ebc8bdad59c4835dc8139f985699"
+  ],
+  "execution_authorized": false,
+  "image": {
+    "gmx": "/opt/gromacs/2025.3/bin/gmx_mpi",
+    "mpirun": "/opt/openmpi/4.1.5/bin/mpirun",
+    "path": "/projectnb/rise-batteries/bode/containers/builds/gmx-hrex.IylQZ9Uj/gromacs-2025.3-mpi-cuda-l40s.sif",
+    "python": "/usr/libexec/platform-python",
+    "sha256": "0e3770f4506a2c376a3cf7a635971c0dd01161417cc3e613c8351446bb0d45ee"
+  },
+  "prepared_source": {
+    "manifest_entries": 381,
+    "manifest_sha256": "cffefe198d66e670ebc7db2960039e2cfc159e64bb238af7d5c3fe13c7f64487",
+    "path": "/project/rise-batteries/bode/container-build-packages/f64a-c2-scout-cpu-20260929-v3/prepared",
+    "source_spec_sha256": "50d2964cfef6ca95091ae05c390e3f7626dc66028d0599bdb28f05c11520cb60"
+  },
+  "production_authorized": false,
+  "scheduler": {
+    "attempts_per_arm": 1,
+    "cap_bytes_per_location": 1073741824,
+    "gpu_type": "L40S",
+    "gpus": 1,
+    "minimum_free_bytes_per_location": 3221225472,
+    "pe": "omp16",
+    "project": "rise-batteries",
+    "queue": "l40s",
+    "ranks": 20,
+    "slots": 16,
+    "stop_bytes_per_location": 805306368,
+    "threads": 1,
+    "walltime_seconds_per_arm": 7200,
+    "work_deadline_seconds_per_arm": 6300
+  },
+  "schema_version": 1,
+  "scope": "f64a_folded_apo_2sh_r0_paired_timing_scout_runtime_candidate",
+  "scout": {
+    "arm_order": [
+      "baseline",
+      "hrex"
+    ],
+    "baseline_replex": 0,
+    "checkpoint_minutes": 15,
+    "coordinate_stride": 25000,
+    "dt_ps": 0.002,
+    "hrex_replex": 500,
+    "hrex_seed": 20260929,
+    "log_stride": 5000,
+    "no_automatic_retry": true,
+    "no_planned_restart": true,
+    "nsteps": 50000,
+    "output_stride": 500
+  },
+  "sharing": {
+    "cpu_affinity_count": 16,
+    "mode": "private_MPS",
+    "mpi_yield_when_idle": 1
+  }
+}
