@@ -40,7 +40,7 @@ approval; eventual submission is through the journal site.
 > disulfide while the calculations used apo, reduced SOD1. Six were monomeric urea measurements
 > at 25 °C; two values compiled as apo-monomer data were whole-dimer DSC measurements at
 > 49.4 °C. A pre-registered SS-versus-2SH G93A test was negative (folded shift -0.017 kcal/mol),
-> so redox did not explain that error. The lesson is benchmark chain-of-custody, not that the
+> so the tested protocol detected little redox effect; slow ensemble changes remain unresolved. The lesson is benchmark chain-of-custody, not that the
 > primary experiments are wrong.
 >
 > Seven estimates re-derive from archived reduced potentials; the eighth survives only as its

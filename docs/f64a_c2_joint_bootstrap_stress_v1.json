@@ -1,0 +1,36 @@
+{
+  "analysis_id": "f64a_c2_joint_bootstrap_stress_v1",
+  "scope": "constructed 20-state harmonic ladder; CPU diagnostic only",
+  "state_count": 20,
+  "center_min": 0.0,
+  "center_max": 2.0,
+  "samples_per_block": 128,
+  "bootstrap_replicates": 24,
+  "mean_bootstrap_block_length": 32,
+  "development_seeds": [4101, 4102, 4103, 4104],
+  "heldout_seeds": [5101, 5102, 5103, 5104, 5105, 5106, 5107, 5108, 5109, 5110, 5111, 5112, 5113, 5114, 5115, 5116, 5117, 5118, 5119, 5120, 5121, 5122, 5123, 5124, 5125, 5126, 5127, 5128, 5129, 5130, 5131, 5132],
+  "regimes": {
+    "iid": {"ar1_phi": 0.0, "cross_state_innovation_fraction": 0.0, "linear_shift": 0.0},
+    "correlated_synchronized": {"ar1_phi": 0.9, "cross_state_innovation_fraction": 0.5, "linear_shift": 0.0},
+    "long_correlation": {"ar1_phi": 0.98, "cross_state_innovation_fraction": 0.5, "linear_shift": 0.0},
+    "drifting": {"ar1_phi": 0.9, "cross_state_innovation_fraction": 0.5, "linear_shift": 0.6}
+  },
+  "selection": {
+    "time_rows_resampled_jointly_across_all_states": true,
+    "whole_series_stationary_bootstrap": true,
+    "fixed_early_late_split_after_resampling": true,
+    "additional_equilibration_trim": 0,
+    "failure": "retain_in_attempted_denominator",
+    "minimum_successful_bootstraps": 20
+  },
+  "diagnostic_acceptance": {
+    "stationary_regimes_only": ["iid", "correlated_synchronized", "long_correlation"],
+    "minimum_complete_heldout_seeds": 30,
+    "minimum_nominal95_difference_coverage_count": 27,
+    "mean_variance_to_empirical_variance_lower": 0.5,
+    "mean_variance_to_empirical_variance_upper": 2.0,
+    "drifting_regime_is_failure_probe_only": true,
+    "protein_uncertainty_qualified": false
+  },
+  "report": "results/cpu_calibration/f64a_c2_joint_bootstrap_stress_v1/report.json"
+}

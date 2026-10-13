@@ -1,0 +1,78 @@
+{
+  "accounting": {
+    "exit_status": 0,
+    "failed": 0,
+    "wall_seconds": 306
+  },
+  "branch_input_seal_entries": 361,
+  "common_checkpoint_hashes_linked_to_both_arms": 20,
+  "common_seal_entries": 330,
+  "copied_files_rehashed": 9,
+  "full_attempt_files_rehashed_locally": false,
+  "hrex_exchange": {
+    "accepted": 23,
+    "all_neighbor_links_attempted": true,
+    "attempted": 29,
+    "final_state_to_walker": [
+      0,
+      3,
+      2,
+      1,
+      7,
+      5,
+      9,
+      4,
+      11,
+      6,
+      8,
+      13,
+      15,
+      10,
+      16,
+      12,
+      17,
+      14,
+      18,
+      19
+    ],
+    "rounds": 3
+  },
+  "job_id": "7865574",
+  "phases": {
+    "baseline": {
+      "checkpoint_step": 3100,
+      "energy_records_per_state": 21,
+      "simulation_part": 2,
+      "states": 20
+    },
+    "common": {
+      "checkpoint_step": 1100,
+      "energy_records_per_state": 12,
+      "simulation_part": 1,
+      "states": 20
+    },
+    "hrex": {
+      "checkpoint_step": 2600,
+      "energy_records_per_state": 16,
+      "simulation_part": 2,
+      "states": 20
+    }
+  },
+  "post_accounting_manifest_entries": 1611,
+  "post_accounting_manifest_sha256": "21e99b4555f059fea9d3b3c155b0de34201d8e32bbb33fa8baebcbff92cc1959",
+  "selected_contract_sha256": "05165bda5d4bf6867e36f4e1fc52c0a8926dcddb7ca53738ac96ed5a88d8ea4d",
+  "source_archive_members": [
+    "accounting.json",
+    "baseline-review.json",
+    "branch-input-seal.json",
+    "branch-inputs/plan.json",
+    "common-review.json",
+    "common-seal.json",
+    "hrex-review.json",
+    "output-hashes-after-accounting.json",
+    "output-hashes.json",
+    "status.json"
+  ],
+  "source_archive_sha256": "ed378e35f991337927da225eddf7ba25049002a0a4a542f7514c47d74f870d9a",
+  "status": "fixture_metadata_subset_review_pass"
+}

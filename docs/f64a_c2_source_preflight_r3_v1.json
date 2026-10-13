@@ -1,0 +1,48 @@
+{
+  "branch_initial_velocities": "shared_via_common_checkpoint",
+  "config_sha256": "af866a49f017d40af13101b561906cb049e336be1741d2d2255ce50b2e9dde29",
+  "execution_authorized": false,
+  "expected_states": 20,
+  "historical_builder_sampling_key": "stable_seed('F64A','folded',state,repeat,'sampling')",
+  "historical_builder_system_key": "stable_seed('F64A','folded',repeat,'system')",
+  "independent_replicate_systems": true,
+  "leg": "folded",
+  "prepared_wt_sha256": "394776d7388e79c8de7ecd46b96b16c1eaf3aaa3a7e4a4a1a2173db397bc6f29",
+  "production_authorized": false,
+  "proposed_hrex_exchange_key": "stable_seed('F64A','folded',repeat,'hrex','exchange')",
+  "protein_start_family": "single_vetted_prepared_WT_family",
+  "seeds": {
+    "archived_ion_seeds_reproduced": [
+      331504349,
+      313761282,
+      1063212952
+    ],
+    "candidate_hrex_exchange_seed": 634884696,
+    "ion_placement_seed": 2072077476,
+    "sampling_seed_by_state": {
+      "state00": 337747190,
+      "state01": 987227646,
+      "state02": 927924719,
+      "state03": 768052150,
+      "state04": 1754270837,
+      "state05": 1812851405,
+      "state06": 553218960,
+      "state07": 1962321803,
+      "state08": 1761387353,
+      "state09": 1418321043,
+      "state10": 914362937,
+      "state11": 1033775959,
+      "state12": 1173183571,
+      "state13": 1442627933,
+      "state14": 1708912988,
+      "state15": 1437476594,
+      "state16": 1723496370,
+      "state17": 1151566809,
+      "state18": 2013599929,
+      "state19": 2097850957
+    }
+  },
+  "status": "local_source_and_seed_plan_only",
+  "technical_repeat": 3,
+  "variant": "F64A"
+}

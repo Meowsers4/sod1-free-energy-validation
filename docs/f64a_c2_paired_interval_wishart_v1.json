@@ -1,0 +1,19 @@
+{
+  "analysis_id": "f64a_c2_paired_interval_wishart_v1",
+  "base_spec": "docs/f64a_c2_paired_interval_stress_v1.json",
+  "base_spec_sha256": "353844752e905a0f4bac7df56dc67486227a3dec5cb2e3d8b7566e2ca2e2ab9f",
+  "base_runner_sha256": "fd83e87a067e7f5535d7295b7845c592f4986371aa4b5178611f066a9de292ef",
+  "development_trials_per_scenario": 200,
+  "heldout_trials_per_scenario": 1000,
+  "development_seed": 314159,
+  "heldout_seed": 271828,
+  "pivot_draws": 1999,
+  "spread_interval": "paired_bivariate_normal_inverse_Wishart_pivot_for_SD_difference",
+  "movement_interval": "paired_Student_t_unchanged",
+  "minimum_complete_pairs_for_interval": 5,
+  "minimum_acceptable_conditional_coverage": 0.92,
+  "mnar_is_failure_probe_only": true,
+  "failure": "unavailable_interval_retained_in_attempted_trial_denominator",
+  "normal_model_only": true,
+  "report_dir": "results/cpu_calibration/f64a_c2_paired_interval_wishart_v1"
+}

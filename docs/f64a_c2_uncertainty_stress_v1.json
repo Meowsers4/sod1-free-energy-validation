@@ -1,0 +1,23 @@
+{
+  "analysis_id": "f64a_c2_uncertainty_stress_v1",
+  "scope": "constructed stationary Gaussian harmonic ladder; CPU diagnostic only",
+  "state_count": 20,
+  "center_min": 0.0,
+  "center_max": 2.0,
+  "samples_per_block": 128,
+  "minimum_thinned_samples_per_state": 5,
+  "development_seeds": [2101, 2102, 2103, 2104],
+  "heldout_seeds": [3101, 3102, 3103, 3104, 3105, 3106, 3107, 3108, 3109, 3110, 3111, 3112, 3113, 3114, 3115, 3116, 3117, 3118, 3119, 3120, 3121, 3122, 3123, 3124, 3125, 3126, 3127, 3128, 3129, 3130, 3131, 3132],
+  "regimes": {
+    "iid": {"ar1_phi": 0.0, "cross_state_innovation_fraction": 0.0},
+    "correlated_synchronized": {"ar1_phi": 0.9, "cross_state_innovation_fraction": 0.5}
+  },
+  "selection": {
+    "fixed_early_late_blocks": true,
+    "additional_equilibration_trim": 0,
+    "proxy": "nearest_neighbor_reduced_energy_difference",
+    "stride": "ceil(pymbar_statistical_inefficiency_within_each_block)",
+    "failure": "retain_in_attempted_denominator"
+  },
+  "report": "results/cpu_calibration/f64a_c2_uncertainty_stress_v1/report.json"
+}

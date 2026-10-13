@@ -1,5 +1,11 @@
 # Post-fix, 18-window results — protocol `f9bded6f07b4abe5`
 
+> Publication-review correction (2026-09-14): this is a historical run record.
+> Claims that diagnostics contain no information, replicate range proves an error-bar
+> multiplier, or the tested extension excludes further sampling are withdrawn.
+> Range, SEM, model bias and discrepancy from unmatched experiments are distinct.
+> Current interpretation: `methods_limitations_outline.md` and `cpu_improvement_plan.md`.
+
 A4V and G93A, run after the 2026-08-09 protocol fixes (`sc-coul = yes`, `nstdhdl` 20 ps →
 1 ps, corrected ACE/NME caps, box padding 1.2 nm) but BEFORE the 2026-08-15 endpoint and
 independent-box changes. Recorded here because `results/` is gitignored and both are
@@ -50,9 +56,10 @@ meaningless on two points 0.81 kcal/mol apart against ~1.1 errors.
 3. **Cycle closure cannot see a thin ladder.** G93A's minimum adjacent overlap is 0.017 —
    effectively the same as F64A's 0.018 — yet it passes every convergence criterion. There
    is no overlap floor among the gate criteria; adding one remains open in HANDOFF §2.
-4. **`ddg_err` understates the error 3–10×** in both. Replicate spread exceeds the quoted
-   uncertainty because all three replicates shared one box — the defect
-   `independent_replicate_systems` addresses.
+4. **Uncertainty scope:** a replicate range and the SEM of the mean are different
+   quantities. Their ratio does not establish an error-bar multiplier. Shared initial boxes
+   limited the scope of replication; independent solvation was added later, but still does
+   not establish independent conformational-basin coverage.
 5. The folded/unfolded asymmetry holds: every unfolded leg is tight and low-hysteresis;
    every problem is in the folded leg.
 

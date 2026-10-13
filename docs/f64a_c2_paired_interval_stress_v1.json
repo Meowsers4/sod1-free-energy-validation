@@ -1,0 +1,27 @@
+{
+  "analysis_id": "f64a_c2_paired_interval_stress_v1",
+  "scope": "CPU-only constructed paired movement and late-spread interval calibration",
+  "attempted_pair_counts": [10, 33],
+  "trials_per_scenario": 1000,
+  "bootstrap_replicates": 399,
+  "minimum_complete_pairs_for_interval": 5,
+  "nominal_coverage": 0.95,
+  "minimum_acceptable_conditional_coverage": 0.92,
+  "movement_interval": "paired Student-t on HREX-minus-baseline absolute movement",
+  "spread_interval": "paired percentile bootstrap on HREX-minus-baseline late SD",
+  "baseline_signed_movement_mean": 0.3,
+  "baseline_signed_movement_sd": 1.2,
+  "hrex_signed_movement_mean": 0.1,
+  "hrex_signed_movement_sd": 0.9,
+  "baseline_late_sd": 1.0,
+  "hrex_late_sd": 0.75,
+  "within_pair_correlations": [0.6, -0.6],
+  "missingness_regimes": {
+    "complete": {"baseline_missing_probability": 0.0, "hrex_missing_probability": 0.0},
+    "mcar": {"baseline_missing_probability": 0.1, "hrex_missing_probability": 0.1},
+    "mnar_hrex_high_movement": {"hrex_missing_if_top_quartile_probability": 0.5}
+  },
+  "mnar_is_failure_probe_only": true,
+  "seed": 81107,
+  "report": "results/cpu_calibration/f64a_c2_paired_interval_stress_v1/report.json"
+}

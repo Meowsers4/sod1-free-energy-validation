@@ -1,0 +1,14 @@
+{
+  "analysis_id": "f64a_c2_stage_p_full_ladder_cpu_review_v1",
+  "archive": "data/fixture_bundles/f64a-stage-p-xvg-7791102-20261004.tar.gz",
+  "archive_sha256_scc": "db392a3b48f0af8e25b2294a058cb3854cc6b3823bd93c30b5699bdf0187bdab",
+  "source_manifest_sha256_scc": "eae1f32d845a8639a55bfa96f046aa60ab14791abe400084a676750ed6a8ee08",
+  "expected_archive_files": 22,
+  "expected_source_manifest_entries": 614,
+  "fit_blocks": {"early": [1, 11], "late": [11, 21], "all_retained": [1, 21]},
+  "endpoint_agreement_tolerance_kT": 1e-8,
+  "conditional_se_agreement_tolerance_kT": 1e-8,
+  "overlap_agreement_tolerance": 1e-8,
+  "scope": "short technical Stage P numerical/parser check only; not C2 production inference",
+  "report": "results/cpu_calibration/f64a_c2_stage_p_full_ladder_v1/report.json"
+}

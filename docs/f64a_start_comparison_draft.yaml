@@ -1,4 +1,6 @@
 # Planning only. No executable package may admit this draft or its null fields.
+# Reserve option; docs/publication_research_plan.md supersedes the next-step recommendation.
+# Durations/budget below are historical proposals, not the prospective study's settings.
 design_id: f64a_start_comparison_draft
 status: draft_not_selected_not_registered
 base_config: config/pipeline.yaml

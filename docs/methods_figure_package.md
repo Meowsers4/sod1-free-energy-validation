@@ -1,6 +1,9 @@
 # Reproducible forensic figure package
 
-Status: complete, CPU-only, 2026-09-14. This package builds Figures 1--3 and 5 in the
+Historical package completed 2026-09-14. **Publication-review update:** current figures are
+under `docs/review/`, built by the updated CPU DAG. The original graphics below are retained
+as history; their causal titles are superseded. Use `release_reproduction.md` to rebuild.
+ This package builds Figures 1--3 and 5 in the
 methods-and-limitations outline directly from archived JSON and topology files. Figure 4 is
 the separately executable reference-sensitivity analysis. None of these figures is a new gate
 evaluation, and the gate-of-record verdict remains failed.
@@ -48,3 +51,14 @@ were overwritten and are not misrepresented as recoverable. The SS archive adds 
 Paths are stored relative to three named roots, so the manifest does not depend on one machine's
 absolute path. The aggregate checksum covers each relative path, file size, and individual
 checksum.
+
+## Revised uncertainty and provenance
+
+The updated Figure 5 reports a conditional unpaired Welch interval for SS−2SH, using
+between-run variation in both arms. Diamonds show mean ± replicate SD, not a confidence
+interval. Figure 2 now distinguishes the 24 dependent records from eight variants/six sites;
+`diagnostic_cancellation.png` adds signed adjacent discrepancies and alternate summaries.
+
+The original manifest's five repository inputs are retained byte-for-byte under
+`data/forensic_baseline_repository/`. Revised sources and outputs are covered by the portable
+release manifest; comparing the historical checksums to revised source is intentionally invalid.

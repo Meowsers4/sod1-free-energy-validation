@@ -1,0 +1,18 @@
+{
+  "arms": [
+    "baseline",
+    "hrex"
+  ],
+  "baseline_first": true,
+  "decision_date_local": "2026-09-29 America/Chicago",
+  "hrex_requires_baseline_technical_and_qacct_pass": true,
+  "max_allocated_gpu_hours_pair": 4,
+  "max_requested_cpu_slot_hours_pair": 64,
+  "preflight_evidence": "docs/f64a_c2_scout_execution_preflight.md: exact 02:00:00 queue verification passed; project quota and write access passed; acctool unavailable",
+  "reviewed_inactive_release_sha256": "abb0439e1f39c210edd8cd5f3c3eedd66688a433052f6027629fffef2705861e",
+  "selection_scope_reference": "docs/f64a_c2_scout_execution_selection.md",
+  "su_balance_known": false,
+  "su_disposition": "explicitly_waived",
+  "su_tariff_known": false,
+  "user_selection": "User replied 'proceed with balance unknown' to the proposed one-baseline-then-conditional-HREX 100-ps scout pair, capped at 4 allocated GPU-hours and 64 requested CPU-slot-hours."
+}

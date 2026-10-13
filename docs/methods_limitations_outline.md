@@ -1,140 +1,203 @@
-# Methods-and-limitations deliverable — evidence-locked outline
+# Publication outline — failed gate, diagnostic cancellation, and benchmark compatibility
 
-Status: working assembly plan, 2026-09-14. This is the post-pivot deliverable; it is not a
-proposal for another validation attempt.
+Revised 2026-09-14 following publication review; updated 2026-09-18 for completed
+temporal evidence and corrected interpretation. This outline governs claims
+supported **now**. The [prospective publication plan](publication_research_plan.md)
+separately tracks completed supporting CPU work and proposed protein comparisons;
+the latter are not completed evidence. See [conclusion reconciliation](conclusion_reconciliation_2026-09-18.md).
+
+## Working title
+
+**Local diagnostic cancellation and experimental-state incompatibility in a SOD1
+free-energy validation campaign**
 
 ## Central claim
 
-A pre-registered equilibrium-window pmx/AMBER validation gate on apo-2SH SOD1 failed, and the
-post-mortem shows why routine convergence and benchmark hygiene checks were insufficient:
-within-ladder hysteresis did not order independent-box disagreement, additional sampling
-improved precision without materially improving accuracy in the tested variant, and a
-compiled experimental column flattened incompatible redox, oligomeric, construct, and
-temperature states. One pre-registered SS diagnostic was a converged negative result, so the
-redox mismatch is real but does not explain G93A's error.
+A prespecified apo-2SH SOD1 folding-stability gate failed against a heterogeneous experimental
+compilation, stopping prospective predictions. An exploratory audit shows that the net
+forward/reverse ladder diagnostic can conceal signed discrepancies between adjacent windows.
+The benchmark audit separately shows that reference labels concealed differences in redox
+state, construct, oligomeric transition and temperature. These findings explain limitations
+of the validation procedure; they do not identify the physical cause of prediction error.
+Separately registered F64A continuations demonstrate that small early net hysteresis
+did not certify later duration stability on that selected path. Late instability
+remains unresolved at 15 ns. None of these findings validates a general diagnostic,
+identifies a structural mechanism, or establishes equilibrium free energy.
 
-## Results sequence
+## Result 1 — the original decision and its scope
 
-### Result 1 — pre-registered gate failure
+Seven usable variants: Pearson r = 0.326, RMSE = 2.123 kcal/mol; F64A excluded by the
+prespecified 1.0 kcal/mol per-variant hysteresis cap. Preserve the original point estimates,
+thresholds, and exclusion. A4V's original point survives only in its run-time JSON.
 
-- Seven usable points; F64A excluded only by the pre-registered closure rule.
-- Pearson r = 0.326; RMSE = 2.123 kcal/mol; median closure = 0.220/0.225 depending on rounded
-  versus full-precision presentation.
-- Preserve the wording “gate of record” and the pivot trigger. Do not re-score it.
-- Evidence: [`gate_attempt_1.md`](gate_attempt_1.md),
-  [`stop_rule_reanalysis.md`](stop_rule_reanalysis.md).
+The comparison justified withholding prospective predictions. It does not measure accuracy
+against matched apo-2SH experiments or isolate force-field error. State this beside the gate,
+not only in the final limitations paragraph. The numerical threshold-crossing forensic
+reference scenarios remain post-verdict sensitivities, never a second gate.
 
-### Result 2 — the standard diagnostic did not identify the bad replicate
+Evidence: `gate_attempt_1.md`, `reference_state_audit.md`, `review/reference_reproduction.json`.
 
-- 48 (variant, leg, replicate) records.
-- Folded hysteresis versus independent-box disagreement: Pearson +0.072, Spearman +0.080,
-  n = 24.
-- F64A folded r1: hysteresis 0.0227 (rank 10/48) and disagreement 1.2026 kcal/mol (rank 1/48).
-- Claim only non-separation in this archive; do not generalize to zero information in all FEP.
-- Evidence: [`stop_rule_reanalysis.md`](stop_rule_reanalysis.md) §6.
+## Result 2 — aggregate cancellation, with bounded statistical evidence
 
-### Result 3 — more sampling fixed precision, not accuracy
+Define the historic metric explicitly: for signed adjacent discrepancies d_k,
+H = |sum(d_k)|. This permits cancellation; compare it exploratorily with sum(|d_k|)
+and max(|d_k|). These alternatives are descriptive summaries, not validated thresholds.
+They depend on the number and placement of lambda windows; all comparisons here use 20 states.
 
-- A4V folded sampling 3→9 ns/window; unfolded leg reused unchanged.
-- Folded box spread 1.46→0.27 kcal/mol; ΔΔG error +1.92→+1.74 kcal/mol.
-- Report “precision improved about fivefold, accuracy by 9%.”
-- This excludes additional sampling as the useful next action for A4V, not for every variant.
-- Evidence: [`gate_attempt_2_abandoned.md`](gate_attempt_2_abandoned.md).
+F64A folded r1: H = 0.022705; sum(|d_k|) = 1.678103; max(|d_k|) = 0.222590 kcal/mol.
+The cancellation fraction 1-H/sum(|d_k|) is 98.647%. Its sibling disagreement is 1.202554
+kcal/mol. Cancellation concerns the reported diagnostic; it does not establish that this
+caused the MBAR estimate to be wrong, or that either sibling is correct.
 
-### Result 4 — the experimental benchmark was heterogeneous
+All 48 retained records (912 adjacent pairs) re-solve from raw NPZ energies. Report folded
+and unfolded legs separately. The 24 folded records comprise eight variants at six sites.
+The disagreement definition reuses sibling estimates, so rows are statistically dependent.
+Use whole-variant/site resampling and leave-group-out sensitivity, with a separate seven-
+variant attempt-1 cohort that excludes the longer A4V rerun. Do not present row-wise p-values.
+Even grouped intervals are approximate with so few sites; no population-level absence claim.
 
-- All eight values reproduce primary tables.
-- All are apo-SS experiments; calculations are apo-2SH.
-- Six are 25 °C monomeric urea measurements on a dimer-splitting construct.
-- G93S/G93V are 49.4 °C whole-dimer DSC values on C6A/C111S, mislabeled apo-monomer by the
-  compilation.
-- Evidence: [`reference_state_audit.md`](reference_state_audit.md).
+The alternative summaries do **not** demonstrate improved prediction of repeat disagreement:
+all folded-leg site-bootstrap correlation intervals include zero. This negative finding is
+part of the result. No threshold is chosen from the F64A example.
 
-### Result 5 — reference choices dominate the aggregate metric
+Evidence: `review/diagnostic_audit.json`, `review/diagnostic_records.csv`,
+`review/adjacent_discrepancies.csv`, `review/diagnostic_cancellation.png`.
 
-- Frozen seven-point predictions and frozen F64A exclusion.
-- Halving G93S/G93V alone: r = 0.657, RMSE = 1.122.
-- 25 °C correction alone: r = 0.539–0.642, RMSE = 1.187–1.401 across ΔCp models.
-- Both: r = 0.754–0.767, RMSE = 1.074–1.117.
-- These are not gates. The 25 °C source uncertainty is about ±2.4 kcal/mol per whole-dimer
-  ΔΔG, and halving does not create a monomer experiment.
-- Evidence and executable figure:
-  [`reference_sensitivity_analysis.md`](reference_sensitivity_analysis.md),
-  [`reference_sensitivity.py`](../src/analysis/reference_sensitivity.py).
+## Result 3 — bounded A4V sampling sensitivity
 
-### Result 6 — a pre-registered negative disulfide test
+A4V folded production increased from 3 to 9 ns/window; equilibration also increased from
+0.5 to 2 ns. The unfolded leg was retained. Folded replicate range fell from 1.46 to 0.27
+kcal/mol; discrepancy from the unmatched reference fell from +1.92 to +1.74 kcal/mol.
+Describe this as a bundled sampling-protocol comparison, not an isolated production-length
+intervention. Reduced spread is improved observed repeat precision, not proven basin coverage.
+The result does not exclude effects from longer sampling or new starting conformations.
 
-- G93A folded ΔG shift, SS−2SH = −0.0169 kcal/mol.
-- Pre-declared negligible band: |Δ| < 0.3 kcal/mol.
-- 120 SS windows complete; all three folded topologies physically contain C57–C146.
-- Interpretation: disulfide mismatch does not explain G93A's error; no claim about all sites.
-- Evidence: [`prereg_g93a_disulfide_diagnostic.md`](prereg_g93a_disulfide_diagnostic.md).
+The original raw windows were overwritten, so this comparison relies on archived run-time
+summaries for the shorter arm. No future rerun can retroactively repair that missing record.
 
-## Figure and table package
+## Result 4 — experimental-state and construct audit
 
-| item | content | source/status |
+All eight reference numbers trace to primary tables. Six are apo-SS monomer measurements
+on C6A/C111A/F50E/G51E at 25 °C, pH 6.3. Two are apo native-dimer DSC transitions on
+C6A/C111S at 49.4 °C, pH 7.8. The simulation uses reduced native-sequence monomers and
+preparation pH 7.0. No gate control is fully state/construct matched.
+
+The compilation's uniform ±0.3 kcal/mol is not a per-point experimental measurement error.
+Halving a cooperative dimer transition does not make it an isolated monomer measurement.
+Opposite-signed residuals reject a single additive offset; they do not reject mutation-
+dependent responses to the same state or construct change.
+
+Evidence: `reference_state_audit.md`, `../data/benchmark_state_audit.csv`,
+`reference_sensitivity_analysis.md`. Source-derived scenarios remain separate from
+`data/variants.csv`, which preserves the gate inputs.
+
+## Result 5 — G93A disulfide contrast with conditional uncertainty
+
+The point estimate of folded ΔG(SS)-ΔG(2SH) is −0.016918 kcal/mol, within the predeclared
+point-estimate band of ±0.3. Both arms contain three separately built solvent systems;
+physical atom/bond inspection verifies the intended redox states.
+
+Report the contrast's standard error and unpaired Welch 95% interval from
+`review/redox_uncertainty.json`. The interval uses between-run variation in both arms.
+Matching replicate numbers or random seeds does not establish statistical pairing.
+The interval is conditional on sampled basins; it excludes unsampled modes, force-field
+bias and experimental uncertainty. It is not a prospective equivalence test, and a small
+observed effect does not rule out slower redox-dependent structural rearrangements.
+
+Retain the original preregistration and outcome band as historical records; distinguish
+its frozen decision from the corrected interpretation. The identical protocol hashes in
+the SS/2SH arms cannot identify their redox states; topology and manifest evidence do.
+
+## Figure and table sequence
+
+### Completed temporal evidence to add as Result 6
+
+F64A folded r1 changed from **2.505942** kcal/mol over its initial retained 3 ns
+to **0.429467** over the disjoint retained 6–9 ns block (−2.076474), despite early
+net hysteresis **0.022705**. This is an exact-path temporal counterexample to
+treating a small aggregate as a duration-stability certificate. It is a selected
+case, not a prospective validation cohort or an experimental-accuracy result.
+
+At 9–15 ns, adaptive signed mean movement **−0.049510** masks r1 **−0.695174**
+and r2 **+0.598142**. Fixed-policy mean movements are **+0.579425** and
+**+0.410739**; final adaptive repeat range is **1.946359**. Show all repeats and
+policies and the short selected suffixes; do not select the near-zero mean as the
+conclusion. Structural trajectories were not retained under this production policy.
+
+The later read-only summary in the reconciliation note finds greater raw
+neighbor-energy drift toward high λ, using window medians and actual λ labels.
+It does not demonstrate cavity hydration, rule out trapping, or select a ladder
+intervention. Keep this descriptive result separate from registered v1/v2 endpoints.
+
+Evidence: `f64a_extension_results.md`, `f64a_continuation_results.md`,
+`f64a_raw_energy_audit_results.md`, `conclusion_reconciliation_2026-09-18.md`.
+Promote this temporal evidence ahead of the historical A4V/redox sensitivity
+panels when assembling the manuscript. Those can move to the supplement if the
+paper focuses on diagnostics; do not present every audit as a separate discovery.
+
+| item | content | current output |
 |---|---|---|
-| Figure 1 | gate-of-record predicted vs experimental scatter, F64A exclusion identified | `figures/gate_of_record.png`; executable package complete |
-| Figure 2 | folded hysteresis vs independent-box disagreement, all 24 folded records | `figures/convergence_diagnostic.png`; executable package complete |
-| Figure 3 | A4V 3 ns vs 9 ns replicate/accuracy comparison | `figures/a4v_sampling_sensitivity.png`; executable package complete |
-| Figure 4 | four-panel reference sensitivity | `docs/figures/reference_sensitivity.png`; independently reproduced by a separate implementation |
-| Figure 5 | G93A 2SH vs SS folded ΔG by replicate, topology inset/table | `figures/g93a_disulfide_diagnostic.png`; executable package complete |
-| Table 1 | protocol history and hashes, per leg | `raw_result_reconciliation.md` |
-| Table 2 | eight-control construct/state/source audit | `reference_state_audit.md` |
-| Table 3 | failed gate plus all forensic sensitivity rows | `reference_sensitivity_analysis.md` |
-| Table 4 | limitations mapped to what was and was not tested | draft below |
+| Figure 1 | frozen failed gate, F64A exclusion, unmatched-state caveat | `review/gate_of_record.png` |
+| Figure 2 | signed local discrepancies and alternative summaries | `review/diagnostic_cancellation.png` |
+| Figure S1 | historical net metric against sibling disagreement | `review/convergence_diagnostic.png` |
+| Figure 3 | A4V repeat spread and reference discrepancy | `review/a4v_sampling_sensitivity.png` |
+| Figure 4 | reference scenarios, fixed predictions/exclusion | `review/reference_sensitivity.png` |
+| Figure 5 | G93A replicate values and contrast interval | `review/g93a_disulfide_diagnostic.png` |
+| Temporal main figure (assembly pending) | F64A early low hysteresis, disjoint-block movement and all late repeats/policies | Existing reports in `f64a_extension_review/`; no new manuscript panel generated in this revision |
+| Lambda supplementary figure (planned) | Per-repeat/per-block fixed-observable movement against actual λ | Publication plan work package A; not yet generated |
+| Table 1 | protocol and archive history, per leg | `raw_result_reconciliation.md` |
+| Table 2 | state/construct/source compatibility | `../data/benchmark_state_audit.csv` |
+| Table 3 | correlation intervals and leave-group-out results | `review/diagnostic_audit.json` |
+| Table 4 | retained/lost data and limits of inference | `release_reproduction.md` |
 
-## Limitation table
+## Discussion and practical recommendations
 
-| limitation | what the evidence supports | what it does not support |
-|---|---|---|
-| one target / one force field | reproducible SOD1 failure record | general force-field ranking |
-| seven usable mutations at five sites | localizes leverage to G93 references | population-level accuracy |
-| A4V sampling test only | additional sampling did not close A4V error | sampling excluded for every mutation |
-| G93A SS test only | SS does not change G93A mutation cost materially | redox cancellation is universal |
-| dimer-derived sensitivity | benchmark normalization materially moves r/RMSE | halved values are monomer measurements |
-| no retained trajectories | energy-space diagnostics are reproducible | structural mechanism for the residual |
-| A4V attempt-1 windows overwritten | run-time record preserves the point | full raw reanalysis of all seven points |
-| no charge-changing implementation | no claim on those variants | C1 coverage or charge-changing VUS triage |
+1. Preserve signed local diagnostics alongside aggregate values. A small net value may hide
+   cancellation; no single alternative is established as an accuracy detector here.
+2. Represent the experimental transition, state, construct, temperature, units and source
+   table explicitly before choosing a validation panel.
+3. Keep sampling uncertainty, repeat spread and discrepancy from experiment separate.
+4. Archive immutable run identities, topology/force-field inputs and raw energies before any
+   resubmission. MDP-only hashes and engine strings do not certify physical identity.
+5. External-system evaluation is needed before proposing a generally useful stopping rule.
+6. Distinguish statistical bridging between λ states from conformational exploration
+   within states. Compare fixed observables when schedules differ; higher overlap
+   and smaller neighbor differences alone cannot establish improved sampling.
 
-## Exact methods facts to preserve
+## Boundary to the prospective manuscript
 
-- GROMACS + pmx, `amber99sb-star-ildn-mut`, equilibrium windows, MBAR.
-- 20 lambda states, three independently solvated replicates, folded and capped-tripeptide
-  unfolded legs.
-- Attempt-1 production/equilibration: 3.0/0.5 ns per window for both legs.
-- Protocol `822108e9db71124d` for the attempt-1 archive.
-- Thresholds fixed 2026-08-07: r ≥ 0.70, RMSE ≤ 1.5 kcal/mol, median closure ≤ 0.75,
-  minimum six usable points; per-variant closure cap 1.0.
-- A4V original point is attested, not raw-window-rederived; state this wherever full
-  reproducibility is claimed.
-- The SS and 2SH G93A arms share a hash; topology + manifest carry redox provenance.
+The λ/comparator analysis and bounded known-answer CPU calibration are now
+complete; see [λ results](f64a_lambda_comparator_results.md) and
+[model results](known_answer_model_results.md). They remain supporting evidence,
+not a protein intervention result. The model's qualified exchange benefit and
+incomplete interval coverage do not establish protein performance.
 
-## Forbidden overclaims
+The revised plan centers on one **primary controlled protein sampling comparison
+at matched cost**, then a frozen prospective SOD1 panel. Diagnostic assessment
+is secondary; a general stopping rule is not an intended deliverable. Structural
+mechanism is optional. Cross-protein testing addresses transferability only if
+the preceding evidence makes that a useful next question. These protein stages
+are not completed or resource-authorized. Current HREX build/placement limitations
+remain recorded in [C1 qualification](gromacs_exchange_feasibility_design.md).
 
-- No “first,” “novel FEP protocol,” or “we show SOD1 variants are destabilizing.”
-- No “cycle closure is useless”; say it did not separate independent-box disagreement here.
-- No mechanistic attribution of the G93 compression to glycine entropy without trajectories.
-- No claim that the experiments are wrong.
-- No claim that the combined sensitivity row passes validation.
-- No claim that SS mismatch explains the gate failure.
+The future manuscript should lead with temporal-stability and independent-run
+dispersion contrasts, their uncertainty, availability and cost. Diagnostics follow
+the primary comparison; historical reference-state and toy-model material can
+support the paper in supplements. An informative negative comparison needs
+adequate precision; wide intervals alone cannot establish lack of benefit.
+Neither a positive result nor a structural mechanism is required to report the
+study. Keep the current case-study claim available if broader evidence remains
+insufficient. No new protocol novelty is claimed in advance.
 
-## Optional follow-up
+## Submission boundaries
 
-1. If external human sign-off is required, have a second person run the completed clean-room
-   reproduction in [`independent_reference_reproduction.md`](independent_reference_reproduction.md).
-   The separate implementation already reproduces every Table 3 row and all four Figure 4
-   panels, but the same agent performed both paths.
-2. If a submission-ready artifact is wanted, convert this evidence-locked outline into a
-   polished report or manuscript. The LiveCoMS inquiry was parked by user direction on
-   2026-09-14 and is not a prerequisite for closing the technical project.
+No new FEP method, first-use, ALS mechanism, matched predictive validation, VUS classification,
+charge-changing coverage, equivalence, diagnostic superiority or universal redox cancellation
+claim is supported. Wells 2021's 0.81 is an apo-SS dimerization correlation; its 250 ns caveat
+concerns residue-level dynamics. Neither is a directly matched folding benchmark.
 
-SCC archival verification was completed on 2026-09-14: the live G93A tree is the 120-window
-2SH baseline, and the SS diagnostic has an identical second copy with its manifest at
-`/projectnb/rise-batteries/bode/archive_2026-09-14/G93A_SS_diagnostic`.
-
-Figures 1--3 and 5 are built by [`methods_figures.py`](../src/analysis/methods_figures.py);
-the archived-input contract and exact reproduction command are in
-[`methods_figure_package.md`](methods_figure_package.md).
-The raw and derived inputs are covered without duplication by
-[`forensic_archive_manifest.json`](../data/forensic_archive_manifest.json).
+This revision implements technical improvements 1–4 from the publication review. Independent
+human review by Vlasov will occur later; it is not a prerequisite for local planning
+or CPU work. No inquiry or manuscript has been sent; the LiveCoMS inquiry
+remains parked. A public license and authorship must be chosen by the actual rights holders
+before public deposition; this local review bundle does not assign either.

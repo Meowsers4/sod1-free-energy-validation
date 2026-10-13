@@ -1,5 +1,11 @@
 # Pre-fix diagnostic runs (2026-08-07 → 2026-08-09)
 
+> Publication-review correction (2026-09-14): this is a historical run record.
+> Claims that diagnostics contain no information, replicate range proves an error-bar
+> multiplier, or the tested extension excludes further sampling are withdrawn.
+> Range, SEM, model bias and discrepancy from unmatched experiments are distinct.
+> Current interpretation: `methods_limitations_outline.md` and `cpu_improvement_plan.md`.
+
 Three variants run under the **pre-fix** Stage 3 protocol, before `sc-coul`, the 20×
 sampling increase, the corrected ACE/NME caps, and `solvent_padding_nm` 1.2. Recorded
 here because `results/` is gitignored and these numbers are the evidence behind the
@@ -42,12 +48,12 @@ Independent samples after decorrelation: 13844 / 13531 / 13493 of 16308 raw.
 
 1. **All three report `converged: true`** (closures 0.63, 0.09, 0.34, all under the 1.0
    cap) **and all three are wrong**, by 0.8–2.4 kcal/mol, across three sites and three
-   mutation types. The convergence diagnostics carry no information about accuracy.
+   mutation types. These cases show that passing the configured diagnostic was insufficient to ensure agreement with the reference; three cases cannot establish absence of diagnostic information.
 2. **Errors are opposite in sign**, so there is no constant offset to calibrate away.
 3. Errors are 10–20% of a single leg (ΔΔG is a small difference of two ~9–30 kcal/mol
    leg free energies), which is the scale of force-field and reference-state
-   approximations, not of sampling noise.
-4. **Replicate spread tracks repacking demand, not correctness.** A4V (buried Ala→Val)
+   approximations, but this magnitude alone cannot distinguish model bias from sampling error.
+4. **Observed repeat spreads vary by mutation; repacking is a hypothesis.** A4V (buried Ala→Val)
    and I113T (interface Ile→Thr) both need neighbours to move: noisy folded leg, tight
    unfolded leg, and both *overestimate*. G93A (Gly→Ala, minimal steric change) has a
    folded leg tighter than its unfolded one — and *underestimates* by 1.22.
@@ -55,7 +61,7 @@ Independent samples after decorrelation: 13844 / 13531 / 13493 of 16308 raw.
    one solvated box and one minimised structure (`stable_seed(variant, leg, "system")`
    has no `rep` in it); only velocities differ. If the slow mode is inaccessible in 3 ns,
    every replicate is stuck identically and the spread collapses while the mean stays
-   biased. `ddg_err` is therefore not an uncertainty on ΔΔG for any of these three.
+   biased. `ddg_err` describes conditional statistical precision; it does not include unvisited modes or model/reference bias.
 
 ## Status
 

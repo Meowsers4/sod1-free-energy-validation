@@ -1,0 +1,161 @@
+schema_version: 1
+qualification_id: gromacs_exchange_c1_v1
+frozen_at: 2026-09-18
+scope: technical_feasibility_only
+production_authorized: false
+decision: conditionally_feasible_new_build_required
+decision_meaning: >-
+  GROMACS supports the intended method, but the standing SCC CUDA binary cannot run
+  replica exchange. A CUDA-enabled external-MPI build and a compatible coupled SGE
+  allocation must be demonstrated before even a bounded first-light can be admitted.
+
+evidence_snapshots:
+  - path: c1_scc_inventory.txt
+    sha256: 9cedb6bf8ed30ba5017610e4ee77bac39c7d09eadf0af5b5f2c803ea71552e6b
+    status: partial_non_login_capture
+  - path: c1_scc_inventory_login.txt
+    sha256: fc1f83b89841a1ab12a0d83e44598926590c09b90ebef427d31a8f2621dd5ac9
+    status: complete_read_only_inventory
+
+controlled_unit:
+  lambda_states: 20
+  state_directories_per_ladder: 20
+  leg: folded
+  observable: folded_leg_mutation_free_energy
+  exchange_boundary: one independently initialized folded-leg realization
+  cross_realization_exchange_forbidden: true
+  unfolded_leg_in_core_comparison: false
+
+prospective_design:
+  development_variant: F64A
+  methods: [independent_windows, hrex]
+  baseline_exchange_disabled: true
+  initial_sod1_mutations: 4
+  initial_realizations_per_method: 5
+  counts_are_planning_choices: true
+  final_counts_require_precision_and_resource_admission: true
+
+standing_contract:
+  scheduler: sge
+  binary: /share/pkg.8/gromacs/2025.3/install_gpu/bin/gmx
+  gromacs_version: "2025.3"
+  gpu_backend: CUDA
+  external_mpi: false
+  thread_mpi: false
+  mpi_library: none
+  launcher: ""
+  array_unit: [variant, leg, window, replicate]
+  gpu_type: L40S
+  evidence:
+    - config/pipeline.yaml:310
+    - CLAUDE.md:272
+    - docs/post_pivot_review.md:217
+
+method_contract:
+  executable: gmx_mpi
+  launch_shape: "MPI launcher gmx_mpi mdrun -multidir <20 ordered state directories> -replex <registered interval>"
+  minimum_mpi_ranks: 20
+  ranks_per_replica: 1
+  gpu_count: unresolved
+  gpu_layout_rule: >-
+    Benchmark compact layouts without changing the physical protocol; do not assume
+    one GPU per state or that the eight-GPU throughput estimate is a coupled-job entitlement.
+  lambda_order_source: config/pipeline.yaml:fep.lambda_vector
+  exchange_seed: must_be_registered
+  exchange_interval_steps: must_be_registered
+
+gates:
+  - id: software.gromacs_hrex
+    status: pass
+    required: true
+    evidence: GROMACS 2025.3 documents Hamiltonian replica exchange through free-energy lambda states.
+  - id: build.external_mpi
+    status: fail
+    required: true
+    evidence: Standing install_gpu reports GMX_MPI=off, GMX_THREAD_MPI=off, MPI library none.
+  - id: build.cuda
+    status: pass
+    required: true
+    evidence: Standing install_gpu reports GPU support CUDA on L40S.
+  - id: build.combined_mpi_cuda
+    status: fail
+    required: true
+    evidence: >-
+      The 2026-09-19 SCC tree inventory found only install_gpu/bin/gmx and the
+      separate install_mpi*/bin/gmx_mpi executables; no combined MPI+CUDA binary
+      exists below /share/pkg.8/gromacs/2025.3 (raw snapshot SHA-256
+      fc1f83b89841a1ab12a0d83e44598926590c09b90ebef427d31a8f2621dd5ac9).
+  - id: scheduler.parallel_environment
+    status: pass
+    required: true
+    evidence: >-
+      The L40S queue exposes mpi8, mpi16, mpi28 and mpi32 parallel environments
+      over ten 32-slot hosts; the complete 2026-09-19 qconf snapshot confirms
+      MPI job support and a 48-hour queue limit.
+  - id: scheduler.coupled_gpu_placement
+    status: unresolved
+    required: true
+    evidence: >-
+      The L40S queue has four physical GPUs per host and gpus is a requestable
+      JOB consumable, but the read-only inventory does not prove how a multi-host
+      PE request reserves/maps GPUs for one coupled job.
+  - id: runtime.multidir_replex
+    status: unresolved
+    required: true
+    evidence: Must pass a bounded non-production MPI smoke test with twenty ordered directories.
+  - id: runtime.gpu_rank_mapping
+    status: unresolved
+    required: true
+    evidence: Exact rank and CUDA_VISIBLE_DEVICES mapping must be captured for the chosen layout.
+  - id: model.identical_hybrid_topology
+    status: design_pass
+    required: true
+    evidence: Within one folded-leg realization all lambda states derive from one pmx hybrid system.
+  - id: model.lambda_identity
+    status: design_pass
+    required: true
+    evidence: All states use the same explicit twenty-value vector and differ by init-lambda-state.
+  - id: output.all_state_energies
+    status: design_pass
+    required: true
+    evidence: Existing production MDP uses calc-lambda-neighbors=-1; HREX output must still be checked.
+  - id: output.exchange_history
+    status: unresolved
+    required: true
+    evidence: A parser and a fixture from the qualified GROMACS build are required before admission.
+  - id: output.permutation_alignment
+    status: unresolved
+    required: true
+    evidence: Coordinate and energy analyses must distinguish walker identity from lambda-state identity.
+  - id: restart.whole_ladder
+    status: unresolved
+    required: true
+    evidence: Kill/restart must resume all state directories from one synchronized checkpoint boundary.
+  - id: accounting.equal_cost
+    status: unresolved
+    required: true
+    evidence: Baseline and HREX must be capped by equal allocated GPU-hours, including failed first light.
+  - id: storage.declared_budget
+    status: unresolved
+    required: true
+    evidence: Project storage had about 11.84 GB free in the 2026-09-14 snapshot.
+
+admission:
+  eligible_now: false
+  all_required_statuses: [pass, design_pass]
+  next_evidence:
+    - Choose an SCC-supported or project-local GROMACS 2025.3 external-MPI plus CUDA build route.
+    - Confirm the multi-host PE/GPU consumable request and rank/device mapping with SCC or a separately authorized scheduler smoke test.
+    - Select and benchmark a compact rank/GPU layout without production sampling.
+    - Demonstrate ordered multidir/replex, exchange-history extraction, and whole-ladder restart.
+    - Freeze exchange interval, seed policy, equal-cost cap, trajectory outputs, and storage cap.
+  prohibited_until_admitted:
+    - production qsub
+    - modification of the historical one-window array contract
+    - reuse of historical F64A continuation data as a matched baseline
+    - admission or execution of a protein arm
+
+sources:
+  - https://manual.gromacs.org/2025.3/reference-manual/algorithms/replica-exchange.html
+  - https://manual.gromacs.org/2025.3/onlinehelp/gmx-mdrun.html
+  - https://manual.gromacs.org/2025.3/install-guide/index.html

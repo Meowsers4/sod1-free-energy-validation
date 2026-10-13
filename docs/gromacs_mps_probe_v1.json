@@ -1,0 +1,10 @@
+{
+  "scope": "four CUDA contexts sharing one allocated L40S; no simulation",
+  "clients": 4,
+  "bytes_per_client": 4096,
+  "client_hold_seconds": 90,
+  "ready_timeout_seconds": 60,
+  "walltime_seconds": 300,
+  "sif": "/projectnb/rise-batteries/bode/containers/builds/gmx-hrex.IylQZ9Uj/gromacs-2025.3-mpi-cuda-l40s.sif",
+  "sif_sha256": "0e3770f4506a2c376a3cf7a635971c0dd01161417cc3e613c8351446bb0d45ee"
+}

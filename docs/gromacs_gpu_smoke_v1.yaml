@@ -1,0 +1,418 @@
+schema_version: 1
+status: stage_A_one_GPU_MPS_pass_reviewed_user_evidence
+date: '2026-09-24'
+plan: docs/gromacs_gpu_smoke_plan.md
+execution_authorized: true  # Stage A only; the stage-specific flags govern scope.
+production_authorized: false
+eligible_for_submission: false  # Already submitted; do not duplicate job 7762792.
+submission:
+  job_id: '7762792'
+  submitted_by: user_authenticated_SCC_terminal
+  submission_report_date: '2026-09-27'
+  last_reported_state: pass_pending_review_and_accounting
+  reviewed_status: pass_for_synthetic_four_rank_one_GPU_layout
+  result_evidence: docs/gromacs_gpu_stage_a_mps_result.md
+  result_provenance: user_supplied_job_log_status_not_independent_raw_file_review
+  failure: null
+  mps_four_clients_observed: true
+  mps_cleanup_confirmed: true
+  wrapper_wall_seconds: 8.91108157596318
+  wrapper_derived_gpu_hours: 0.0024753004377675502
+  accounting: qacct_received_failed_0_exit_status_0
+  scheduler_host: scc-502.scc.bu.edu
+  scheduler_wall_seconds: 14
+  scheduler_queue_wait_seconds: 102
+  billed_SU: not_reported
+  accepted_swaps_verified: 14
+  exchange_rounds_verified: 9
+  walker_permutations_verified: true
+  transcript: docs/review/gromacs_stage_a_7762792_user_transcript.txt
+  transcript_sha256: 328ed22c7e2b87367f313b2e18055d75d302e8370031d4cb14ef36a6d779d337
+  retained_scratch: /scratch/gmx-smoke-A-7762792.tpam9sla
+  package: gmx-gpu-stage-a-20260927-v4-mps
+  manifest_sha256: 6557fcd03adad353d60b65f6f2d1d57547d50f127c116dddd139b8f3e3421904
+  preparation: PACKAGE_AND_PREPARED_INPUTS_VERIFIED_user_reported
+  scheduler_validation: found_suitable_queues_user_reported
+  parallel_environment: omp
+  cpu_slots: 4
+  mpi_ranks: 4
+  gpus: 1
+  gpu_type: L40S
+  walltime_seconds: 600
+  attempts: 1
+  sharing: private_MPS
+  output_relative_path: submission-A/job.log
+  supersedes_job_id: '7758910'
+  next_diagnostic: separately_scope_larger_ladder_qualification
+  single_gpu_mpi_execution_validated: true  # Reviewed user-supplied evidence; no independent raw-binary download.
+previous_omp4_submission:
+  disposition: replaced_after_guarded_pending_job_deletion_user_reported_success
+  job_id: '7758910'
+  submitted_by: user_authenticated_SCC_terminal
+  submission_report_date: '2026-09-27'
+  last_reported_state: qw
+  scheduler_submission_time: '2026-09-27 15:15:19'
+  scheduler_timezone: unspecified
+  validation_current_cluster: no_suitable_queues_omp_offers_zero_slots
+  validation_empty_cluster: no_suitable_queues_omp_offers_zero_slots
+  validation_evidence_attachment: 145ac4e6-d2d4-4e12-8505-4092cc3bdd3c/Pasted text.txt
+  fresh_explicit_request_validation: no_suitable_queues_omp_offers_zero_slots
+  validation_only_reported_number: '7761829'
+  one_gpu_one_slot_validation: found_suitable_queues_user_reported
+  one_gpu_four_slot_validation: found_suitable_queues_user_reported
+  next_diagnostic: transfer_import_review_then_guarded_one_GPU_MPS_replacement
+  single_gpu_mpi_execution_validated: false
+sharing_inspection:
+  requested_by_user: true
+  email_requested: false
+  method: metadata_only_qrsh_one_L40S_one_slot_two_minutes_now_y
+  submitted_by_agent: false
+  execution_result: metadata_supplied_Exclusive_Process_MPS_binary_present_pipe_unset
+  observed_gpu_uuid: GPU-d1609426-3406-79b2-051a-0a57dffc5956
+  observed_gpu_index: 3  # Historical assignment only; never reuse for a new allocation.
+  metadata_job_id: not_supplied
+  functional_probe: docs/gromacs_mps_probe.md
+  functional_probe_status: passed_user_supplied_SCC_result
+  functional_probe_spec: docs/gromacs_mps_probe_v1.json
+  functional_probe_evidence: docs/gromacs_mps_probe_result_2026-09-27.md
+  functional_probe_host: scc-505
+  functional_probe_gpu_uuid: GPU-7ab63c30-8edc-e49c-e306-922c040486e6
+  functional_probe_sharing_passed: true
+  functional_probe_cleanup_confirmed: true
+  functional_probe_mpi_tested: false
+  functional_probe_dynamics_tested: false
+  starts_mps: false
+  changes_gpu_mode: false
+  runs_dynamics: false
+  all_queue_validation: failed_but_reports_no_project_inconsistent_with_actual_job
+  current_request_evidence_attachment: 7f78e625-5ec0-46a8-954f-794edd3884ac/Pasted text.txt
+  project_verified_by_qstat: rise-batteries
+  support_draft: docs/gromacs_stage_a_scheduler_support_draft.md
+  support_message_sent: false
+  package: gmx-gpu-stage-a-20260927-v3-omp4
+  parallel_environment: omp
+  cpu_slots: 4
+  gpus: 4
+  gpu_type: L40S
+  walltime_seconds: 600
+  output_relative_path: submission-A/job.log
+  supersedes_job_id: '7726162'
+previous_submission:
+  disposition: replaced_after_guarded_pending_job_deletion_user_reported_success
+  job_id: '7726162'
+  submitted_by: user_authenticated_SCC_terminal
+  scheduler_submission_time: '2026-09-24 14:40:41'
+  scheduler_timezone: unspecified
+  last_report_date: '2026-09-27'
+  last_reported_state: qw
+  scheduler_explanations: disabled
+  waiting_reason: unknown_free_capacity_reported_scheduler_eligibility_unresolved
+  availability_snapshot:
+    reported_date: '2026-09-26'
+    queue: l40s
+    hosts: 10
+    gpus_total: 40
+    gpus_in_use: 13
+    gpus_available: 27
+    hosts_with_four_free_gpus_and_32_free_cpu_slots: [scc-503, scc-504, scc-510, scc-511]
+    scheduler_eligibility_verified: false
+  package: gmx-gpu-stage-a-20260924-v2
+  output_relative_path: submission-A/job.log
+restart_candidate:
+  package: gmx-gpu-restart-20260927-v1
+  status: pass_reviewed_user_evidence_and_qacct
+  reviewed_checkpoint_transitions: 4
+  distinct_MPI_process_sets_verified: true
+  exchange_rounds_verified: 9
+  accepted_swaps_verified: 14
+  resumed_phase_accepted_swaps: 8
+  boundary_exchange_count: 1
+  scheduler_host: scc-512.scc.bu.edu
+  scheduler_wall_seconds: 18
+  scheduler_queue_wait_seconds: 93
+  billed_SU: not_reported
+  transcript: docs/review/gromacs_restart_7763081_user_transcript.txt
+  transcript_sha256: 58500cf2b1221627f235d0dcc234e6eaab14c736f233b571203e13006215f8a3
+  result_evidence: docs/gromacs_gpu_restart_result.md
+  result_report_date: '2026-09-28'
+  restart_verified: true
+  mps_four_clients_observed: true
+  mps_cleanup_confirmed: true
+  failure: null
+  wrapper_wall_seconds: 14.486157707986422
+  wrapper_derived_gpu_hours: 0.004023932696662895
+  accounting: qacct_received_failed_0_exit_status_0
+  retained_scratch: /scratch/gmx-smoke-A-7763081.10mnahsl
+  job_id: '7763081'
+  submitted_by: user_authenticated_SCC_terminal
+  output_relative_path: submission-R/job.log
+  manifest_sha256: 195331e4357bf28347b85b4a4d735d10307fd4ea348c2d8e8bba1fba67d59a11
+  specification: docs/gromacs_gpu_restart_v1.yaml
+  instructions: docs/gromacs_gpu_restart_package.md
+  preparation_requested: true
+  execution_authorized: true  # User selected/submitted this single bounded attempt.
+  gpus: 1
+  mpi_ranks: 4
+  cpu_slots: 4
+  walltime_seconds: 600
+  attempts: 1
+  first_stop_step: 500
+  final_step: 1000
+  scc_preparation: imported_and_verified_user_supplied_success
+  gpu_execution: runtime_reports_technical_pass
+one_gpu_replacement_candidate:
+  package: gmx-gpu-stage-a-20260927-v4-mps
+  status: completed_pass_reviewed_user_evidence
+  job_id: '7762792'
+  manifest_sha256: 6557fcd03adad353d60b65f6f2d1d57547d50f127c116dddd139b8f3e3421904
+  specification: docs/gromacs_gpu_stage_a_mps_v1.yaml
+  instructions: docs/gromacs_gpu_stage_a_mps_package.md
+  request: ok_lets_get_started_with_that
+  source_job_to_replace_if_still_unexecuted: '7758910'
+  parallel_environment: omp
+  cpu_slots: 4
+  mpi_ranks: 4
+  gpus: 1
+  gpu_type: L40S
+  walltime_seconds: 600
+  attempts: 1
+  sharing: private_MPS
+  prepared_inputs: import_verified_v3_TPRs_without_regeneration
+  scc_preparation: completed_user_supplied_package_and_prepared_inputs_verified
+  submitted_by_agent: false
+replacement_candidate:
+  package: gmx-gpu-stage-a-20260927-v3-omp4
+  manifest_sha256: ead0eac31e97a63f96484fb3da87ae24d50618090887fba65f251f3ca87632ef
+  specification: docs/gromacs_gpu_stage_a_omp4_v1.yaml
+  record: docs/gromacs_gpu_stage_a_omp4_change.md
+  parallel_environment: omp
+  cpu_slots: 4
+  submitted: true
+  job_id: '7758910'
+  existing_job_unchanged: false
+  waiting_cause_proven: false
+  scheduler_configuration_reviewed: true
+  scheduler_evidence_attachment: 0fa45a30-60c1-457a-ae22-e7fd49ea955d/Pasted text.txt
+  omp_allocation_rule: '$pe_slots'
+  scc_preparation: completed_user_supplied_prepare_and_review_success
+  transition_script: scripts/replace_queued_gmx_stage_a.sh
+  transition_requires: old_job_still_qw_then_held_hqw_no_old_attempt_and_confirmed_deletion
+authorization:
+  date: '2026-09-24'
+  user_statement: yes I authorize it
+  scope: one_stage_A_attempt_only
+  package: gmx-gpu-stage-a-20260924-v2
+  manifest_sha256: 59fc0d8e1e5a0e881f6f73d1060646ac5a2b568fd31cd6b6b81555a284c678c9
+  current_SU_balance_unverified_disclosed_and_accepted: true
+  submitted_by_agent: false
+  agent_submission_blocker: SCC_noninteractive_SSH_authentication_rejected
+  requested_cpu_reduction_date: '2026-09-27'
+  replacement_package: gmx-gpu-stage-a-20260927-v3-omp4
+  replacement_scope: substitutes_unexecuted_pending_attempt_with_four_cpu_slots
+preflight:
+  evidence: docs/gromacs_gpu_preflight_2026-09-24.md
+  captured_utc: '2026-09-24T17:58:01Z'
+  scheduler_configuration: captured
+  project_quota_headroom_gb_approx: 7.03
+  wrapper_login_host_preview: completed_without_execution
+  allocation_balance: unresolved_acctool_unavailable
+  compute_node_devices_and_scratch: untested
+  stage_A_preparation: completed_user_supplied_scc_evidence
+  stage_A_preparation_record: docs/gromacs_gpu_stage_a_scc_preparation.md
+image:
+  evidence: docs/gromacs_hrex_sif_r6_verification.md
+  path: /projectnb/rise-batteries/bode/containers/builds/gmx-hrex.IylQZ9Uj/gromacs-2025.3-mpi-cuda-l40s.sif
+  sha256: 0e3770f4506a2c376a3cf7a635971c0dd01161417cc3e613c8351446bb0d45ee
+  rebuild_required: false
+scope:
+  synthetic_only: true
+  scientific_estimate: false
+  single_node_only: true
+  host_mpi_launcher: false
+  automatic_stage_chaining: false
+  automatic_retries: 0
+  automatic_rescheduling: false
+resources_proposed:
+  project: rise-batteries
+  parallel_environment: mpi32
+  cpu_slots_per_job: 32
+  gpus_per_job: 4
+  gpu_type: L40S
+  openmp_threads_per_rank: 1
+  total_gpu_hours_max: 2
+  total_cpu_slot_hours_max: 16
+  total_new_files_gib_max: 2
+  orderly_stop_files_gib: 1.5
+  minimum_free_gib_each_destination: 4
+  billed_su: null
+fixture_proposed:
+  kind: neutral_periodic_lennard_jones_alchemy
+  particles: 512
+  tagged_particles: 1
+  endpoint_interactions_nonzero: true
+  physics_parameters_frozen: true
+  stage_A_specification: docs/gromacs_gpu_stage_a_mps_v1.yaml
+  tpr_created: true  # Stage A only; Stage B is not prepared.
+  lambda_source: config/pipeline.yaml
+  lambda_key: fep.lambda_vector
+  expected_source_states: 20
+  replex_steps: 100
+  energy_dhdl_log_stride_steps: 100
+  coordinate_stride_steps: 200
+  foreign_energy_states: all
+  nb: gpu
+  update: cpu
+  pme_exercised: false
+  constraints_exercised: false
+  seeds: declared_in_stage_A_specification
+stages:
+  A:
+    execution_authorized: true
+    status: pass_reviewed_user_evidence_and_qacct
+    parallel_environment: omp
+    cpu_slots: 4
+    mpi_ranks: 4
+    gpus: 1
+    ranks_per_gpu: 4
+    source_lambda_indices: [0, 6, 13, 19]
+    tpr_local_state_indices: [0, 1, 2, 3]
+    steps_per_state: 1000
+    walltime_minutes_max: 10
+    simulation_deadline_minutes: 7
+    attempts_max: 1
+    requires_mps: true
+  B:
+    execution_authorized: false
+    mpi_ranks: 20
+    ranks_per_gpu: 5
+    source_lambda_indices: all
+    steps_per_state: 2000
+    planned_restart_step: 1000
+    walltime_minutes_max: 20
+    simulation_deadline_minutes: 17
+    attempts_max: 1
+    prerequisites: [stage_A_pass, supported_gpu_sharing, reviewed_stage_B_package]
+    restart_scope: whole_ladder_graceful_stop
+    abrupt_failure_injection: false
+unresolved_before_submission:
+  []
+checks_inside_stage_A_before_dynamics:
+  - runtime_recheck_of_quota_and_actual_placement
+  - runtime_driver_and_rank_mapping_evidence
+unresolved_before_stage_B:
+  - qualify_sharing_and_cleanup_for_stage_B_multi_GPU_layout
+  - checkpoint_append_and_exchange_boundary_validation
+  - stage_A_results_and_stage_B_execution_authorization
+
+previous_larger_ladder_candidate:
+  stage: L
+  requested_date: '2026-09-28'
+  status: scheduler_validation_rejected_omp20_one_GPU
+  package: gmx-gpu-ladder-20260928-v1
+  spec: docs/gromacs_gpu_ladder_v1.yaml
+  instructions: docs/gromacs_gpu_ladder_package.md
+  manifest_sha256: f3ab36b8fe46d8f768b826186edd462505b03b682bb8905e9d3b027dc72c44d8
+  submitted: false
+  gpus: 1
+  gpu_type: L40S
+  parallel_environment: omp
+  cpu_slots: 20
+  mpi_ranks: 20
+  walltime_seconds: 1200
+  attempts: 1
+  restart_steps: [1000, 2000]
+  old_four_state_TPR_import_allowed: false
+  scheduler_validation_number: '7763168'  # qsub -w v; not a submitted job.
+  scheduler_validation_message: 'PE omp only offers 0 slots; no suitable queues'
+  exact_scheduler_restriction: undetermined
+  SCC_preparation: not_reached_in_chained_commands
+  prior_passed_jobs: ['7762792', '7763081']
+  production_authorized: false
+
+previous_larger_ladder_v2_attempt:
+  stage: L
+  status: failed_before_MPS_and_MPI_on_PE_name_guard
+  package: gmx-gpu-ladder-20260928-v2-omp16
+  spec: docs/gromacs_gpu_ladder_omp16_v2.yaml
+  instructions: docs/gromacs_gpu_ladder_omp16_package.md
+  manifest_sha256: f49e471b32d222986145fb4665edaa44b464ca3aaad80c97b89b369ee5ccfb07
+  submitted: true
+  job_id: '7763245'
+  submitted_by: user_authenticated_SCC_terminal
+  submission_report_date: '2026-09-28'
+  output_relative_path: submission-L/job.log
+  scheduler_eligibility: one_GPU_omp16_validation_passed_user_evidence
+  scheduler_evidence: docs/gromacs_gpu_ladder_scheduler_result.md
+  SCC_preparation: INPUTS_PREPARED_and_PACKAGE_AND_PREPARED_INPUTS_VERIFIED_user_reported
+  gpus: 1
+  gpu_type: L40S
+  parallel_environment: omp
+  cpu_slots: 16
+  mpi_ranks: 20
+  cpu_sharing: explicit_oversubscription_with_16_CPU_affinity_mask_and_MPI_yield
+  walltime_seconds: 1200
+  attempts: 1
+  restart_steps: [1000, 2000]
+  production_authorized: false
+  effective_parallel_environment: omp16
+  failure: wrong_PE_slots
+  wrapper_wall_seconds: 2.5483192420215346
+  accounting: qacct_received_failed_0_exit_status_1
+  scheduler_wall_seconds: 4
+  scheduler_queue_wait_seconds: 107
+  scheduler_host: scc-502.scc.bu.edu
+  allocation_PE_confirmed: omp16
+  result_evidence: docs/gromacs_ladder_7763245_failure.md
+
+larger_ladder_candidate:
+  stage: L
+  status: pass_reviewed_user_evidence_and_qacct
+  package: gmx-gpu-ladder-20260928-v3-pe-omp16
+  spec: docs/gromacs_gpu_ladder_pe_omp16_v3.yaml
+  instructions: docs/gromacs_gpu_ladder_pe_omp16_package.md
+  manifest_sha256: 4faa2d6c66a896d21420fb4c08cd8520870d4a6f9be02d5cbc4742a5f5ae28a8
+  submitted: true
+  job_id: '7763284'
+  submitted_by: user_authenticated_SCC_terminal
+  submission_report_date: '2026-09-28'
+  output_relative_path: submission-L/job.log
+  SCC_preparation: verified_existing_TPR_import_and_package_review_user_reported
+  scheduler_eligibility: explicit_omp16_request_validated_user_reported
+  prepared_source: gmx-gpu-ladder-20260928-v2-omp16
+  prior_failed_job: '7763245'
+  gpus: 1
+  gpu_type: L40S
+  parallel_environment: omp16
+  cpu_slots: 16
+  mpi_ranks: 20
+  cpu_sharing: explicit_oversubscription_with_16_CPU_affinity_mask_and_MPI_yield
+  walltime_seconds: 1200
+  attempts: 1
+  restart_steps: [1000, 2000]
+  production_authorized: false
+  accounting: qacct_received_failed_0_exit_status_0
+  failure: null
+  restart_verified: true
+  larger_ladder_verified: true
+  mps_cleanup_confirmed: true
+  mps_expected_clients: 20
+  mps_all_clients_observed: true
+  wrapper_wall_seconds: 48.21217385798809
+  wrapper_derived_gpu_hours: 0.013392270516107804
+  retained_scratch: /scratch/gmx-smoke-L-7763284.cvq4nam4
+  detailed_evidence_review: completed_on_user_supplied_records
+  result_evidence: docs/gromacs_gpu_ladder_result.md
+  transcript: docs/review/gromacs_ladder_7763284_user_transcript.txt
+  transcript_sha256: ae0590d27c186c35c78a4db71d359b3d0dec711c794db4e9e744dc50d8a1c35a
+  scheduler_host: scc-503.scc.bu.edu
+  scheduler_wall_seconds: 52
+  scheduler_queue_wait_seconds: 132
+  billed_SU: not_reported
+  checkpoint_transitions_verified: 20
+  exchange_rounds_verified: 19
+  accepted_swaps_verified: 181
+  resumed_phase_accepted_swaps: 95
+  neighbor_links_exercised: 19
+  walker_permutations_verified: true
+  distinct_MPI_process_sets_verified: true
+  independent_remote_binary_download: false

@@ -8,6 +8,28 @@ endpoint; no further arm is selected. The failed historical gate is unchanged.
 The hash-bound [raw-energy CPU audit](docs/f64a_raw_energy_audit_results.md) is also
 complete; late adjacent-energy changes and short selected suffixes remain visible.
 
+**Publication planning update:** [the scoped prospective study](docs/publication_research_plan.md)
+centers on one matched-cost protein sampling comparison, with diagnostics secondary,
+structural mechanism optional, and external-protein testing driven by the resulting
+scientific question. Sample size and duration follow precision and coverage, not
+an assumed calendar. Completed discovery/calibration stages are supporting evidence.
+[Corrected conclusions](docs/conclusion_reconciliation_2026-09-18.md)
+separate observed high-λ drift from unproved structural causes. The two-start
+draft is a reserve option; no new GPU arm is selected. Vlasov will review later.
+The plan's CPU-only work package A is now complete: the
+[fresh-output lambda analysis](docs/f64a_lambda_comparator_results.md) and
+[diagnostic/prior-art table](docs/diagnostic_comparator_specification.md) preserve
+all repeats/directions and do not introduce a convergence threshold or causal claim.
+Work package B is also complete in a bounded constructed model. Its
+[known-answer results](docs/known_answer_model_results.md) show an equal-cost
+exchange benefit in the deliberately metastable regime, alongside incomplete
+interval calibration and explicit baseline failures. This does not select a
+protein intervention. The first C1
+[GROMACS exchange qualification](docs/gromacs_exchange_feasibility_design.md)
+finds the method conditionally feasible but not executable with the standing
+serial CUDA build. A combined external-MPI + CUDA build and coupled SGE placement
+remain unresolved; no build, GPU smoke test, or protein arm is authorized.
+
 A completed GPU-cluster validation campaign for protein-stability changes (ΔΔG of
 folding) in clinically observed **SOD1** variants using **alchemical free-energy
 (FEP/TI)** calculations. The failed gate stopped the planned extension to
@@ -49,7 +71,9 @@ If you are an agent resuming work on this project:
    a methods-and-limitations result.
 4. **GPU work is stopped.** Both registered F64A continuations are complete through
    15 ns. No additional duration, new starts, broad rerun, apo-SS campaign or VUS
-   work is authorized. The pending raw-energy follow-up is CPU-only.
+   work is authorized. CPU work packages A and B and the C1 read-only SCC inventory
+   are complete; the next C1 decision is an SCC-supported versus project-local
+   combined external-MPI + CUDA build.
 5. **Changelog is [§12](#12-changelog).** Append to it; don't rewrite history.
 
 ---
@@ -92,21 +116,22 @@ Simulate the **apo, disulfide-reduced (2SH)** form in v1.
   AND lands on the aggregation-prone, disease-relevant species.
 - **Novelty caveat (new):** this decision is *scientifically correct but not novel*.
   Both Wells 2021 and Hsueh 2022 simulated apo-2SH. Do **not** frame apo-first as a
-  contribution. Its value here is that it is the state where Wells reported
-  **convergence failure** — which is the opening. See [§11.3](#113-what-survives-as-novelty).
+  contribution. Wells reported slow residue-level dynamical convergence in less-mature
+  states; that is not a failed folding-stability gate and does not establish this
+  project's novelty. See [§11.3](#113-what-survives-as-novelty).
 - Holo/metal-bound is a **separate parameterized arm**, not a config flag.
 
-### 2.2 Control validation is a GATE, not a final step
-Before spending cluster time on uncharacterized variants, reproduce the **known
-experimental ΔΔG** of the characterized controls (A4V, G93A, G37R, …).
-- If the control correlation is poor, extending to novel variants produces
-  confident nonsense. Treat this as **go/no-go**.
-- **Pre-registered thresholds (new — set these before looking at results):**
-  - Pearson r ≥ 0.70 against the Kumar 2017 control set, **and**
-  - Spearman ρ reported alongside (rank agreement matters more than absolute
-    scale for triage), **and**
-  - median |cycle-closure hysteresis| below a stated kcal/mol bound (fix the bound
-    in `config/pipeline.yaml` before the first gate evaluation).
+### 2.2 Historical validation gate and its limits
+The gate was preregistered on 2026-08-07 and evaluated on the charge-neutral
+control subset. Its frozen requirements in `config/pipeline.yaml` are:
+- Pearson r ≥ 0.70, RMSE ≤ 1.5 kcal/mol, and median net ladder hysteresis ≤ 0.75 kcal/mol.
+- At least six usable variants; a per-variant hysteresis cap of 1.0 kcal/mol
+  determined exclusions. Spearman was reported, not a separate pass threshold.
+- F64A was excluded; seven usable points gave r = 0.326 and RMSE = 2.123.
+  The gate failed and the r < 0.60 pivot triggered. Prospective VUS work is retired.
+- The experimental compilation was subsequently found state/construct heterogeneous.
+  A future predictive campaign needs a separately registered matched benchmark;
+  the frozen gate cannot be relabeled as a matched accuracy test.
 - Historical threshold rationale used Wells 2021's **0.81**. That value concerns
   AMBER-only apo-SS dimerization against ITC, not a matched folding benchmark; it
   does not justify a head-to-head performance claim. The frozen threshold remains unchanged.
@@ -148,7 +173,7 @@ destabilizing."** All three are false. See [§11.2](#112-what-is-dead).
   **non-equilibrium fast-growth** mode (Crooks/Jarzynski work analysis, ~50 ps
   transitions seeded from long equilibrium trajectories). This project uses
   **equilibrium windowed sampling + MBAR**. That is a genuinely different estimator
-  and supports C2, but it is not by itself a headline.
+  but does not by itself establish convergence, accuracy or a methods contribution.
 
 ---
 
@@ -267,9 +292,9 @@ The gate was evaluated and failed. The frozen rules below remain as design
 history; the approved scope does not proceed to charge or VUS stages.
 - **GATE:** correlate computed FEP ΔΔG vs experimental controls against the
   pre-registered thresholds in §2.2. Go/no-go.
-- **Head-to-head:** report the Wells-10 subset separately. Same target, same engine,
-  different estimator, more sampling — this is the cleanest possible comparison and
-  directly supports C2.
+- **Historical head-to-head proposal (not established):** tool/variant overlap
+  with Wells does not create a matched comparison. Observable, state, construct,
+  preparation and sampling must match before making a quantitative performance claim.
 - **Charge-changing sub-gate:** report charge-changing controls separately from
   charge-conserving ones. If the charge handling doesn't validate, C1 is
   unsupported and charge-changing VUS results must be withheld.
@@ -579,6 +604,25 @@ the follow-up diagnostics narrowed what did and did not explain that failure.
 ---
 
 ## 12. Changelog
+
+### 2026-09-18 — focused publication-study revision
+- Made the controlled sampling comparison primary and diagnostic assessment secondary;
+  structural mechanism and external-system work are not automatic requirements.
+- Preserved completed A/B work and C1 feasibility findings. Next work resolves
+  exchange qualification and the prospective design, not repeated CPU calibration.
+- Made the initial panel size subject to precision/coverage justification and
+  distinguished informative negative effects from under-resolved comparisons.
+- Removed calendar/capacity assumptions from scope decisions. No new GPU arm authorized.
+
+### 2026-09-18 — publication plan and conclusion reconciliation
+- Scoped discovery, known-answer calibration, one controlled intervention and a
+  finite prospective evaluation; Vlasov reviews later. No new GPU arm selected.
+- Reproduced the supplied high-λ drift summary from the saved audit JSON and
+  distinguished λ-localized energy movement from structural causation.
+- Corrected historical F64A mechanism, independent-basin, uncertainty and bundled
+  intervention claims; preserved numerical evidence and linked frozen-source errata.
+- Reserved the two-start draft and updated the current manuscript outline with
+  completed temporal evidence and the boundary to prospective work.
 
 ### 2026-09-18 — F64A v2 results, CPU audits and evidence-preservation review
 - Completed registered 9→15 ns continuation (first light 7619903, array 7620241)

@@ -1,0 +1,42 @@
+# CPU-only candidate inputs for a bounded F64A folded-protein technical test.
+schema_version: 1
+stage: P
+scope: f64a_folded_apo_2sh_r0_technical_inputs_only
+execution_authorized: false
+production_authorized: false
+source:
+  root: /projectnb/rise-batteries/bode/rise-project/results/fep/F64A/folded
+  inventory: /projectnb/rise-batteries/bode/container-build-packages/f64a-protein-inventory-20260928/f64a_protein_source_inventory.json
+  pipeline: /projectnb/rise-batteries/bode/rise-project/config/pipeline.yaml
+  pipeline_sha256: af866a49f017d40af13101b561906cb049e336be1741d2d2255ce50b2e9dde29
+  repeat: 0
+  states: 20
+  pmx_forcefield_root: /projectnb/rise-batteries/bode/.conda/envs/sod1-fep/lib/python3.11/site-packages/pmx/data/mutff
+  pmx_forcefield_name: amber99sb-star-ildn-mut
+image:
+  path: /projectnb/rise-batteries/bode/containers/builds/gmx-hrex.IylQZ9Uj/gromacs-2025.3-mpi-cuda-l40s.sif
+  sha256: 0e3770f4506a2c376a3cf7a635971c0dd01161417cc3e613c8351446bb0d45ee
+  gmx: /opt/gromacs/2025.3/bin/gmx_mpi
+technical_mdp:
+  nsteps: 2000
+  first_stop_step: 1000
+  replex: 100
+  nstcalcenergy: 100
+  nstenergy: 100
+  nstdhdl: 100
+  nstlog: 100
+  nstxout-compressed: 200
+preparation:
+  command_timeout_seconds: 180
+  total_timeout_seconds: 600
+candidate_runtime:
+  host_count: 1
+  gpu_type: L40S
+  gpus: 1
+  parallel_environment: omp16
+  cpu_slots: 16
+  mpi_ranks: 20
+  threads_per_rank: 1
+  gpu_sharing: private_MPS
+  walltime_seconds: null  # not selected until input review and resource estimate
+  attempts: null          # no executable job package exists

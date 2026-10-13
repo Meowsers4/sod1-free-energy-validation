@@ -1,5 +1,11 @@
 # Gate attempt 2 — abandoned after one variant (2026-09-12)
 
+> Publication-review correction (2026-09-14): this is a historical run record.
+> Claims that diagnostics contain no information, replicate range proves an error-bar
+> multiplier, or the tested extension excludes further sampling are withdrawn.
+> Range, SEM, model bias and discrepancy from unmatched experiments are distinct.
+> Current interpretation: `methods_limitations_outline.md` and `cpu_improvement_plan.md`.
+
 Attempt 2 raised folded-leg sampling 3 → 9 ns and equilibration 0.5 → 2.0 ns
 (`5beab16`), leaving the already-converged unfolded leg untouched. It was run on **A4V
 only** and stopped there.
@@ -29,14 +35,12 @@ hash (`822108e9db71124d`) let those 60 windows be reused rather than recomputed 
 
 ## Why this ends attempt 2
 
-The hypothesis was that the folded leg had not relaxed and that more sampling would close
-the error. The first half was right: box-to-box spread of 1.46 kcal/mol is a real sampling
-deficiency, and 9 ns reduced it to 0.27. The second half was wrong. **With the sampling
-deficiency removed, essentially all of the error remains.**
-
-So for A4V the residual is not sampling. It is the force field, the unfolded-state
-reference, or a reference-compatibility problem with the experimental value — none of
-which more GPU time addresses.
+The hypothesis was that more folded sampling would reduce the discrepancy from experiment.
+The tested production/equilibration extension reduced box-to-box spread from 1.46 to 0.27
+kcal/mol and reduced the reference discrepancy modestly. It did not demonstrate complete
+conformational sampling or exclude sampling as a contributor. Force-field, unfolded-reference
+and experimental-state differences also remain plausible. The decision to stop reflected
+limited observed benefit and the project's budget, not a proof that further sampling cannot help.
 
 Gate arithmetic with the improved A4V: SSE 31.5663 → 30.9075, RMSE 2.1235 → **2.1013**,
 against a threshold of 1.5. G93V's −4.17 still contributes 17.39 of the total, and G93V is
@@ -54,16 +58,12 @@ cost. The data now says the same thing directly.
 
 ## What it strengthens
 
-The claim is no longer "the folded leg is under-converged." It is:
+The bounded result is:
 
-> A converged alchemical FEP calculation — replicates agreeing to ±0.08 kcal/mol across
-> independent solvated boxes, cycle closure 0.51, box-to-box spread reduced 5× by direct
-> test — is still 1.74 kcal/mol from experiment, with sampling excluded as the cause by
-> that test.
-
-That is a sharper and more checkable statement than anything attempt 2 could have produced
-by succeeding, and it is what makes the sampling-limits framing (README §10) a positive
-result rather than an absence of one.
+> Under the tested A4V extension, the mean remained 1.74 kcal/mol from an unmatched
+> experimental reference while replicate spread decreased about fivefold. The short-arm
+> raw windows were overwritten; its run-time JSON preserves the comparison. This does
+> not distinguish hidden sampling modes from model or reference bias.
 
 ## Status
 

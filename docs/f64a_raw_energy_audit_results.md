@@ -89,8 +89,11 @@ Do not rerun into this output directory: the module refuses existing evidence.
 No claim is made that the main-DAG execution succeeded. Scientific input integrity
 was checked both before analysis and again before output publication.
 
-Next: use these complete-ladder observations to specify a bounded comparison of
-sampling strategies/starting ensembles, with fixed observables, independent
-replicates and a resource cap, before selecting or submitting any new arm. This
-audit alone does not choose between a different-start or sampling-method test.
-Mentor review remains deferred and billed SU accounting remains pending.
+Next: follow the [scoped publication plan](publication_research_plan.md), starting
+with the exploratory λ/comparator analysis before selecting a bounded intervention.
+A separate [read-only aggregation and interpretation correction](conclusion_reconciliation_2026-09-18.md)
+reproduces the suggested high-λ pattern from this report. It is not an addition
+to the fixed audit's registered outputs. Localization does not choose uniquely
+between schedule, sampling-method or different-start tests and does not establish
+a structural cause. The two-start draft is a reserve option. Vlasov reviews later;
+billed SU accounting remains pending.

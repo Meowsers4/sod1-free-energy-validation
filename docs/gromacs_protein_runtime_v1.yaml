@@ -1,0 +1,62 @@
+# Candidate protein technical runtime. Preparation/review only; no GPU submission.
+schema_version: 1
+stage: P
+scope: f64a_folded_apo_2sh_r0_twenty_state_technical_restart_only
+execution_authorized: false
+production_authorized: false
+prepared_source:
+  path: /projectnb/rise-batteries/bode/container-build-packages/f64a-protein-technical-20260928-v1/prepared
+  manifest_sha256: 858070ac1c8d757d0fdb0fa744148865e24abdccb8d82e3d1a670698734e77b9
+  source_spec_sha256: 155a24a60191334c0c06a3e02d3c21ecf51cea0902f5ebe5e53370b3c6c322cf
+image:
+  path: /projectnb/rise-batteries/bode/containers/builds/gmx-hrex.IylQZ9Uj/gromacs-2025.3-mpi-cuda-l40s.sif
+  sha256: 0e3770f4506a2c376a3cf7a635971c0dd01161417cc3e613c8351446bb0d45ee
+  gmx: /opt/gromacs/2025.3/bin/gmx_mpi
+  mpirun: /opt/openmpi/4.1.5/bin/mpirun
+  python: /usr/libexec/platform-python
+scheduler:
+  project: rise-batteries
+  queue: l40s
+  pe: omp16
+  slots: 16
+  gpus: 1
+  gpu_type: L40S
+  ranks: 20
+  threads: 1
+  walltime_seconds: 1800
+  work_deadline_seconds: 1560
+  attempts: 1
+  stop_bytes: 1610612736
+  cap_bytes: 2147483648
+  min_free_bytes: 3221225472
+cpu_sharing:
+  mode: explicit_oversubscription
+  affinity_cpus: 16
+  mpi_yield_when_idle: 1
+sharing:
+  mode: private_MPS
+  control_timeout_seconds: 5
+  graceful_stop_seconds: 40
+  shutdown_timeout_seconds: 10
+fixture:
+  lambda_source: config/pipeline.yaml
+  lambda_indices: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
+  nsteps: 2000
+  dt_ps: 0.002
+  replex: 100
+  exchange_seed: 20260929
+  output_stride: 100
+  coordinate_stride: 200
+restart:
+  first_stop_step: 1000
+  final_step: 2000
+  first_checkpoint_part: 1
+  final_checkpoint_part: 2
+  checkpoint: smoke.cpt
+  append: true
+  phase1_expected_exchange_steps: [100, 200, 300, 400, 500, 600, 700, 800, 900]
+  combined_expected_exchange_steps: [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1100, 1200, 1300, 1400, 1500, 1600, 1700, 1800, 1900]
+  abrupt_failure_injection: false
+preparation:
+  command_timeout_seconds: 180
+  total_timeout_seconds: 600

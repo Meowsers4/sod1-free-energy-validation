@@ -197,16 +197,19 @@ siblings)| as the disagreement:
 | **folded leg only** | 24 | **+0.072** | **+0.080** |
 | unfolded leg only | 24 | +0.383 | +0.357 |
 
-**On the folded leg — the one that limits every result in this project — within-ladder
-hysteresis carries essentially no information about whether a replicate agrees with
-independently solvated repeats.** The overall correlation is weak and not significant at
-n = 48; what little there is comes from the unfolded leg, where both quantities are small and
-the tripeptide converges anyway.
+**The folded-leg sample correlations are near zero in this small archive.** They do not
+establish absence of an association or predictive usefulness. The 24 folded records come
+from eight variants at six sites; each disagreement uses sibling estimates, so observations
+are dependent. The historical row-wise p-values above and below are retained as calculation
+history only and must not be used for inference. Whole-variant/site bootstrap intervals,
+leave-group-out sensitivity, and a uniform-protocol subset are now reported in
+`docs/review/diagnostic_audit.json`. The pooled legs mix different systems and scales.
 
 Both tails are informative. G93S folded r0 and r1 have the 3rd and 4th lowest hysteresis in
 the dataset *and* agree with their siblings (0.11, 0.17) — low hysteresis is not a *predictor*
-of disagreement either. The diagnostic is close to uninformative on this leg in both
-directions, which is the honest claim.
+of disagreement either. These examples do not establish whether the diagnostic has useful predictive information.
+The net ladder summary also permits cancellation of signed local discrepancies; the new
+exploratory audit records each adjacent pair and alternative summaries.
 
 Folded-leg replicate spread, for context — F64A is the outlier variant, not merely the outlier
 replicate:
@@ -246,7 +249,7 @@ The two thinnest ladders in the project (I18V 0.0054, I149A 0.0096) belong to th
 | min adjacent overlap vs \|error\| | 7 | **+0.893** (p = 0.007) |
 | cycle closure vs \|error\| | 7 | +0.107 (p = 0.819) |
 
-Closure carries no signal, as expected from §6. Overlap correlates **strongly and in the
+Closure has a small descriptive rank correlation in this sample. Overlap correlates **strongly and in the
 wrong direction** — wider overlap goes with *larger* error.
 
 **Do not read that as a result.** At n = 7 it is one rearrangement away from nothing, and it
@@ -273,7 +276,7 @@ Established:
 - The decorrelation and MBAR path is deterministic across those changes to floating-point rounding.
 - The gate failure (r = 0.326, RMSE 2.123) is a reproduced result, not documentation arithmetic.
 - The F64A stop-rule example is real as stated, minus the superlative.
-- On the folded leg, hysteresis and independent-box disagreement are near-uncorrelated over 48 records.
+- On the folded leg, hysteresis and sibling disagreement have near-zero sample correlations over 24 records (eight variants, six sites); 48 counts both legs.
 
 Not established, and not addressable by reanalysis:
 
@@ -282,7 +285,7 @@ Not established, and not addressable by reanalysis:
 - Anything about A4V's gate point beyond its run-time record.
 - Generality. 48 records is 8 variants at **6 sites** (4, 18, 64, 93, 113, 149; the seven *usable* gate points span 5, F64A being the excluded one), one target, one force field, one estimator, one water model. The correlations in §6 are a statement about this dataset, not about FEP.
 - Which replicate sampled the correct basin. Two agreeing replicates are still not ground truth — the review's caution stands.
-- The §6 overlap/closure-vs-error rankings mix protocols: A4V's row is the 9 ns folded rerun, the other six are 3 ns. Six of seven are internally consistent; the seventh is the only A4V point that re-derives from raw output. Stated as a negative result, so the mixing weakens nothing it claims — but it rules the table out as a positive finding on its own.
+- The §6 overlap/closure-vs-error rankings mix protocols: A4V's row is the 9 ns folded rerun, the other six are 3 ns. Six of seven are internally consistent; the seventh is the only A4V point that re-derives from raw output. This mixture limits interpretation of both positive and negative findings. The new audit separately reports seven variants under the uniform attempt-1 protocol, excluding A4V without changing the gate.
 
 ## 8. Subsequent work
 

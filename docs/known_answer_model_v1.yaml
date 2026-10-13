@@ -1,0 +1,66 @@
+# Frozen work-package B CPU calibration design. This does not select or authorize
+# a protein/GPU intervention.
+analysis_id: known_answer_model_v1
+output_dir: results/cpu_calibration/known_answer_model_v1
+
+domain:
+  x: [-5.0, 5.0]
+  y: [-2.5, 2.5]
+
+lambda_vector: [0.0, 0.1111111111111111, 0.2222222222222222,
+  0.3333333333333333, 0.4444444444444444, 0.5555555555555556,
+  0.6666666666666666, 0.7777777777777778, 0.8888888888888888, 1.0]
+
+# u_lambda(x,y) = 0.5*kx*(x - shift*(2*lambda-1) - coupling*y)^2
+#   + barrier(lambda)*(y^2-1)^2
+#   + (base_tilt + lambda_tilt*(lambda-0.5))*y + offset*lambda
+# barrier(lambda) = barrier_height*(1 - barrier_relief*4*lambda*(1-lambda))
+potential:
+  x_force_constant: 3.0
+  x_lambda_shift: 1.0
+  x_y_coupling: 0.7
+  base_y_tilt: 0.35
+  lambda_y_tilt: 2.0
+  lambda_offset: 1.25
+
+regimes:
+  easy:
+    barrier_height: 1.5
+    barrier_relief: 0.50
+  metastable:
+    barrier_height: 8.0
+    barrier_relief: 0.85
+
+reference:
+  gauss_legendre_orders: [48, 96, 192, 384]
+  relative_free_energy_tolerance_kT: 1.0e-8
+  independent_absolute_tolerance: 1.0e-10
+  independent_relative_tolerance: 1.0e-10
+  independent_agreement_tolerance_kT: 1.0e-7
+
+sampling:
+  methods: [independent_windows, neighbor_replica_exchange]
+  potential_evaluation_budget: 60000
+  snapshot_stride_sweeps: 10
+  burn_fraction: 0.20
+  exchange_interval_sweeps: 10
+  proposal_sigma_x: 0.60
+  proposal_sigma_y: 0.25
+  initial_y: -1.0
+  initial_sigma_x: 0.10
+  initial_sigma_y: 0.05
+  development_seeds: [1101, 1102, 1103, 1104]
+  heldout_seeds: [2101, 2102, 2103, 2104, 2105, 2106, 2107, 2108,
+    2109, 2110, 2111, 2112, 2113, 2114, 2115, 2116]
+
+# Constructed-model rules only; not transferable protein thresholds.
+evaluation:
+  nominal_interval_z: 1.96
+  error_tolerance_kT: 0.50
+  reassuring_net_hysteresis_max_kT: 0.25
+  reassuring_min_overlap_min: 0.03
+  reassuring_interval_halfwidth_max_kT: 0.50
+  minimum_samples_per_state: 300
+
+figures:
+  dpi: 160

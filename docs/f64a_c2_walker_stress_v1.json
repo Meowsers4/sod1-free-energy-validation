@@ -1,0 +1,32 @@
+{
+  "analysis_id": "f64a_c2_walker_stress_v1",
+  "scope": "CPU-only constructed harmonic exchange-lineage stress, not physical HREX",
+  "state_count": 20,
+  "center_min": 0.0,
+  "center_max": 2.0,
+  "samples_per_block": 256,
+  "bootstrap_replicates": 24,
+  "primary_mean_block_length": 96,
+  "development_sensitivity_mean_block_lengths": [32, 160],
+  "development_seeds": [6101, 6102, 6103, 6104],
+  "heldout_seeds": [7101, 7102, 7103, 7104, 7105, 7106, 7107, 7108, 7109, 7110, 7111, 7112, 7113, 7114, 7115, 7116, 7117, 7118, 7119, 7120, 7121, 7122, 7123, 7124, 7125, 7126, 7127, 7128, 7129, 7130, 7131, 7132],
+  "regimes": {
+    "iid": {"ar1_phi": 0.0, "shared_fraction": 0.0, "swap_probability": 0.0, "linear_shift": 0.0},
+    "walker_correlated": {"ar1_phi": 0.9, "shared_fraction": 0.25, "swap_probability": 0.6, "linear_shift": 0.0},
+    "walker_long_correlation": {"ar1_phi": 0.98, "shared_fraction": 0.25, "swap_probability": 0.6, "linear_shift": 0.0},
+    "walker_drift": {"ar1_phi": 0.9, "shared_fraction": 0.25, "swap_probability": 0.6, "linear_shift": 0.6}
+  },
+  "exchange_interval_records": 5,
+  "resampling": "synchronized_all_state_rows_with_original_walker_map_contiguous_inside_stationary_blocks",
+  "failure": "retain_all_attempted_seeds_and_bootstrap_failures",
+  "minimum_successful_bootstraps": 20,
+  "diagnostic_acceptance": {
+    "stationary_regimes_only": ["iid", "walker_correlated", "walker_long_correlation"],
+    "minimum_complete_heldout_seeds": 30,
+    "minimum_nominal95_difference_coverage_count": 27,
+    "mean_variance_to_empirical_variance_lower": 0.5,
+    "mean_variance_to_empirical_variance_upper": 2.0,
+    "protein_uncertainty_qualified": false
+  },
+  "report_dir": "results/cpu_calibration/f64a_c2_walker_stress_v1"
+}

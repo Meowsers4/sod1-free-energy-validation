@@ -1,0 +1,48 @@
+# Exploratory work-package A1 analysis, fixed before generating these outputs.
+analysis_id: f64a_lambda_comparator_v1
+raw_audit: results/cpu_audits/f64a_raw_energy_v1/raw_energy_audit.json
+raw_audit_sha256: 02afc46c3b76b3b3f1bc28d94f1aa5f4cb1898b4860b2a0981ce74df9398054b
+continuation_report: docs/f64a_extension_review/f64a_continuation_v2.json
+continuation_report_sha256: ddb20589d809682f7ef72a4fddc55c6998c48ca3b7a06b1b466682291a24ab71
+pilot_config: pilots/f64a_sampling_extension_v2/config.yaml
+analysis_design: pilots/f64a_sampling_extension_v2/analysis.yaml
+npz_dir: results/pilots/f64a_sampling_extension_v2/production/fep/F64A/folded
+output_dir: results/cpu_audits/f64a_lambda_comparator_v1
+blocks: [block_9_12_ns, block_12_15_ns]
+policy: adaptive
+
+# Actual historical schedule. Repeated here so a future schedule cannot silently
+# redefine the x-axis or the common evaluation states.
+lambda_vector:
+  - 0.0000
+  - 0.0588
+  - 0.1176
+  - 0.1765
+  - 0.2353
+  - 0.2941
+  - 0.3529
+  - 0.4118
+  - 0.4706
+  - 0.5294
+  - 0.5882
+  - 0.6471
+  - 0.7059
+  - 0.7647
+  - 0.8235
+  - 0.8824
+  - 0.9200
+  - 0.9500
+  - 0.9750
+  - 1.0000
+
+# Five high-lambda states and four adjacent fixed pairs selected from the
+# historical ladder. This is the region implicated descriptively by the raw
+# audit. Future schedules can retain these exact states while inserting others.
+# Wider/far-state pairs are intentionally excluded: their raw cross-evaluations
+# can be astronomically large on configurations with negligible overlap.
+common_evaluation_states: [15, 16, 17, 18, 19]
+fixed_pairs: [[15, 16], [16, 17], [17, 18], [18, 19]]
+
+acf_lags_samples: [1, 10, 100, 250, 500, 1000]
+quantiles: [0.05, 0.5, 0.95]
+plot_dpi: 160

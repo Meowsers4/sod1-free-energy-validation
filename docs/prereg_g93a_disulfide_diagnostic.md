@@ -1,11 +1,12 @@
 # Pre-registration — G93A disulfide diagnostic (SS vs 2SH)
 
-**Status: COMPLETE — CONVERGED NEGATIVE RESULT (2026-09-14).** All 120 production windows
+**Status: COMPLETE — SMALL OBSERVED EFFECT UNDER THE TESTED PROTOCOL (2026-09-14).** All 120 production windows
 passed the inventory and protocol checks, and all three independently built folded systems
 passed the physical topology gate: C57-C146 is directly bonded, C57/C146 lack HG, and C6/C111
 retain HG. The primary folded-state shift is **−0.0169 kcal/mol**, inside the pre-registered
-`|Δ| < 0.3` negligible band. The disulfide state therefore does not materially change G93A's
-folded mutation cost and does not explain the calculation's ~1.17 kcal/mol underprediction.
+`|Δ| < 0.3` negligible band. The point estimate meets the pre-declared negligible band. This does not establish
+thermodynamic equivalence or exclude slow redox-dependent changes in the sampled ensemble.
+See `docs/review/redox_uncertainty.json` for uncertainty on the difference itself.
 
 The original smoke report said `bridged: []`, `free thiol: [6, 57, 111, 146]`, but that checker
 inferred state only from printed residue labels (`CYS2`/`CYX`). Direct inspection proved that
@@ -96,10 +97,16 @@ secondary, human-readable figure.
 The run meets the registered closure criterion and shows no overlap collapse. PyMBAR recorded
 one `hybr` solver fallback; the fallback converged to finite estimates and is retained in the
 diagnostics rather than treated as a failure. Under §4's pre-declared interpretation this is
-the first outcome: **the reference-state mismatch is documented but not quantitatively
-important for G93A ΔΔG.** There is no re-gate and no longer-sampling retry.
+the first point-estimate outcome. The updated scientific interpretation is bounded:
+**a small effect was observed during this protocol**. A conditional uncertainty interval does
+not cover unsampled modes, model bias or construct differences. There is no re-gate.
 
 ## 4. Pre-declared interpretation
+
+**Historical text, retained verbatim.** The table below was frozen before the run. Its
+phrases “does not materially change” and “mechanism excluded” were too strong: matching a
+point-estimate band does not establish physical equivalence. The corrected interpretation
+and uncertainty above govern manuscript claims; the endpoint and thresholds are unchanged.
 
 Let **Δ = mean folded ΔG(SS) − 9.7662**, compared against the 2SH replicate sd of 0.1311.
 

@@ -1,0 +1,9 @@
+# F64A r3 CPU system build: job 8032575 environment failure
+
+Status 2026-10-12: **the sole selected CPU build attempt failed before system construction.** This record uses the user's `submission/job.log`, output-tree checks, and `qacct` excerpt. The agent did not access SCC.
+
+The selected package's manifest check passed and SGE accepted job 8032575. Accounting places it on `scc-pf8.scc.bu.edu` in queue `p8`, PE `omp8`, eight slots. It ran from 00:16:49 to 00:16:50 on 2026-10-12; `failed 0` records successful scheduler dispatch, while **`exit_status 1`** records failed script execution. Both `prepared/` and `prepared.incomplete/` were absent.
+
+The job log shows Lmod bootstrap from `/usr/local/lmod/8.7.12/init/bash`, followed by `MODULEPATH is undefined`. Loads for `miniconda/25.3.1`, `cuda/12.8`, `intel/2024.0`, and `gcc/12.2.0` all failed. `conda` was then unavailable. The fallback `python` was too old to parse `from __future__ import annotations` in `builder.py`, producing a `SyntaxError` on line 3. The build did not reach source preflight, pmx, GROMACS, minimization or the isolated output directory.
+
+The batch script began with `#!/bin/bash`, while working SCC batch scripts in this repository use `#!/bin/bash -l`. The login-shell difference is a plausible cause of the missing site module path. It is an **inference** from the saved log and local scripts, not yet a verified corrected runtime result. An eventual replacement must use a fresh package path, initialize a login environment explicitly, reject absent `MODULEPATH`/conda/Python 3 before calling the builder, and pass a new static SCC review. Any new scheduled probe or build requires a separate one-attempt decision. Preserve job 8032575, its log, accounting and selected package; do not remove guards or resubmit it.

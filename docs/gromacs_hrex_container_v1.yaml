@@ -1,0 +1,105 @@
+schema_version: 1
+container_id: gromacs_hrex_single_node_v1
+selected_at: 2026-09-21
+scope: build_candidate_only
+production_authorized: false
+build_executed: false
+gpu_smoke_executed: false
+
+artifact:
+  definition: containers/gromacs-2025.3-mpi-cuda-l40s.def
+  definition_sha256: 932efb5d1c9954ee859ac940ed72d6eb79e87cd4430251d9c5ffe51ff676f7ce
+  build_output_parent: /projectnb/rise-batteries/bode/containers/builds
+  bootstrap: docker
+  build_image: nvidia/cuda:12.8.0-devel-rockylinux8
+  runtime_image: nvidia/cuda:12.8.0-runtime-rockylinux8
+
+toolchain:
+  gromacs:
+    version: "2025.3"
+    url: https://ftp.gromacs.org/gromacs/gromacs-2025.3.tar.gz
+    md5: 5a2315b6f6e13b091bbbbfddee9eb62b
+  regressiontests:
+    version: "2025.3"
+    url: https://ftp.gromacs.org/regressiontests/regressiontests-2025.3.tar.gz
+    md5: 02b04b7c0c5dd7583a984b862d244d17
+  openmpi:
+    version: "4.1.5"
+    url: https://download.open-mpi.org/release/open-mpi/v4.1/openmpi-4.1.5.tar.gz
+    sha256: c018b127619d2a2a30c1931f316fc8a245926d0f5b4ebed4711f9695e7f70925
+  cmake:
+    version: "3.31.12"
+    url: https://cmake.org/files/v3.31/cmake-3.31.12-linux-x86_64.tar.gz
+    sha256: 0dc2e9a6860f06bf10bd8fadc03e35d9eeb4df46e33763a7e480e987758f385c
+  fftw:
+    version: "3.3.10"
+    url: https://fftw.org/fftw-3.3.10.tar.gz
+    sha256: 56c932549852cddcfafdab3820b0200c7742675be92179e59e6215b340e26467
+  compiler: gcc-toolset-12
+  cuda: "12.8.0"
+
+build_contract:
+  gromacs_mpi: true
+  gromacs_thread_mpi: false
+  gromacs_gpu: CUDA
+  cuda_target_sm: "89"
+  cuda_target_compute: "89"
+  simd: AVX2_256
+  runtime_packages: [ca-certificates, grep, libgcc, libgomp, libstdc++, libxml2, numactl-libs, zlib]
+  required_fragments:
+    - "From: nvidia/cuda:12.8.0-devel-rockylinux8"
+    - "From: nvidia/cuda:12.8.0-runtime-rockylinux8"
+    - "GMX_MPI=ON"
+    - "GMX_THREAD_MPI=OFF"
+    - "GMX_GPU=CUDA"
+    - "GMX_CUDA_TARGET_SM=89"
+    - "GMX_CUDA_TARGET_COMPUTE=89"
+    - "GMX_SIMD=AVX2_256"
+    - "--with-cuda=/usr/local/cuda"
+    - "gmx_mpi --version"
+    - "production_authorized false"
+    - "deployment_scope single_node_only"
+  forbidden_fragments:
+    - qsub
+    - "-multidir"
+    - "-replex"
+
+runtime_contract:
+  deployment_scope: single_node_only
+  launcher: container_internal_openmpi
+  openmpi_plm: isolated
+  openmpi_session_tmpdir: /tmp
+  mpi_ranks: 20
+  lambda_states: 20
+  ranks_per_state: 1
+  candidate_sge_parallel_environment: mpi32
+  candidate_host_count: 1
+  candidate_gpu_count: 4
+  gpu_model: L40S
+  gpu_visibility_source: scheduler_cuda_visible_devices
+  host_container_mpi_interoperation_required: false
+
+admission:
+  ready_to_build: true
+  eligible_now: false
+  blockers:
+    - The SIF has not been built or hashed on an SCC build node.
+    - The resulting gmx_mpi identity and linked libraries have not been captured.
+    - A separately authorized non-production GPU smoke test has not confirmed that the SCC wrapper exposes all four reserved L40S devices.
+    - Five ranks per GPU require verified GPU sharing; Exclusive_Process mode requires an admitted MPS setup or another supported solution.
+    - Multidir/replex, restart, exchange-history parsing, accounting, and storage gates remain unresolved.
+  prohibited:
+    - production submission
+    - protein simulation
+    - multi-host launch
+    - treating definition validation as runtime qualification
+
+sources:
+  - https://manual.gromacs.org/2025.3/install-guide/index.html
+  - https://manual.gromacs.org/2025.3/download.html
+  - https://docs.open-mpi.org/en/v5.0.x/installing-open-mpi/quickstart.html
+  - https://docs.sylabs.io/guides/latest/user-guide/gpu.html
+  - https://www.bu.edu/tech/support/research/software-and-programming/containers/singularity/
+  - https://www.bu.edu/tech/support/research/software-and-programming/containers/building/
+  - https://docs.nvidia.com/deploy/mps/when-to-use-mps.html
+  - https://download.open-mpi.org/release/open-mpi/v4.1/openmpi-4.1.5.tar.gz

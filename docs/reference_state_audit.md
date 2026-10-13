@@ -136,15 +136,17 @@ folded leg — the one this project has never got to converge — where it would
 
 Two observations bear on it, pointing in opposite directions:
 
-- **Against the disulfide as the main error:** the gate's residuals are not a uniform offset. Non-glycine errors are all positive (+0.46, +0.93, +1.34, +1.92 — the gate-of-record A4V value from `gate_attempt_1.md`, not the attempt-2 rerun's +1.74) and all three position-93 errors negative (−1.17, −2.50, −4.17). A reference-state difference common to all eight points cannot produce a site-dependent sign flip. It cannot be the whole story, and it is not an alternative explanation for the position-93 compression.
-- **For it mattering:** it is a systematic, un-modelled difference affecting every point, and unlike sampling it **cannot be reduced by spending GPU hours.** Gate attempt 2 already established by direct test that sampling was not the limiting error (A4V, 3 ns → 9 ns folded: precision 5×, accuracy 9%). This is a candidate for what the residual actually is, and it is testable.
+- **Residual pattern:** non-glycine reference discrepancies are positive (+0.46, +0.93, +1.34, +1.92) and position-93 discrepancies negative (−1.17, −2.50, −4.17). This rejects a single additive offset as a complete description. It does **not** reject a reference-state effect: different mutations can couple differently to the same redox or construct change. The earlier claim that a common state change cannot produce opposite signs was incorrect and is withdrawn.
+- **For it mattering:** it is a systematic, un-modelled difference affecting every point, and unlike sampling it **cannot be reduced by spending GPU hours.** The A4V 3→9 ns test reduced replicate spread about fivefold while reducing its discrepancy from the unmatched reference by only 9%; it does not establish that longer sampling or different starting conformations could not matter. This is a candidate for what the residual actually is, and it is testable.
 
 **The cheap test was completed 2026-09-14.** The pre-registered G93A SS diagnostic physically
 verified C57–C146 in all three independently built folded systems. Its folded-leg endpoint was
 9.7493 ± 0.0547 kcal/mol, only −0.0169 kcal/mol from the frozen 2SH mean of 9.7662. That falls
-inside the pre-declared negligible band (`|Δ| < 0.3`): the disulfide mismatch is real but does
-not explain G93A's ≈1.17 kcal/mol underprediction. This is one mutation, not proof of universal
-cancellation, but it removes the disulfide as the leading G93A explanation.
+inside the pre-declared point-estimate band (`|Δ| < 0.3`). This is a small observed effect
+under the tested protocol, not exclusion of slower redox-dependent rearrangements. The ±0.0547
+above is the SS replicate SD, not uncertainty on the contrast. The updated figure and
+`docs/review/redox_uncertainty.json` report an unpaired Welch interval using variation in both
+arms. It is conditional on the sampled basins and excludes model and reference uncertainty.
 
 ## 4. Finding 2 — the Lindberg-derived values are exactly right
 

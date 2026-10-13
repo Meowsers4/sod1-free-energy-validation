@@ -9,3 +9,4 @@ tmp/
 
 # SGE task logs (108 per array)
 logs/
+releases/

@@ -1,6 +1,13 @@
 # F64A starting-conformation comparison — draft 2026-09-18
 
-## Status and recommendation
+## Status — reserve design, not the current recommendation
+
+**2026-09-18 interpretation update:** this two-start design is retained as an
+unselected reserve option. The [publication plan](publication_research_plan.md)
+supersedes its recommendation as the next experiment. Its 6 ns duration and
+370 GPU-hour cap remain historical draft proposals, not inherited study settings.
+A justified second start is still absent. High-λ energy drift neither proves
+nor excludes start sensitivity; see [corrected conclusions](conclusion_reconciliation_2026-09-18.md).
 
 **Planning only: not selected, not preregistered, not runnable and no submission.**
 The user requested a bounded next design after the completed
@@ -9,15 +16,15 @@ stops at 15 ns. Mentor review remains deferred. Parameter proposals and unresolv
 inputs are explicit in [the draft specification](f64a_start_comparison_draft.yaml);
 do not modify the base configuration or completed pilot packages.
 
-Recommend a **matched two-start comparison with the existing method**, rather than
-changing both starting conformation and sampling algorithm. Question:
+The reserved option is a **matched two-start comparison with the existing method**,
+controlling starting conformation separately from sampling algorithm. Question:
 **at the same fresh-run duration and preparation protocol, how much do the observed
 folded-leg estimate and its temporal movement depend on the initial protein coordinates?**
 This tests starting-coordinate sensitivity, not a demonstrated mechanism or an
 improvement in accuracy. Current evidence does not establish stable individual
 repeats, so it is not the simple “stable repeats disagree” case. Starting sensitivity
-is nevertheless a controllable next factor; this recommendation is a design choice,
-not a conclusion that the audit identified conformational trapping.
+is a controllable factor if meaningful starts are admitted; the audit has not
+identified conformational trapping or selected this comparison.
 
 Do not run only windows 17–19: the audit shows changes elsewhere, and local
 discrepancies do not identify contributions to MBAR endpoint movement. Do not extend

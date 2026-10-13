@@ -1,0 +1,80 @@
+# Design candidate only. No executable package or SCC job is authorized.
+schema_version: 1
+scope: f64a_c2_no_exchange_common_checkpoint_fanout_technical_fixture
+execution_authorized: false
+production_authorized: false
+source:
+  prepared_path: /projectnb/rise-batteries/bode/container-build-packages/f64a-protein-technical-20260928-v1/prepared
+  prepared_manifest_sha256: 858070ac1c8d757d0fdb0fa744148865e24abdccb8d82e3d1a670698734e77b9
+  prepared_manifest_entries: 344
+  use_initial_tprs: true
+  forbidden_checkpoint_ancestry: stage_p_job_7791102_exchange_enabled_terminal_checkpoints
+image:
+  path: /projectnb/rise-batteries/bode/containers/builds/gmx-hrex.IylQZ9Uj/gromacs-2025.3-mpi-cuda-l40s.sif
+  sha256: 0e3770f4506a2c376a3cf7a635971c0dd01161417cc3e613c8351446bb0d45ee
+  gmx: /opt/gromacs/2025.3/bin/gmx_mpi
+  mpirun: /opt/openmpi/4.1.5/bin/mpirun
+storage:
+  persistent_root: /project/rise-batteries/bode/container-build-packages
+  persistent_stop_bytes: 1610612736
+  persistent_cap_bytes: 2147483648
+  scratch_stop_bytes: 1610612736
+  scratch_cap_bytes: 2147483648
+  min_free_bytes_each: 3221225472
+  retain_partial_on_failure: true
+scheduler:
+  project: rise-batteries
+  queue: l40s
+  pe: omp16
+  slots: 16
+  gpus: 1
+  gpu_type: L40S
+  ranks: 20
+  threads_per_rank: 1
+  explicit_cpu_oversubscription: true
+  private_mps: true
+  walltime_seconds: 1800
+  work_deadline_seconds: 1560
+  attempts: 1
+  reschedule: false
+fixture:
+  states: 20
+  dt_ps: 0.002
+  common:
+    source_tpr_nsteps: 2000
+    stop_step: 1100
+    stop_time_ps: 2.2
+    checkpoint_part: 1
+    replex: 0
+  arms:
+    branch_init_step: 1100
+    branch_tinit_ps: 0
+    branch_simulation_part: 2
+    gen_vel: false
+    continuation: true
+    use_grompp_t: true
+    use_mdrun_cpi: true
+    distinct_cpo: true
+    noappend: true
+    baseline:
+      retained_steps: 2000
+      final_step: 3100
+      final_time_ps: 6.2
+      replex: 0
+    hrex:
+      retained_steps: 1500
+      final_step: 2600
+      final_time_ps: 5.2
+      replex: 500
+      candidate_reseed: 20261001
+      expected_exchange_steps: [1500, 2000, 2500]
+  preserve_source_output_strides: true
+  expected_neighbor_links_attempted: 19
+  accepted_swap_minimum: null
+admission:
+  exact_request_queue_validation: required
+  fresh_project_quota: required
+  fresh_filesystem_free_space: required
+  su_balance_or_explicit_unknown_balance_decision: required
+  cpu_branch_input_review_on_new_checkpoints: required
+  separate_explicit_selection_before_submission: required

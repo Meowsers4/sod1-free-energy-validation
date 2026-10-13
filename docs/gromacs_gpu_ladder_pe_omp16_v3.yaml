@@ -1,0 +1,127 @@
+# Stage L v3: request the actual SCC PE name; import verified full-ladder TPRs.
+schema_version: 1
+scope: synthetic_twenty_rank_one_gpu_graceful_restart_only
+production_authorized: false
+execution_authorized: false
+image:
+  path: /projectnb/rise-batteries/bode/containers/builds/gmx-hrex.IylQZ9Uj/gromacs-2025.3-mpi-cuda-l40s.sif
+  sha256: 0e3770f4506a2c376a3cf7a635971c0dd01161417cc3e613c8351446bb0d45ee
+  gmx: /opt/gromacs/2025.3/bin/gmx_mpi
+  mpirun: /opt/openmpi/4.1.5/bin/mpirun
+  python: /usr/libexec/platform-python
+scheduler:
+  project: rise-batteries
+  queue: l40s
+  pe: omp16
+  slots: 16
+  gpus: 1
+  gpu_type: L40S
+  ranks: 20
+  threads: 1
+  walltime_seconds: 1200
+  work_deadline_seconds: 1020
+  attempts: 1
+  stop_bytes: 1610612736
+  cap_bytes: 2147483648
+  min_free_bytes: 4294967296
+fixture:
+  lambda_source: config/pipeline.yaml
+  lambda_indices:
+  - 0
+  - 1
+  - 2
+  - 3
+  - 4
+  - 5
+  - 6
+  - 7
+  - 8
+  - 9
+  - 10
+  - 11
+  - 12
+  - 13
+  - 14
+  - 15
+  - 16
+  - 17
+  - 18
+  - 19
+  grid_side: 8
+  box_nm: 4.0
+  mass_u: 39.948
+  sigma_nm: 0.34
+  epsilon_A_kj_mol: 0.997
+  epsilon_B_kj_mol: 1.047
+  tagged_atom: 1
+  nsteps: 2000
+  dt_ps: 0.001
+  temperature_K: 120
+  tau_t_ps: 1.0
+  cutoff_nm: 1.0
+  nstlist: 10
+  nstcalcenergy: 10
+  output_stride: 100
+  coordinate_stride: 200
+  replex: 100
+  gen_seed_base: 20260924
+  ld_seed_base: 20261024
+  exchange_seed: 20261124
+  verlet_buffer_tolerance: 0.005
+preparation:
+  command_timeout_seconds: 180
+  total_timeout_seconds: 600
+sharing:
+  mode: private_MPS
+  prior_probe: docs/gromacs_mps_probe_result_2026-09-27.md
+  control_timeout_seconds: 5
+  graceful_stop_seconds: 40
+  shutdown_timeout_seconds: 10
+restart:
+  first_stop_step: 1000
+  final_step: 2000
+  first_checkpoint_part: 1
+  final_checkpoint_part: 2
+  checkpoint: smoke.cpt
+  append: true
+  phase1_expected_exchange_steps:
+  - 100
+  - 200
+  - 300
+  - 400
+  - 500
+  - 600
+  - 700
+  - 800
+  - 900
+  combined_expected_exchange_steps:
+  - 100
+  - 200
+  - 300
+  - 400
+  - 500
+  - 600
+  - 700
+  - 800
+  - 900
+  - 1000
+  - 1100
+  - 1200
+  - 1300
+  - 1400
+  - 1500
+  - 1600
+  - 1700
+  - 1800
+  - 1900
+  source_stage_A_job: '7762792'
+  abrupt_failure_injection: false
+  source_stage_R_job: '7763081'
+stage: L
+cpu_sharing:
+  mode: explicit_oversubscription
+  affinity_cpus: 16
+  mpi_yield_when_idle: 1
+prepared_source:
+  path: /projectnb/rise-batteries/bode/container-build-packages/gmx-gpu-ladder-20260928-v2-omp16
+  manifest_sha256: f49e471b32d222986145fb4665edaa44b464ca3aaad80c97b89b369ee5ccfb07
