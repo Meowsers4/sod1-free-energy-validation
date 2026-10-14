@@ -1,11 +1,19 @@
 # SOD1 Variant Stability Pipeline
 
-Paper-body package (2026-10-13): [manuscript v2](docs/manuscript/manuscript_draft_v2.md),
+**Read the paper:** [manuscript with figures (PDF)](docs/manuscript/paper_v2/manuscript.pdf),
+[editable manuscript (Word)](docs/manuscript/paper_v2/manuscript.docx),
+[supplementary appendix (PDF)](docs/manuscript/paper_v2/S1_Appendix.pdf),
+[editable appendix (Word)](docs/manuscript/paper_v2/S1_Appendix.docx), or
+[complete paper package (ZIP)](docs/manuscript/paper_v2/paper_files.zip).
+These are byte-for-byte copies of the rendered 2026-10-13 draft, added to Git on
+2026-10-14; [checksums](docs/manuscript/paper_v2/SHA256SUMS) identify the files.
+
+Paper sources: [manuscript v2](docs/manuscript/manuscript_draft_v2.md),
 [supplement](docs/manuscript/supplement_v1.md) and
-[preparation status](docs/manuscript/submission_notes.txt). Editable Word/PDF files,
-separate main figures and a checksummed local deposit candidate are generated under
-`results/manuscript_submission_v2/`; rebuild targets are in the submission checklist.
-Author details and collaborator review are deferred; nothing has been submitted.
+[preparation status](docs/manuscript/submission_notes.txt). Rebuild targets are in the
+[submission checklist](docs/manuscript/SUBMISSION_CHECKLIST.md); generated files and
+the local data-deposit candidate remain under `results/manuscript_submission_v2/`.
+Author details and collaborator review are deferred; nothing has been submitted to a journal.
 
 **2026-09-18 update:** the selected F64A folded continuation is complete through
 15 ns. Its 54-fit analysis and CPU-only late-window audit show unresolved duration
