@@ -1,0 +1,18 @@
+{
+  "decision": "one_fresh_isolated_r3_cpu_system_build_after_warning_review",
+  "selection_date": "2026-10-13",
+  "authorization_source": "user yes after 2026-10-13 SCC static warning review",
+  "spent_job_ids": [
+    "8032575",
+    "8059683"
+  ],
+  "ion_warning_candidate_manifest_sha256": "9235ba3ac4820e417f6a60bcca2222d5b207625217607a926944a755ab081a5f",
+  "reviewed_command_log_sha256": "e1ba44209ac4b849c5e731446a99fcf51624e22819284f9b174c55eedaee5418",
+  "repeat": 3,
+  "max_jobs": 1,
+  "cpu_slots": 8,
+  "walltime": "01:00:00",
+  "gpu_requested": false,
+  "automatic_retry": false,
+  "production_authorized": false
+}

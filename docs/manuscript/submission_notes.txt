@@ -1,0 +1,50 @@
+Paper preparation status — 2026-10-13
+
+Working journal format: PLOS ONE. The short-term paper reports the completed
+failed validation campaign, diagnostic cancellation, F64A duration/selection
+instability and benchmark incompatibility. No new simulation is required by
+this package. Prospective sampling/qualification studies are outside its scope.
+
+Prepared
+- Main paper body v2: 279-word abstract, 17 numbered references, three tables,
+  four main figures. Internally prespecified thresholds are distinguished from
+  public preregistration. A4V/G93A sensitivity studies are in S1 Appendix.
+- Editable Word, numbered manuscript PDF, reading PDF with four appended
+  figure viewing pages, supporting appendix and cover-letter body.
+- Separate 300-dpi TIFF main figures generated from the original saved data
+  using Arial at 8–11 points. Historical images remain unchanged.
+- Local data/code deposit candidate with checksums and explicit missing-data
+  and software-provenance limits. No DOI, license or upload is claimed.
+
+Deferred as requested
+Author names, affiliations, correspondence, contributions, funding and computing
+acknowledgments. Collaborator review is not part of this preparation task.
+
+Before actual submission
+Add the deferred front matter and submission declarations, finalize the public
+deposit and accession, and replace the current local-data availability status.
+The cover-letter body still needs its sender and any true prior journal
+interactions/editor preferences; it makes no all-author approval or exclusivity
+assertion. Select the final journal before external submission.
+
+AI-assistance disclosure draft for author completion
+AI tools assisted with code development, auditing, manuscript drafting and
+formatting. The tool names, versions where known, and uses should be specified
+from the actual project record. This paper-preparation session used OpenAI Codex
+for revision, document assembly and automated checks. Do not add a claim that
+all authors verified the manuscript until that has happened. Authors retain
+responsibility for the submitted scientific content.
+
+Journal requirements checked 2026-10-13
+https://journals.plos.org/plosone/s/submission-guidelines
+https://journals.plos.org/plosone/s/figures
+https://journals.plos.org/plosone/s/ethical-publishing-practice
+
+The editable main file is a paper-body draft: the deferred author title page is
+not fabricated. It has double-spaced text, continuous line numbers, numbered
+references, tables and captions in text. Main images are supplied separately,
+as required by the journal. The reading PDF appends them for convenience.
+S1 Appendix combines supplementary text and all six supplementary figures;
+upload that one supporting file, not duplicate individual supplement images.
+The local deposit is a staging candidate and does not satisfy a public-data
+accession requirement until it is actually deposited.

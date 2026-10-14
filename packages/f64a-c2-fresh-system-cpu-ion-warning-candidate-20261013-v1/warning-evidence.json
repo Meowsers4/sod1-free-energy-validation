@@ -1,0 +1,13 @@
+{
+  "job_id": "8059683",
+  "exit_status": 1,
+  "saved_grompp_step": "ions.mdp",
+  "pre_ion_charge": -5,
+  "warning_count": 1,
+  "warning_class": "Ewald electrostatics on charged solvated system before genion -neutral",
+  "prepared_exists": false,
+  "prepared_incomplete_exists": true,
+  "spent_selected_manifest_sha256": "364ba3704c2c9067fb9d1ad633d51a9415ae7d03388bb10fe765392796196a07",
+  "saved_command_metadata": "to be verified read-only by REVIEW_ON_SCC.sh",
+  "provenance": "user-supplied job log, qacct and ion grompp output on 2026-10-13"
+}

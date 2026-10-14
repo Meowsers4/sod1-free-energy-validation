@@ -1,5 +1,12 @@
 # SOD1 Variant Stability Pipeline
 
+Paper-body package (2026-10-13): [manuscript v2](docs/manuscript/manuscript_draft_v2.md),
+[supplement](docs/manuscript/supplement_v1.md) and
+[preparation status](docs/manuscript/submission_notes.txt). Editable Word/PDF files,
+separate main figures and a checksummed local deposit candidate are generated under
+`results/manuscript_submission_v2/`; rebuild targets are in the submission checklist.
+Author details and collaborator review are deferred; nothing has been submitted.
+
 **2026-09-18 update:** the selected F64A folded continuation is complete through
 15 ns. Its 54-fit analysis and CPU-only late-window audit show unresolved duration
 stability and selection-sensitive repeat disagreement. See
@@ -604,6 +611,17 @@ the follow-up diagnostics narrowed what did and did not explain that failure.
 ---
 
 ## 12. Changelog
+
+### 2026-10-13 — manuscript review revisions
+- Restricted the diagnostic-association summary to the folded-leg archive,
+  corrected temporal-ratio wording and removed an unsupported movement superlative.
+- Restored F64A uncertainty, disclosed missing A4V attempt-1 raw windows in the
+  reproduction/deposit statements, and separated local/SCC analysis versions.
+- Verified nine draft reference entries and the limited Wells prior-art claims;
+  sources and the scope of verification are recorded in `citations.md` §5.
+- Removed manuscript figures from Snakemake-managed outputs so reruns cannot
+  delete the existing figure directory; added pinned supplementary-image checks
+  and scheduler-level preservation tests. Existing figures and evidence stay intact.
 
 ### 2026-09-18 — focused publication-study revision
 - Made the controlled sampling comparison primary and diagnostic assessment secondary;

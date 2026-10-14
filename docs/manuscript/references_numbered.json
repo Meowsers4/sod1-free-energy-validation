@@ -1,0 +1,87 @@
+[
+  {
+    "number": 1,
+    "key": "lindberg2005",
+    "reference": "Lindberg MJ, Byström R, Boknäs N, Andersen PM, Oliveberg M. Systematically perturbed folding patterns of amyotrophic lateral sclerosis (ALS)-associated SOD1 mutants. Proc Natl Acad Sci USA. 2005;102(28):9754–9759. doi:10.1073/pnas.0501957102."
+  },
+  {
+    "number": 2,
+    "key": "nordlund2006",
+    "reference": "Nordlund A, Oliveberg M. Folding of Cu/Zn superoxide dismutase suggests structural hotspots for gain of neurotoxic function in ALS: parallels to precursors in amyloid disease. Proc Natl Acad Sci USA. 2006;103(27):10218–10223. doi:10.1073/pnas.0601696103."
+  },
+  {
+    "number": 3,
+    "key": "nordlund2009",
+    "reference": "Nordlund A, Leinartaite L, Saraboji K, Aisenbrey C, Gröbner G, Zetterström P, et al. Functional features cause misfolding of the ALS-provoking enzyme SOD1. Proc Natl Acad Sci USA. 2009;106(24):9667–9672. doi:10.1073/pnas.0812046106."
+  },
+  {
+    "number": 4,
+    "key": "seeliger2010",
+    "reference": "Seeliger D, de Groot BL. Protein thermostability calculations using alchemical free energy simulations. Biophys J. 2010;98(10):2309–2316. doi:10.1016/j.bpj.2010.01.051."
+  },
+  {
+    "number": 5,
+    "key": "gapsys2016",
+    "reference": "Gapsys V, Michielssens S, Seeliger D, de Groot BL. Accurate and rigorous prediction of the changes in protein free energies in a large-scale mutation scan. Angew Chem Int Ed. 2016;55(26):7364–7368. doi:10.1002/anie.201510054."
+  },
+  {
+    "number": 6,
+    "key": "wells2021",
+    "reference": "Wells NGM, Tillinghast GA, O'Neil AL, Smith CA. Free energy calculations of ALS-causing SOD1 mutants reveal common perturbations to stability and dynamics along the maturation pathway. Protein Sci. 2021;30(9):1804–1817. doi:10.1002/pro.4132."
+  },
+  {
+    "number": 7,
+    "key": "klimovich2015",
+    "reference": "Klimovich PV, Shirts MR, Mobley DL. Guidelines for the analysis of free energy calculations. J Comput Aided Mol Des. 2015;29(5):397–411. doi:10.1007/s10822-015-9840-9."
+  },
+  {
+    "number": 8,
+    "key": "mey2020",
+    "reference": "Mey ASJS, Allen BK, Bruce Macdonald HE, Chodera JD, Hahn DF, Kuhn M, et al. Best practices for alchemical free energy calculations [Article v1.0]. Living J Comput Mol Sci. 2020;2(1):18378. doi:10.33011/livecoms.2.1.18378."
+  },
+  {
+    "number": 9,
+    "key": "kumar2017",
+    "reference": "Kumar V, Rahman S, Choudhry H, Zamzami MA, Jamal MS, Islam A, et al. Computing disease-linked SOD1 mutations: deciphering protein stability and patient-phenotype relations. Sci Rep. 2017;7:4678. doi:10.1038/s41598-017-04950-9."
+  },
+  {
+    "number": 10,
+    "key": "gapsys2015",
+    "reference": "Gapsys V, Michielssens S, Seeliger D, de Groot BL. pmx: Automated protein structure and topology generation for alchemical perturbations. J Comput Chem. 2015;36(5):348–354. doi:10.1002/jcc.23804."
+  },
+  {
+    "number": 11,
+    "key": "best2009",
+    "reference": "Best RB, Hummer G. Optimized molecular dynamics force fields applied to the helix–coil transition of polypeptides. J Phys Chem B. 2009;113(26):9004–9015. doi:10.1021/jp901540t."
+  },
+  {
+    "number": 12,
+    "key": "lindorfflarsen2010",
+    "reference": "Lindorff-Larsen K, Piana S, Palmo K, Maragakis P, Klepeis JL, Dror RO, et al. Improved side-chain torsion potentials for the Amber ff99SB protein force field. Proteins. 2010;78(8):1950–1958. doi:10.1002/prot.22711."
+  },
+  {
+    "number": 13,
+    "key": "jorgensen1983",
+    "reference": "Jorgensen WL, Chandrasekhar J, Madura JD, Impey RW, Klein ML. Comparison of simple potential functions for simulating liquid water. J Chem Phys. 1983;79(2):926–935. doi:10.1063/1.445869."
+  },
+  {
+    "number": 14,
+    "key": "abraham2015",
+    "reference": "Abraham MJ, Murtola T, Schulz R, Páll S, Smith JC, Hess B, et al. GROMACS: High performance molecular simulations through multi-level parallelism from laptops to supercomputers. SoftwareX. 2015;1–2:19–25. doi:10.1016/j.softx.2015.06.001."
+  },
+  {
+    "number": 15,
+    "key": "chodera2016",
+    "reference": "Chodera JD. A simple method for automated equilibration detection in molecular simulations. J Chem Theory Comput. 2016;12(4):1799–1805. doi:10.1021/acs.jctc.5b00784."
+  },
+  {
+    "number": 16,
+    "key": "shirts2008",
+    "reference": "Shirts MR, Chodera JD. Statistically optimal analysis of samples from multiple equilibrium states. J Chem Phys. 2008;129(12):124105. doi:10.1063/1.2978177."
+  },
+  {
+    "number": 17,
+    "key": "stathopulos2006",
+    "reference": "Stathopulos PB, Rumfeldt JAO, Karbassi F, Siddall CA, Lepock JR, Meiering EM. Calorimetric analysis of thermodynamic stability and aggregation for apo and holo amyotrophic lateral sclerosis-associated Gly-93 mutants of superoxide dismutase. J Biol Chem. 2006;281(10):6184–6193. doi:10.1074/jbc.M509496200."
+  }
+]

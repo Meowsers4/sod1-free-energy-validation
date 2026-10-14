@@ -5,6 +5,9 @@ from __future__ import annotations
 import copy
 import hashlib
 import json
+import shutil
+import subprocess
+import sys
 from pathlib import Path
 
 import pytest
@@ -63,6 +66,44 @@ def test_existing_output_directory_is_never_overwritten(tmp_path):
     with pytest.raises(FileExistsError):
         mf.build(SPEC_PATH, output_dir=tmp_path)
     assert (tmp_path / "existing.png").read_bytes() == b"prior output"
+
+
+@pytest.mark.parametrize("force_args", [[], ["--forceall"]])
+def test_snakemake_preserves_existing_directory_on_failed_rebuild(tmp_path, force_args):
+    """Exercise scheduler cleanup as well as the Python guard on disposable files."""
+    pytest.importorskip("snakemake")
+    for relative in ("docs/manuscript_figures_v1.yaml", "src/analysis/manuscript_figures.py"):
+        destination = tmp_path / relative
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(ROOT / relative, destination)
+    output = tmp_path / _spec()["output_dir"]
+    output.mkdir(parents=True)
+    sentinel = output / "existing.png"
+    sentinel.write_bytes(b"immutable prior output")
+    result = subprocess.run(
+        [sys.executable, "-m", "snakemake", "--snakefile",
+         str(ROOT / "workflow/manuscript_figures.smk"), "--cores", "1",
+         "--runtime-source-cache-path", str(tmp_path / "source-cache"),
+         *force_args, "manuscript_figures_v1"],
+        cwd=tmp_path, capture_output=True, text=True, timeout=60,
+    )
+    assert result.returncode != 0
+    assert "FileExistsError" in result.stdout + result.stderr
+    assert sentinel.read_bytes() == b"immutable prior output"
+
+
+def test_changed_supplement_is_rejected_despite_unchanged_report(tmp_path):
+    spec = _spec()
+    source_dir = tmp_path / Path(spec["inputs"]["lambda_comparator"]["path"]).parent
+    source_dir.mkdir(parents=True)
+    for item in spec["supplement"]:
+        shutil.copyfile(ROOT / "docs/manuscript/figures_v1" / item["output"],
+                        source_dir / item["source"])
+    report = {"lambda_comparator": {"figures": [x["source"] for x in spec["supplement"]]}}
+    mf.verify_supplement_sources(spec, report, root=tmp_path)
+    (source_dir / spec["supplement"][0]["source"]).write_bytes(b"replaced image")
+    with pytest.raises(ValueError, match="does not match registered"):
+        mf.verify_supplement_sources(spec, report, root=tmp_path)
 
 
 @pytest.mark.skipif(not COMPARATOR.exists(), reason="lambda comparator outputs not present locally")

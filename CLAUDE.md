@@ -28,9 +28,22 @@ static review, but SGE's `-S /bin/bash` leaves the shebang effect uncertain.
 A second inactive candidate explicitly execs login Bash and passed user-run
 SCC static review. The failed job consumed its one-attempt selection. The
 user selected one corrected eight-slot, one-hour CPU-only attempt; its fresh
-sealed package passed user-run SCC static review and no new job is submitted.
-The pasted excerpt omitted the standalone exact manifest check; require it
-immediately before the guarded one-attempt submission.
+sealed package passed user-run SCC static review. The user ran its guarded
+submission once; SGE returned **8059683**. The job confirmed login Bash,
+`MODULEPATH` and Python 3.11.15, then stopped when the wrapper rejected an
+ion-preparation `grompp` warning. `qacct` reports `exit_status 1` after 77
+seconds; `prepared.incomplete/` exists and no completed system exists. The
+user-supplied warning is the pre-ion charge −5 Ewald warning. The fresh
+inactive candidate allows only that exact warning. Its user-run SCC static
+review passed (`review_exit=0`): saved `command-07.json` returned 0, contained
+one matching warning, and had reported SHA-256
+`e1ba44209ac4b849c5e731446a99fcf51624e22819284f9b174c55eedaee5418`.
+Its execution guard remains false. The user then selected one fresh CPU-only
+r3 system-build attempt. The new sealed selected package passed local review
+and awaits user-run SCC static review; no new job has been submitted. Do not
+resubmit or clear either spent guard. See
+`docs/f64a_c2_fresh_system_cpu_ion_warning_candidate.md` and
+`docs/f64a_c2_fresh_system_cpu_ion_warning_selected.md`.
 See
 `docs/f64a_c2_fresh_system_cpu_8032575_failure.md` and
 `docs/f64a_c2_fresh_system_cpu_explicit_login_selected.md`.

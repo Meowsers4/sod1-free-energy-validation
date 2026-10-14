@@ -1,6 +1,6 @@
 # HANDOFF — SOD1 FEP pipeline
 
-## Next SCC action: one corrected r3 CPU submission — 2026-10-13
+## Next SCC action: selected r3 CPU package static review — 2026-10-13
 
 The user-run [isolated r3 source and software preflight](docs/f64a_c2_fresh_system_cpu_candidate.md)
 passed with the pinned WT/config hashes, older ion placements, r3 seed
@@ -39,9 +39,34 @@ one-hour CPU-only attempt. Its fresh
 [sealed selected package](docs/f64a_c2_fresh_system_cpu_explicit_login_selected.md)
 passed local checks and user-run SCC static review (`review_exit=0`, expected
 final marker, pinned source/seed, project storage and suitable queue). The
-pasted excerpt omitted `SHA256SUMS: OK`, so run the exact manifest check
-immediately before submission. No new job has been submitted. Preserve the
-old job/guards; use only the new package's one-attempt submission guard.
+pasted excerpt omitted `SHA256SUMS: OK`. The user ran the selected package's
+guard once; it passed and SGE returned **8059683** after queue validation.
+The separate exact-check output was not pasted. The user then supplied job
+log and accounting: explicit login Bash, `MODULEPATH` and Python 3.11.15
+passed; the build stopped at `gmx grompp -f ions.mdp` when the wrapper
+rejected a warning. `prepared.incomplete/` exists, `prepared/` is absent,
+and `qacct` reports `failed 0`, `exit_status 1`, 8 slots, 77 seconds.
+The user supplied the exact warning text: pre-ion charge −5, one Ewald
+net-charge warning, with `-maxwarn 2` in the historical `ions.mdp` command.
+The fresh
+[inactive ion-warning candidate](docs/f64a_c2_fresh_system_cpu_ion_warning_candidate.md)
+allows only that one warning before `genion -neutral`. Its user-run SCC static
+review passed with `review_exit=0`: old `command-07.json` returned 0, contained
+one matching warning for charge −5, and had reported SHA-256
+`e1ba44209ac4b849c5e731446a99fcf51624e22819284f9b174c55eedaee5418`.
+The reviewer also reported 24.76/50 GB project quota use, 31 GB filesystem
+free and a suitable CPU queue. The package's execution guard remains false;
+no job was submitted. Preserve both failed job packages, output and guards.
+A separate decision was made: the user selected one fresh technical CPU-only
+attempt after this review. The new
+[sealed selected package](docs/f64a_c2_fresh_system_cpu_ion_warning_selected.md)
+pins the reviewed `command-07.json` SHA-256, the inactive candidate manifest,
+the same WT/config and seed, eight CPU slots, a one-hour limit, no GPU and no
+automatic retry. Local package review, all 25 file hashes, shell syntax and
+focused guard tests passed. Its `SHA256SUMS` SHA-256 is
+`836d869a293034fa275af079cba508e261b34cd0fd255ed02b21cebc48cf8316`.
+The user must transfer it and run the SCC static review. No new job has been
+submitted; the new submission guard requires the selected review marker.
 The agent must not access SCC or infer production readiness.
 
 ## Read-only fresh-source preflight passed — 2026-10-06

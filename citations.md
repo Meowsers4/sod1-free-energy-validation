@@ -1,7 +1,7 @@
 # Citations — SOD1 FEP Variant Pipeline
 
-Curated, freely-viewable literature relevant to this project. Every entry was
-verified against PubMed/PMC on 2026-08-01.
+Curated literature relevant to this project. The original entries were checked
+against PubMed/PMC on 2026-08-01; subsequent checks are dated individually below.
 
 **Access legend**
 - **Free full text** — verified free on PubMed Central (PMC) or open access at the publisher.
@@ -168,3 +168,82 @@ sources are above:
    reports; possibly tightenable to ~1.2 after the first benchmark.
 3. **Charge-neutral gate is literature-supported** (Gapsys 2016 error breakdown; Lindberg 2005
    charge effect) — cite these in `validation_gate.json` / config comments.
+
+---
+
+## §5 Manuscript reference verification — 2026-10-13
+
+The nine draft references formerly marked `[verify]` were checked for authors,
+title, year, journal, volume/pages or article number, and DOI using the records
+linked below. This is bibliographic verification, not a new audit of every
+scientific claim in those papers. The earlier suggestions above are historical;
+they do not authorize new simulations or changes to the frozen gate.
+
+16. **Stathopulos PB, Rumfeldt JAO, Karbassi F, Siddall CA, Lepock JR, Meiering EM (2006).**
+    *Calorimetric analysis of thermodynamic stability and aggregation for apo and holo
+    amyotrophic lateral sclerosis-associated Gly-93 mutants of superoxide dismutase.*
+    J Biol Chem 281(10):6184–6193. DOI 10.1074/jbc.M509496200.
+    - Metadata: [PubMed 16407238](https://pubmed.ncbi.nlm.nih.gov/16407238/).
+    - Primary experimental source for G93S/G93V; the state/table audit remains in
+      `docs/reference_state_audit.md`.
+
+17. **Klimovich PV, Shirts MR, Mobley DL (2015).** *Guidelines for the analysis of free
+    energy calculations.* J Comput Aided Mol Des 29(5):397–411.
+    DOI 10.1007/s10822-015-9840-9.
+    - Metadata: [PubMed 25808134](https://pubmed.ncbi.nlm.nih.gov/25808134/);
+      [authors' software citation](https://github.com/MobleyLab/alchemical-analysis).
+    - Analysis and convergence-diagnostic guidance.
+
+18. **Mey ASJS, Allen BK, Bruce Macdonald HE, Chodera JD, Hahn DF, Kuhn M, Michel J,
+    Mobley DL, Naden LN, Prasad S, Rizzi A, Scheen J, Shirts MR, Tresadern G, Xu H (2020).**
+    *Best practices for alchemical free energy calculations [Article v1.0].*
+    Living J Comput Mol Sci 2(1):18378. DOI 10.33011/livecoms.2.1.18378.
+    - Original-version metadata and author list:
+      [PubMed 34458687](https://pubmed.ncbi.nlm.nih.gov/34458687/).
+    - Cite the 2020 article version, not a later expanded living-review author list.
+
+19. **Shirts MR, Chodera JD (2008).** *Statistically optimal analysis of samples from
+    multiple equilibrium states.* J Chem Phys 129(12):124105.
+    DOI 10.1063/1.2978177.
+    - Metadata and original paper: [Chodera lab publication record](https://www.choderalab.org/publications/2014/4/26/statistically-optimal-analysis-of-samples-from-multiple-equilibrium-states).
+    - MBAR estimator and conditional uncertainty.
+
+20. **Chodera JD (2016).** *A simple method for automated equilibration detection in
+    molecular simulations.* J Chem Theory Comput 12(4):1799–1805.
+    DOI 10.1021/acs.jctc.5b00784.
+    - Metadata: [PubMed 26771390](https://pubmed.ncbi.nlm.nih.gov/26771390/).
+    - Automated equilibration detection.
+
+21. **Abraham MJ, Murtola T, Schulz R, Páll S, Smith JC, Hess B, Lindahl E (2015).**
+    *GROMACS: High performance molecular simulations through multi-level parallelism
+    from laptops to supercomputers.* SoftwareX 1–2:19–25.
+    DOI 10.1016/j.softx.2015.06.001.
+    - [Publisher article](https://doi.org/10.1016/j.softx.2015.06.001);
+      [publisher-maintained author metadata](https://crossmark.crossref.org/dialog?cm_version=v2.0&doi=10.1016%2Fj.softx.2015.06.001&domain=www.softxjournal.com).
+    - General GROMACS citation; the actual run version is reported separately.
+
+22. **Best RB, Hummer G (2009).** *Optimized molecular dynamics force fields applied
+    to the helix–coil transition of polypeptides.* J Phys Chem B 113(26):9004–9015.
+    DOI 10.1021/jp901540t.
+    - Metadata: [PubMed 19514729](https://pubmed.ncbi.nlm.nih.gov/19514729/).
+    - Backbone force-field refinement.
+
+23. **Lindorff-Larsen K, Piana S, Palmo K, Maragakis P, Klepeis JL, Dror RO, Shaw DE (2010).**
+    *Improved side-chain torsion potentials for the Amber ff99SB protein force field.*
+    Proteins 78(8):1950–1958. DOI 10.1002/prot.22711.
+    - Metadata: [PubMed 20408171](https://pubmed.ncbi.nlm.nih.gov/20408171/).
+    - ILDN side-chain refinement.
+
+24. **Jorgensen WL, Chandrasekhar J, Madura JD, Impey RW, Klein ML (1983).**
+    *Comparison of simple potential functions for simulating liquid water.*
+    J Chem Phys 79(2):926–935. DOI 10.1063/1.445869.
+    - [Author bibliography, entry 65](https://jorgensenresearch.com/publications);
+      full pages/issue checked against [AIP-deposited Crossref metadata](https://api.crossref.org/works/10.1063/1.445869).
+    - TIP3P water model. Publisher full text was not accessed in this check.
+
+**Wells 2021 full-text check.** The [PMC full text](https://pmc.ncbi.nlm.nih.gov/articles/PMC8376412/)
+was read directly on 2026-10-13: §2.1 includes apo-2SH, §4.2 describes GROMACS,
+and §4.3 describes PMX hybrid residues and 50-ps nonequilibrium forward/reverse
+transitions. These support the manuscript's limited prior-art statements. This
+closes the snippet-only caveat for those statements; it does not retroactively
+verify every protocol or performance claim in older project documents.

@@ -1,0 +1,40 @@
+{
+  "manuscript": "docs/manuscript/manuscript_draft_v2.md",
+  "supplement": "docs/manuscript/supplement_v1.md",
+  "cover_letter": "docs/manuscript/cover_letter_v1.txt",
+  "figures": {
+    "1": "docs/review/gate_of_record.png",
+    "2": "docs/review/diagnostic_cancellation.png",
+    "3": "docs/manuscript/figures_v1/fig6_f64a_temporal.png",
+    "4": "docs/review/reference_sensitivity.png",
+    "S1": "docs/review/convergence_diagnostic.png",
+    "S2": "docs/manuscript/figures_v1/figS2_lambda_fixed_pair.png",
+    "S3": "docs/manuscript/figures_v1/figS3_lambda_neighbor.png",
+    "S4": "docs/manuscript/figures_v1/figS4_adaptive_selection.png",
+    "S5": "docs/review/a4v_sampling_sensitivity.png",
+    "S6": "docs/review/g93a_disulfide_diagnostic.png"
+  },
+  "inputs": {
+    "docs/manuscript/manuscript_draft_v2.md": "510a02ab2aae66fae544be894c6b0ec0ca92e60fba4ee8458e8524ec1a8f059a",
+    "docs/manuscript/supplement_v1.md": "7fd7a46629993035a4790dc98f9fb8390e63456673d8175dd7257546eadf237f",
+    "docs/manuscript/cover_letter_v1.txt": "1e6f07f6b29ea2c06745d0e55b4106f6380d82231da00eb6b9e455f8b1a8d4bc",
+    "docs/review/gate_of_record.png": "508ad65fcd1fdf9abc19d38c6c1d3a45a5f50b4bb5cd249009c16fa5a6d68310",
+    "docs/review/diagnostic_cancellation.png": "a0043a7ebae43bee8d9929730c7ba9d0ea846cbd561e14d9b217b28be1cef7b4",
+    "docs/manuscript/figures_v1/fig6_f64a_temporal.png": "c602f8c6e1af39da8d5d77f416e19edda273e22fabb4d29413e22525eeb2c45f",
+    "docs/review/reference_sensitivity.png": "7736023a5520d3b650e5a5624e37421e79db1f3b82210e15895e7cd6701a44f6",
+    "docs/review/convergence_diagnostic.png": "7fa8e921e3decf977eeddc14e3b269cd611d9fc0b0411b70f9858d8ef68dd7f9",
+    "docs/manuscript/figures_v1/figS2_lambda_fixed_pair.png": "e1410059509b5d87e2d75931df1dd21d4565deaf26e11479079aad01f818668a",
+    "docs/manuscript/figures_v1/figS3_lambda_neighbor.png": "d7ce96a9d89e5c406a6e24262cdd8e656c5d675f5747e7f8d2c875114cfc7f01",
+    "docs/manuscript/figures_v1/figS4_adaptive_selection.png": "2c452f66b3d7cb55e359eb1fc15b5743843cdcaf7cd1380d307be62cc56d3da1",
+    "docs/review/a4v_sampling_sensitivity.png": "7c50178eda93025b070a841a3e721b7c70aff90212821336f7dde7013d801749",
+    "docs/review/g93a_disulfide_diagnostic.png": "50ec1fa9d601ae1dda0a32357a2e6ef4a55fef687858ffa013778c11166f9ce8",
+    "docs/review/diagnostic_audit.json": "5ab5cfe7e706b3ee661a47f0f5b1f7488f41863bb5a790eb3b65b19bc2b47799",
+    "docs/review/adjacent_discrepancies.csv": "f61abeceb10de1107e85a906b633e66dad8cd214b450210273d2a9e3386474ff",
+    "docs/review/reference_reproduction.json": "57c2ffb2a4d5c76f2614e5782583e6d38470c7bab5def4577a651dd48e51aded",
+    "docs/manuscript_figures_v1.yaml": "ded9386570cbf42af5b057cd5f6f408090a295ad2e1c31125ceee0b223056d3b",
+    "docs/f64a_extension_review/f64a_blocks_v1.json": "bc8355a9b0d7af7eb027eb571d176d9ad9f3771f6109529866965b4bb6d5692e",
+    "docs/f64a_extension_review/f64a_continuation_v2.json": "ddb20589d809682f7ef72a4fddc55c6998c48ca3b7a06b1b466682291a24ab71",
+    "results/cpu_audits/f64a_lambda_comparator_v1/lambda_comparator.json": "49fe3be23a29026d4e9e0cca719d3a31bbae957b5303e8758c492a278520cca7",
+    "data/reference_sensitivity_scenarios.csv": "f8c9bb7521b11cbf26c54dc2a197770c31b90c3180b3fc96abef20b6eb4d8566"
+  }
+}

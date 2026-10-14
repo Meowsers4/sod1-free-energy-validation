@@ -1,0 +1,16 @@
+{
+  "source": "user-supplied SCC REVIEW_ON_SCC.sh output 2026-10-13",
+  "candidate_review_exit": 0,
+  "candidate_review_marker": "C2_R3_CPU_SYSTEM_ION_WARNING_CANDIDATE_REVIEW_PASS execution_authorized=False; no job submitted",
+  "spent_job_id": "8059683",
+  "command_log": "command-07.json",
+  "command_log_sha256": "e1ba44209ac4b849c5e731446a99fcf51624e22819284f9b174c55eedaee5418",
+  "command_returncode": 0,
+  "pre_ion_charge": -5,
+  "warning_count": 1,
+  "suitable_cpu_queue": true,
+  "project_usage_gb": 24.76,
+  "project_quota_gb": 50,
+  "project_filesystem_free_gb_reported": 31,
+  "production_authorized": false
+}

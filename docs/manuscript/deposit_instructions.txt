@@ -1,0 +1,59 @@
+SOD1 paper deposit candidate
+
+This is local staging material. Nothing has been uploaded, assigned a public
+license or given a DOI. Author metadata is intentionally deferred.
+
+Contents
+1. sod1fep-forensic-review.tar.gz: unchanged historical September 14 release.
+   Its original SHA256 sidecar and internal 1217-entry manifest are preserved.
+2. paper_source_snapshot.tar.gz: base-commit source with explicitly inventoried
+   local paper revisions. SOURCE_SNAPSHOT.json gives base commit, overlay hashes
+   and every source-file hash. It is not a clean committed-source release.
+3. later_f64a_evidence.tar.gz: 60 cumulative v2 energy arrays (20 x 15001 each),
+   late-window/raw-energy/lambda audit products where present. Main saved v1/v2
+   reports, plans and temporal audit are also in the source snapshot under docs/.
+4. SHA256SUMS and JSON inventories: exact file identities for transfer checks.
+5. deposit_metadata.json: machine-readable draft metadata; missing fields are
+   intentionally null or empty, not invented.
+
+Verify all outer files with: shasum -a 256 -c SHA256SUMS
+Verify the historical bundle before extraction using the repository command:
+  python -m src.analysis.forensic_release --verify sod1fep-forensic-review.tar.gz
+
+For a disposable reproduction workspace, extract the verified historical bundle,
+then overlay the source snapshot and later evidence in that same fresh directory.
+Both overlays use project/ paths and preserve archives/main/ and archives/ss/.
+Use explicit CPU targets and fresh output directories. Do not invoke a simulation
+producer or treat the old bundle's default workflow as current instructions.
+See project/docs/release_reproduction.md for the analysis-lock environment and:
+  snakemake forensic_diagnostic_audit forensic_methods_figures \
+    forensic_reference_reproduction -s workflow/Snakefile --cores 2 \
+    --configfile config/pipeline.yaml env/portable-archives.yaml output-override.yaml
+Here output-override.yaml must set forensic_review.output_dir to a fresh path.
+Supply a writable --runtime-source-cache-path when needed.
+
+For saved-report figure assembly use manuscript_figures_v1 with a nonexistent
+manuscript_figure_output_dir. No free energies are re-solved by that target.
+Paper document and journal export targets are documented in
+project/docs/manuscript/SUBMISSION_CHECKLIST.md. The Word builder needs
+python-docx and Pillow; the scientific figure builder uses the analysis environment.
+
+The SCC continuation reports record a different PyMBAR runtime from the local
+forensic analysis lock. Preserve these identities. Re-solving continuation
+analyses requires their recorded versions and plans in pilots/; this staging
+operation verified the energy hashes and dimensions, not numerical equivalence
+of fresh continuation solves across software versions. Cumulative v2 arrays
+contain earlier reduced-potential samples, but do not recover the original v1
+NPZ byte identities or molecular checkpoint states.
+
+Missing data
+A4V attempt-1 folded windows were overwritten. Its original run-time estimate
+and convergence records survive; retained A4V raw files represent attempt 2.
+The exact original gate PyMBAR version is not established. Structural trajectories
+and a complete record for reproducing every original physical simulation are
+unavailable. No claim of complete simulation reconstruction is made.
+
+Before public deposit
+Complete the deferred creator and rights metadata, choose a repository, attach
+the final paper artifacts and replace the manuscript's local-data status with
+the real public accession. This candidate has no publication or sending action.

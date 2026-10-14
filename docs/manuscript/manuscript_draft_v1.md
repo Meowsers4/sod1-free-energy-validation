@@ -1,17 +1,18 @@
 ---
 title: "Local diagnostic cancellation and experimental-state incompatibility in a SOD1 free-energy validation campaign"
 author: "[AUTHORS AND AFFILIATIONS — to be decided by the rights holders]"
-date: "Draft v1, 2026-10-13 — not submitted"
+date: "Draft v1, revised 2026-10-13 — not submitted"
 ---
 
 <!--
 Drafting rules for this file (remove before submission):
-- Every number is copied from a hashed project record; see SUBMISSION_CHECKLIST.md for the source map.
+- Numbers are traced to analysis reports or explicitly identified historical records;
+  see SUBMISSION_CHECKLIST.md for the source map and missing-data exception.
 - Claim boundaries: docs/methods_limitations_outline.md "Submission boundaries" and
   docs/conclusion_reconciliation_2026-09-18.md govern. Do not add "first", "novel", a new FEP
   method, matched predictive validation, a diagnostic-superiority claim, a structural mechanism,
   or "we show SOD1 variants are destabilizing".
-- References marked [verify] were added from general knowledge and are not yet in citations.md.
+- Reference verification sources are recorded in citations.md.
 -->
 
 # Abstract
@@ -32,8 +33,8 @@ hysteresis was 0.023 kcal/mol while the summed absolute discrepancy was 1.678 kc
 cancellation). Separately registered continuations of that ladder showed that the small early
 aggregate did not certify duration stability: the estimate moved by −2.08 kcal/mol between
 disjoint 3-ns blocks, and repeat movements of opposite sign persisted through 15 ns. Across
-the archive, neither net nor absolute local diagnostics showed a resolvable association with
-disagreement between independently solvated repeats. Second, the experimental references were
+the folded-leg archive, neither net nor absolute local diagnostics showed a resolvable
+association with disagreement between independently solvated repeats. Second, the experimental references were
 not state-matched: all were measured with the Cys57–Cys146 disulfide intact, on cysteine-
 substituted constructs, and two were whole-dimer calorimetric transitions at 49.4 °C. We report
 these as limitations of one validation design, not as a validated diagnostic, a structural
@@ -67,8 +68,8 @@ verdict, exclusion and thresholds, and we label every subsequent analysis as pos
 exploratory unless it was separately registered. Our contributions are bounded: (i) a
 quantified example of signed-discrepancy cancellation in the historical net hysteresis metric,
 with a grouped analysis showing that neither that metric nor simple absolute alternatives
-resolved repeat disagreement in this archive; (ii) registered exact-path continuations showing
-that a small early aggregate did not certify later duration stability on one selected path;
+resolved folded-leg repeat disagreement in this archive; (ii) registered exact-path continuations
+showing that a small early aggregate did not certify later duration stability on one selected path;
 (iii) a chain-of-custody audit showing that the experimental controls differed from the
 simulated state in redox state, construct, oligomeric transition and temperature; and (iv) two
 bounded sensitivity results (A4V sampling extension and a G93A disulfide contrast).
@@ -117,8 +118,10 @@ each window was minimized at its own λ before production. Production used the G
 stochastic-dynamics integrator (2 fs, collision rate 1 ps⁻¹) at 298.15 K, C-rescale isotropic
 pressure coupling at 1 atm, PME electrostatics with 1.0 nm real-space and van der Waals
 cutoffs, long-range dispersion corrections, and LINCS constraints on bonds to hydrogen.
-Reduced potentials at all 20 states were written at a fixed stride yielding 3,000 retained
-records per window. GROMACS 2025.3 (CUDA build) [@abraham2015] ran one window per NVIDIA
+Reduced potentials at all 20 states were written at a stride targeting 3,000 retained
+records per window (3,001 in the surviving attempt-1 archive because the boundary record
+was retained).
+GROMACS 2025.3 (CUDA build) [@abraham2015] ran one window per NVIDIA
 L40S GPU.
 
 In gate attempt 1 (protocol identifier `822108e9db71124d`), each window of both legs used
@@ -204,10 +207,24 @@ folded ΔG between arms with an unpaired Welch interval.
 
 ## 2.7 Reproducibility
 
-Every reported number was regenerated from hashed records by CPU-only workflow targets; the
-builders refuse to run if an input hash or a quoted value disagrees with its registered source.
-A forensic release bundles the archive manifest, configuration, analysis code and figure
-builders (Data availability).
+CPU-only workflow targets re-derived estimates and diagnostics from the surviving energy
+archives. The gate-of-record comparison preserves A4V's attempt-1 estimate from its historical
+run-time record: its folded raw windows were overwritten and cannot be re-derived. The source
+map distinguishes this preserved value from estimates regenerated from raw energies.
+The F64A temporal figure builder checks its source-report hashes and specified quoted values;
+supplementary images are checked against pinned hashes before copying. A forensic release
+bundles the historical archive manifest, configuration, analysis code and figure builders;
+the later continuation reports and manuscript figure assembly are separate repository
+artifacts (Data availability).
+
+Software versions are recorded by analysis rather than assigned retrospectively to all runs.
+The local forensic reproduction environment is pinned in `env/analysis-lock.txt` (Python
+3.13.9, pymbar 4.0.3, NumPy 2.3.5 and SciPy 1.16.3). The saved F64A v1 block and v2 continuation
+reports instead record Python 3.11.15, pymbar 4.2.0, NumPy 2.4.6, and JAX/jaxlib 0.10.2 on SCC.
+The original gate environment specification required pymbar ≥ 4 without an exact pin;
+neither the local lock nor the later continuation versions establishes its original runtime
+version. This is a historical software-provenance limitation. Recorded per-analysis identities
+are retained with the reports.
 
 # 3. Results
 
@@ -241,7 +258,7 @@ over three replicates.
 | G93S | 3.70 | 1.20 ± 0.07 | −2.50 | 0.12 |
 | I149A | 4.05 | 4.98 ± 0.16 | +0.93 | 0.77 |
 | G93V | 7.00 | 2.83 ± 0.08 | −4.17 | 0.67 |
-| F64A | −0.20 | 6.94 | excluded | 1.10 |
+| F64A | −0.20 | 6.94 ± 0.34 | excluded | 1.10 |
 
 All documented attempt-1 estimates except A4V's gate point re-derive from the archived windows
 to floating-point rounding; A4V's 3-ns folded windows were overwritten in place by the attempt-2
@@ -287,18 +304,20 @@ gate errors, and G93A had the lowest variant hysteresis (0.045) but an error of 
 
 The retrospective quarter analysis showed that attempt-1 estimates were still moving within
 the retained 3 ns. For folded ladders, the median absolute difference between the 75% prefix
-and the final quarter was 0.311 kcal/mol (maximum 1.070), 2.43 times the median combined
-conditional MBAR uncertainty of the two estimates, and 12 of 21 primary-cohort records exceeded
-twice that uncertainty. At the 25% prefix the folded median was 0.368 kcal/mol (maximum
-1.808, F64A r1). These are descriptive scale comparisons on dependent data, not tests.
+and the final quarter was 0.311 kcal/mol (maximum 1.070). The median of the 21 per-record
+ratios of absolute movement to combined conditional MBAR uncertainty was 2.43, with each
+denominator calculated as the square root of the sum of the two squared MBAR errors;
+12 of 21 primary-cohort records exceeded a ratio of two. This quadrature scale does not
+estimate covariance between the blocks. At the 25% prefix the folded median was 0.368 kcal/mol
+(maximum 1.808, F64A r1). These are descriptive scale comparisons on dependent data, not tests.
 
 The registered v1 continuation extended all three F64A folded paths from 3 to 9 ns (Fig 3a).
 Replicate r1 moved from 2.505942 kcal/mol in its first retained 3-ns block to 0.429467 kcal/mol
 in the disjoint 6–9 ns block, a change of −2.076474 kcal/mol, despite an early net hysteresis of
-0.022705 kcal/mol. The other two repeats moved by 0.691 and 0.584 kcal/mol between the same
+0.022705 kcal/mol. The other two repeats moved by −0.691 and −0.584 kcal/mol between the same
 blocks. The cumulative mean changed from 1.704 to 0.771 kcal/mol between 3 and 9 ns, and the
-repeat range narrowed by 71%. Net hysteresis per block did not track this movement (Fig 3b):
-r1's lowest value of any block coincided with its largest subsequent change. This is an
+repeat range narrowed by 71%. The small early net hysteresis coexisted with the
+−2.076474 kcal/mol movement between the 0–3 and 6–9 ns blocks (Fig 3b). This is an
 exact-path counterexample to treating a small aggregate as a duration-stability certificate.
 It is a selected case, not a prospective validation cohort, and neither block is an
 established equilibrium value.
@@ -400,14 +419,15 @@ local discrepancies, so it could report near-perfect agreement for a ladder whos
 forward/reverse estimates disagreed by a cumulative 1.7 kcal/mol, and whose estimate later
 moved by 2.1 kcal/mol. Reporting signed local discrepancies, their absolute sum and their
 maximum alongside any aggregate costs nothing once all-state energies are saved. We do not,
-however, find that these alternatives predicted repeat disagreement in this archive, and we do
-not propose a threshold. The appropriate conclusion is narrower: an aggregate that permits
+however, resolve an association between these alternatives and folded-leg repeat disagreement
+in this archive, and we do not propose a threshold. The appropriate conclusion is narrower:
+an aggregate that permits
 cancellation should not be presented as evidence of convergence on its own, consistent with
 existing guidance [@klimovich2015; @mey2020].
 
-**Duration and selection.** Small early hysteresis did not anticipate the largest movement on
-the selected F64A path, and through 15 ns the paired movement depended on the trimming policy
-while repeats moved in opposite directions. Adaptive equilibration detection [@chodera2016]
+**Duration and selection.** Small early hysteresis preceded a 2.08 kcal/mol difference between
+the 0–3 and 6–9 ns blocks on the selected F64A path. Through 15 ns the paired movement depended
+on the trimming policy while repeats moved in opposite directions. Adaptive equilibration detection [@chodera2016]
 sometimes retained only a few late samples in high-λ windows. A near-zero mean movement is
 therefore not evidence of stability when the repeats disagree, and policy dependence should be
 reported rather than resolved by choosing a preferred policy after the data are seen.
@@ -463,10 +483,13 @@ free energy or an accuracy estimate for apo-2SH SOD1.
 [TO COMPLETE BEFORE SUBMISSION — repository/DOI, license.] The analysis code, configuration,
 hashed archive manifest, figure builders and all derived reports are in the project repository.
 The forensic release (`releases/sod1fep-forensic-review.tar.gz`, with SHA-256 file) and the raw
-reduced-potential archives (attempt 1, the A4V attempt-2 folded leg, the G93A SS diagnostic, and
-the F64A v1/v2 continuation energies) must be deposited in a public archive with a chosen
-license before submission. Structural trajectories were not retained under the production
-output policy.
+reduced-potential archives (the surviving attempt-1 windows, the A4V attempt-2 folded leg,
+the G93A SS diagnostic, and the F64A v1/v2 continuation energies) must be deposited in a public
+archive with a chosen license before submission. A4V's attempt-1 folded raw windows are missing
+and will not be part of that deposit; only its historical run-time estimate and uncertainty
+survive. The deposit must identify this exception explicitly and include the later continuation
+reports and manuscript figure assembly alongside the historical forensic release. Structural
+trajectories were not retained under the production output policy.
 
 # Author contributions, funding, competing interests
 
@@ -481,13 +504,11 @@ claims were verified by the authors against the recorded data.]
 
 # References
 
-<!-- Verified entries are from citations.md / repository source checks. [verify] entries must be
-checked against the publisher record before submission. -->
+<!-- Bibliographic verification sources and dates are recorded in citations.md. -->
 
 [@wells2021]: Wells NGM, Tillinghast GA, O'Neil AL, Smith CA. Free energy calculations of
 ALS-causing SOD1 mutants reveal common perturbations to stability and dynamics along the
-maturation pathway. Protein Sci. 2021;30(9):1804–1817. doi:10.1002/pro.4132. *(Protocol details
-cited here only at the level confirmed in citations.md; check against the PDF.)*
+maturation pathway. Protein Sci. 2021;30(9):1804–1817. doi:10.1002/pro.4132.
 
 [@lindberg2005]: Lindberg MJ, Byström R, Boknäs N, Andersen PM, Oliveberg M. Systematically
 perturbed folding patterns of amyotrophic lateral sclerosis (ALS)-associated SOD1 mutants. Proc
@@ -504,7 +525,7 @@ enzyme SOD1. Proc Natl Acad Sci USA. 2009;106(24):9667–9672. doi:10.1073/pnas.
 [@stathopulos2006]: Stathopulos PB, Rumfeldt JAO, Karbassi F, Siddall CA, Lepock JR, Meiering EM.
 Calorimetric analysis of thermodynamic stability and aggregation for apo and holo amyotrophic
 lateral sclerosis-associated Gly-93 mutants of superoxide dismutase. J Biol Chem.
-2006;281(10):6184–6193. PMID 16407238. [verify author list and pages]
+2006;281(10):6184–6193. doi:10.1074/jbc.M509496200.
 
 [@kumar2017]: Kumar V, Rahman S, Choudhry H, Zamzami MA, Jamal MS, Islam A, Ahmad F, Hassan MI.
 Computing disease-linked SOD1 mutations: deciphering protein stability and patient-phenotype
@@ -522,34 +543,34 @@ prediction of the changes in protein free energies in a large-scale mutation sca
 Int Ed. 2016;55(26):7364–7368. doi:10.1002/anie.201510054.
 
 [@klimovich2015]: Klimovich PV, Shirts MR, Mobley DL. Guidelines for the analysis of free energy
-calculations. J Comput Aided Mol Des. 2015;29(5):397–411. doi:10.1007/s10822-015-9840-9. [verify]
+calculations. J Comput Aided Mol Des. 2015;29(5):397–411. doi:10.1007/s10822-015-9840-9.
 
 [@mey2020]: Mey ASJS, Allen BK, Bruce Macdonald HE, Chodera JD, Hahn DF, Kuhn M, Michel J,
 Mobley DL, Naden LN, Prasad S, Rizzi A, Scheen J, Shirts MR, Tresadern G, Xu H. Best practices
-for alchemical free energy calculations. Living J Comput Mol Sci. 2020;2(1):18378.
-doi:10.33011/livecoms.2.1.18378. [verify author list]
+for alchemical free energy calculations [Article v1.0]. Living J Comput Mol Sci. 2020;2(1):18378.
+doi:10.33011/livecoms.2.1.18378.
 
 [@shirts2008]: Shirts MR, Chodera JD. Statistically optimal analysis of samples from multiple
-equilibrium states. J Chem Phys. 2008;129(12):124105. doi:10.1063/1.2978177. [verify]
+equilibrium states. J Chem Phys. 2008;129(12):124105. doi:10.1063/1.2978177.
 
 [@chodera2016]: Chodera JD. A simple method for automated equilibration detection in molecular
-simulations. J Chem Theory Comput. 2016;12(4):1799–1805. doi:10.1021/acs.jctc.5b00784. [verify]
+simulations. J Chem Theory Comput. 2016;12(4):1799–1805. doi:10.1021/acs.jctc.5b00784.
 
 [@abraham2015]: Abraham MJ, Murtola T, Schulz R, Páll S, Smith JC, Hess B, Lindahl E. GROMACS:
 High performance molecular simulations through multi-level parallelism from laptops to
-supercomputers. SoftwareX. 2015;1–2:19–25. doi:10.1016/j.softx.2015.06.001. [verify]
+supercomputers. SoftwareX. 2015;1–2:19–25. doi:10.1016/j.softx.2015.06.001.
 
 [@best2009]: Best RB, Hummer G. Optimized molecular dynamics force fields applied to the
 helix–coil transition of polypeptides. J Phys Chem B. 2009;113(26):9004–9015.
-doi:10.1021/jp901540t. [verify]
+doi:10.1021/jp901540t.
 
 [@lindorfflarsen2010]: Lindorff-Larsen K, Piana S, Palmo K, Maragakis P, Klepeis JL, Dror RO,
 Shaw DE. Improved side-chain torsion potentials for the Amber ff99SB protein force field.
-Proteins. 2010;78(8):1950–1958. doi:10.1002/prot.22711. [verify]
+Proteins. 2010;78(8):1950–1958. doi:10.1002/prot.22711.
 
 [@jorgensen1983]: Jorgensen WL, Chandrasekhar J, Madura JD, Impey RW, Klein ML. Comparison of
 simple potential functions for simulating liquid water. J Chem Phys. 1983;79(2):926–935.
-doi:10.1063/1.445869. [verify]
+doi:10.1063/1.445869.
 
 # Figure legends
 

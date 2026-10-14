@@ -1,0 +1,13 @@
+#!/bin/bash -l
+#$ -P rise-batteries
+#$ -pe omp 8
+#$ -l h_rt=01:00:00
+#$ -r n
+#$ -N c2-r3-cpu-system
+#$ -S /bin/bash
+#$ -cwd
+#$ -j y
+#$ -o job.log
+set -eo pipefail
+package_dir=/project/rise-batteries/bode/container-build-packages/f64a-c2-fresh-system-cpu-ion-warning-selected-20261013-v1
+exec /bin/bash -l "$package_dir/run-system-login.sh"

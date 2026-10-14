@@ -54,6 +54,14 @@ temporal:
     adaptive_12_15_range: 1.946359
 
 supplement:
-  - {source: fixed_pair_metrics.png, output: figS2_lambda_fixed_pair.png}
-  - {source: neighbor_full_block_metrics.png, output: figS3_lambda_neighbor.png}
-  - {source: selection_context.png, output: figS4_adaptive_selection.png}
+  # Pinned 2026-10-13 against the already committed figures_v1 trace and copies;
+  # this amendment does not change the original figures or their build record.
+  - source: fixed_pair_metrics.png
+    output: figS2_lambda_fixed_pair.png
+    sha256: e1410059509b5d87e2d75931df1dd21d4565deaf26e11479079aad01f818668a
+  - source: neighbor_full_block_metrics.png
+    output: figS3_lambda_neighbor.png
+    sha256: d7ce96a9d89e5c406a6e24262cdd8e656c5d675f5747e7f8d2c875114cfc7f01
+  - source: selection_context.png
+    output: figS4_adaptive_selection.png
+    sha256: 2c452f66b3d7cb55e359eb1fc15b5743843cdcaf7cd1380d307be62cc56d3da1

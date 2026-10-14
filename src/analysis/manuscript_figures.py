@@ -4,7 +4,7 @@ This module recomputes no free energy. It reads the registered F64A v1 block
 report and v2 continuation report, verifies their SHA-256 and every value the
 publication outline quotes, and draws the Result 6 temporal figure. It also
 copies the completed lambda-comparator figures byte-for-byte as supplementary
-panels after verifying the comparator report hash. Outputs go to a fresh
+panels after verifying the comparator report and each source-image hash. Outputs go to a fresh
 directory; an existing output directory is never overwritten.
 """
 
@@ -325,12 +325,27 @@ def draw_temporal_figure(spec: dict, data: dict, lambdas: list[float]):
     return fig
 
 
+def verify_supplement_sources(spec: dict, reports: dict, root: Path = ROOT) -> None:
+    """Bind each supplementary image to its pinned bytes before creating outputs."""
+    source_dir = _resolve(root, spec["inputs"]["lambda_comparator"]["path"]).parent
+    declared = set(reports["lambda_comparator"]["figures"])
+    for item in spec["supplement"]:
+        if item["source"] not in declared:
+            raise ValueError(f"{item['source']} is not a figure declared by the comparator report")
+        source = source_dir / item["source"]
+        actual = sha256_file(source)
+        if actual != item["sha256"]:
+            raise ValueError(
+                f"{source}: SHA-256 {actual} does not match registered {item['sha256']}"
+            )
+
+
 def build(spec_path: str | Path, root: Path = ROOT, output_dir: str | Path | None = None) -> Path:
     """Build the temporal figure and supplementary copies into a fresh directory."""
     spec = load_spec(spec_path)
     out = Path(output_dir) if output_dir else _resolve(root, spec["output_dir"])
-    if out.exists() and any(out.iterdir()):
-        raise FileExistsError(f"{out} already contains outputs; use a new versioned directory")
+    if out.exists():
+        raise FileExistsError(f"{out} already exists; use a new versioned directory")
 
     reports = load_verified_reports(spec, root)
     lambdas = lambda_vector(spec, root)
@@ -343,14 +358,9 @@ def build(spec_path: str | Path, root: Path = ROOT, output_dir: str | Path | Non
     observed = check_quoted_values(spec, data)
 
     source_dir = _resolve(root, spec["inputs"]["lambda_comparator"]["path"]).parent
-    declared = set(reports["lambda_comparator"]["figures"])
-    for item in spec["supplement"]:
-        if item["source"] not in declared:
-            raise ValueError(f"{item['source']} is not a figure declared by the comparator report")
-        if not (source_dir / item["source"]).exists():
-            raise FileNotFoundError(source_dir / item["source"])
+    verify_supplement_sources(spec, reports, root)
 
-    out.mkdir(parents=True, exist_ok=True)
+    out.mkdir(parents=True, exist_ok=False)
     stem = spec["temporal"]["output_stem"]
     fig = draw_temporal_figure(spec, data, lambdas)
     outputs = {}
@@ -363,8 +373,8 @@ def build(spec_path: str | Path, root: Path = ROOT, output_dir: str | Path | Non
         source = source_dir / item["source"]
         target = out / item["output"]
         shutil.copyfile(source, target)
-        if sha256_file(target) != sha256_file(source):
-            raise ValueError(f"copy of {source} is not byte-identical")
+        if sha256_file(target) != item["sha256"]:
+            raise ValueError(f"copy of {source} does not match registered SHA-256")
         supplement[item["output"]] = {"source": str(source.relative_to(root)),
                                       "sha256": sha256_file(target)}
 

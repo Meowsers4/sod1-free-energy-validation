@@ -1,0 +1,10 @@
+Dear Editors,
+
+Please consider “Diagnostic cancellation and benchmark mismatch in SOD1 folding free energy calculations” as a Research Article for PLOS ONE.
+
+The manuscript reports a SOD1 folding free-energy campaign whose internally prespecified validation gate failed and halted prospective predictions. Post-verdict analyses identify two limitations of the validation procedure: signed local discrepancies can cancel in an aggregate hysteresis diagnostic, and the experimental controls differ from the simulated protein in redox state, construct, transition and temperature. Exact-path F64A continuations show that a small early aggregate did not certify duration stability through the tested interval. The study preserves the failed verdict and does not claim a validated alternative diagnostic or a matched estimate of predictive accuracy.
+
+Prior work has applied alchemical calculations to SOD1 along its maturation pathway (Wells et al., Protein Science, 2021). Our contribution is a documented examination of validation limitations in a separate equilibrium-window campaign, with archived energies, explicit provenance limits and reproducible diagnostic analyses. It is intended for readers in computational chemistry and protein biophysics.
+
+The package contains four main figures and a supporting appendix with two sensitivity studies and evidence provenance. The missing A4V attempt-1 folded raw windows are disclosed; their historical estimates are distinguished from values that can be re-derived.
+
